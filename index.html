@@ -64,7 +64,10 @@ body.ar-mode #background{display:none}
 .event strong{display:block;font-size:15px;font-weight:normal}
 .event small{display:block;font-size:12px;line-height:1.5;margin-top:5px}
 .footer{text-align:center;font-size:12px;padding:24px 0 35px}
-#camera-container{position:fixed;inset:0;z-index:1;overflow:hidden;background:#101b38}
+
+/* CORRECTION DU SCANNER */
+#camera-container{display:none;position:fixed;inset:0;z-index:1;overflow:hidden;background:#101b38}
+body.ar-mode #camera-container{display:block}
 #camera-container a-scene,#camera-container .a-canvas{position:absolute!important;inset:0!important;width:100%!important;height:100%!important}
 #camera-container video{position:absolute!important;top:50%!important;left:50%!important;width:100%!important;height:100%!important;object-fit:cover!important;transform:translate(-50%,-50%)!important}
 #camera-menu{position:fixed;z-index:35;top:calc(15px + env(safe-area-inset-top));left:15px;padding:12px 17px;color:white;border:1px solid white;border-radius:30px;background:#071631c9}
@@ -433,8 +436,6 @@ body.ar-mode #background{display:none}
 <script>
 "use strict";
 
-/* CALENDRIER */
-
 const CALENDAR={
 start:"2026-11-20",
 end:"2026-12-31",
@@ -459,8 +460,6 @@ let storyOpen=false;
 let activePlace=null;
 let deferredInstallPrompt=null;
 const alerted=new Set();
-
-/* LES NEUF HISTOIRES */
 
 const stories=[
 {
@@ -575,7 +574,7 @@ ending:"Car la magie ne se mesure pas en mètres carrés, mais en émotions !"
 }
 ];
 
-/* CONSTRUCTION DES LIVRES */
+/* LIVRES */
 
 function createBooks(){
 const container=$("#books-container");
@@ -741,7 +740,9 @@ target:$("#target-"+index),
 detected:false
 }));
 
-function hideBubble(){found.classList.remove("visible");}
+function hideBubble(){
+found.classList.remove("visible");
+}
 
 function visiblePlace(){
 if(activePlace!==null&&places[activePlace].detected)return activePlace;
@@ -792,12 +793,20 @@ const next=visiblePlace();
 if(next!==null)showBubble(next);
 }
 
+/* SCANNER : OUVERTURE ET FERMETURE CORRIGÉES */
+
 async function enterCamera(){
 if(cameraStarting)return;
 cameraStarting=true;
+
+const cameraContainer=$("#camera-container");
+
+// Réafficher le scanner avant de lancer la caméra
+cameraContainer.style.display="block";
 app.classList.add("hidden");
 document.body.classList.add("ar-mode");
 $("#camera-menu").classList.remove("hidden");
+
 try{
 if(!cameraStarted){
 await scene.systems["mindar-image-system"].start();
@@ -805,6 +814,9 @@ cameraStarted=true;
 }
 }catch(error){
 console.error(error);
+
+// En cas d'erreur, restaurer le menu
+cameraContainer.style.display="none";
 document.body.classList.remove("ar-mode");
 $("#camera-menu").classList.add("hidden");
 showSection("home");
@@ -816,18 +828,34 @@ cameraStarting=false;
 
 async function leaveCamera(){
 if(cameraStarting)return;
+
+// Masquer immédiatement le scanner et ses commandes
 hideBubble();
+$("#camera-container").style.display="none";
 $("#camera-menu").classList.add("hidden");
+
+// Restaurer le fond d'accueil
 document.body.classList.remove("ar-mode");
+
+// Afficher le menu avant l'arrêt de la caméra
+showSection("home");
+
+// Arrêter complètement la réalité augmentée
 if(cameraStarted){
 try{
 await scene.systems["mindar-image-system"].stop();
-}catch(error){console.warn(error);}
+}catch(error){
+console.warn("Erreur pendant l'arrêt du scanner :",error);
+}
 cameraStarted=false;
 }
+
+// Réinitialiser les cibles détectées
 places.forEach(p=>p.detected=false);
 activePlace=null;
-showSection("home");
+
+// Vérifier que le scanner reste masqué
+$("#camera-container").style.display="none";
 }
 
 /* MES BILLETS MAGIQUES */
