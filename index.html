@@ -12,323 +12,195 @@
 <style>
 *{box-sizing:border-box}
 html,body{
- margin:0;width:100%;height:100%;
- overflow:hidden;background:#101b38;
- color:#fff0d0;font-family:Georgia,serif
+margin:0;width:100%;height:100%;
+overflow:hidden;background:#101b38;
+color:#fff0d0;font-family:Georgia,serif
 }
 button{font-family:inherit;cursor:pointer}
-
-/* CAMERA PLEIN ECRAN IPHONE */
 #camera-container{
- position:fixed;inset:0;width:100%;
- height:100%;height:100dvh;
- overflow:hidden;z-index:1;background:#101b38
+position:fixed;inset:0;width:100%;
+height:100%;height:100dvh;
+overflow:hidden;z-index:1;background:#101b38
 }
 #camera-container a-scene,
 #camera-container .a-canvas{
- position:absolute!important;inset:0!important;
- width:100%!important;height:100%!important
+position:absolute!important;inset:0!important;
+width:100%!important;height:100%!important
 }
 #camera-container video{
- position:absolute!important;
- top:50%!important;left:50%!important;
- width:100%!important;height:100%!important;
- min-width:100%!important;min-height:100%!important;
- object-fit:cover!important;
- transform:translate(-50%,-50%)!important
+position:absolute!important;
+top:50%!important;left:50%!important;
+width:100%!important;height:100%!important;
+min-width:100%!important;min-height:100%!important;
+object-fit:cover!important;
+transform:translate(-50%,-50%)!important
 }
-
-/* ACCUEIL */
 #intro{
- position:fixed;inset:0;z-index:20;
- background:#071332
- url("./Bazaart_2026-11-20_101224.JPEG")
- center/contain no-repeat
+position:fixed;inset:0;z-index:20;
+background:#071332 url("./Bazaart_2026-11-20_101224.JPEG") center/contain no-repeat
 }
 #intro:before{
- content:"";position:absolute;inset:0;
- background:linear-gradient(to bottom,
- transparent 55%,#06112a22 75%,#06112a99);
- pointer-events:none
+content:"";position:absolute;inset:0;
+background:linear-gradient(to bottom,transparent 55%,#06112a22 75%,#06112a99);
+pointer-events:none
 }
 #start{
- position:absolute;bottom:13%;left:50%;
- transform:translateX(-50%);
- width:80%;max-width:350px;padding:16px 12px;
- border:2px solid #f1d28c;border-radius:40px;
- color:#fff4d8;
- background:linear-gradient(135deg,#74233e,#a23b53);
- font-size:17px;
- animation:glow 2.5s infinite alternate
+position:absolute;bottom:13%;left:50%;
+transform:translateX(-50%);
+width:80%;max-width:350px;padding:16px 12px;
+border:2px solid #f1d28c;border-radius:40px;
+color:#fff4d8;
+background:linear-gradient(135deg,#74233e,#a23b53);
+font-size:17px;
+animation:glow 2.5s infinite alternate
 }
 @keyframes glow{
- from{box-shadow:0 0 8px #e4b75d55}
- to{box-shadow:0 0 25px #e4b75dcc}
+from{box-shadow:0 0 8px #e4b75d55}
+to{box-shadow:0 0 25px #e4b75dcc}
 }
 #status{
- position:absolute;bottom:5%;width:100%;
- text-align:center;font-size:13px;
- color:white;padding:0 20px
+position:absolute;bottom:5%;width:100%;
+text-align:center;font-size:13px;color:white;padding:0 20px
 }
-
-/* BULLE MAGIQUE */
 #found{
- position:fixed;z-index:15;
- bottom:calc(8% + env(safe-area-inset-bottom));
- left:50%;width:max-content;max-width:92%;
- display:none;transform:translateX(-50%)
+position:fixed;z-index:15;
+bottom:calc(8% + env(safe-area-inset-bottom));
+left:50%;width:max-content;max-width:92%;
+display:none;transform:translateX(-50%)
 }
 #found.visible{
- display:block;
- animation:magicAppear .85s cubic-bezier(.2,.8,.2,1) both
+display:block;
+animation:magicAppear .85s cubic-bezier(.2,.8,.2,1) both
 }
 @keyframes magicAppear{
- 0%{
-  opacity:0;
-  transform:translate(-50%,30px) scale(.75);
-  filter:brightness(1.8) blur(5px)
- }
- 65%{
-  opacity:1;
-  transform:translate(-50%,-5px) scale(1.05);
-  filter:brightness(1.3)
- }
- 100%{
-  opacity:1;
-  transform:translate(-50%,0) scale(1);
-  filter:brightness(1)
- }
+0%{opacity:0;transform:translate(-50%,30px) scale(.75);filter:brightness(1.8) blur(5px)}
+65%{opacity:1;transform:translate(-50%,-5px) scale(1.05);filter:brightness(1.3)}
+100%{opacity:1;transform:translate(-50%,0) scale(1);filter:brightness(1)}
 }
 #discover{
- display:flex;align-items:center;gap:13px;
- padding:14px 21px;
- border:1.5px solid #f1d28c;border-radius:45px;
- background:linear-gradient(135deg,
- #0f1d39f5,#23375bf5,#0f1d39f5);
- color:#f7dc9d;text-align:left;
- backdrop-filter:blur(12px);
- -webkit-backdrop-filter:blur(12px);
- animation:magicGlow 3s ease-in-out infinite
+display:flex;align-items:center;gap:13px;
+padding:14px 21px;
+border:1.5px solid #f1d28c;border-radius:45px;
+background:linear-gradient(135deg,#0f1d39f5,#23375bf5,#0f1d39f5);
+color:#f7dc9d;text-align:left;
+backdrop-filter:blur(12px);
+-webkit-backdrop-filter:blur(12px);
+animation:magicGlow 3s ease-in-out infinite
 }
 #discover:active{transform:scale(.96)}
 @keyframes magicGlow{
- 0%,100%{
-  box-shadow:0 0 12px #d5a95155,
-  0 0 25px #d5a95122
- }
- 50%{
-  box-shadow:0 0 23px #f1d28cbb,
-  0 0 45px #d5a95155
- }
+0%,100%{box-shadow:0 0 12px #d5a95155,0 0 25px #d5a95122}
+50%{box-shadow:0 0 23px #f1d28cbb,0 0 45px #d5a95155}
 }
 #discover strong{display:block;font-size:17px}
-#discover small{
- display:block;color:#fff1d3;
- font-size:12px;margin-top:4px
-}
-.magic-icon{
- font-size:23px;
- animation:twinkle 2s ease-in-out infinite
-}
+#discover small{display:block;color:#fff1d3;font-size:12px;margin-top:4px}
+.magic-icon{font-size:23px;animation:twinkle 2s ease-in-out infinite}
 @keyframes twinkle{
- 0%,100%{
-  opacity:.65;
-  transform:scale(.85) rotate(-12deg)
- }
- 50%{
-  opacity:1;
-  transform:scale(1.2) rotate(12deg)
- }
+0%,100%{opacity:.65;transform:scale(.85) rotate(-12deg)}
+50%{opacity:1;transform:scale(1.2) rotate(12deg)}
 }
 .arrow{font-size:21px;color:#f1d28c}
 .sparkle{
- position:absolute;pointer-events:none;z-index:2;
- color:#ffe5a0;text-shadow:0 0 8px #ffd36b;
- animation:sparkleFloat 2.8s ease-in-out infinite
+position:absolute;pointer-events:none;z-index:2;
+color:#ffe5a0;text-shadow:0 0 8px #ffd36b;
+animation:sparkleFloat 2.8s ease-in-out infinite
 }
-.sparkle.one{
- top:-15px;left:12%;font-size:18px
-}
-.sparkle.two{
- top:-22px;right:15%;font-size:12px;
- animation-delay:.8s
-}
-.sparkle.three{
- bottom:-17px;left:30%;font-size:13px;
- animation-delay:1.5s
-}
-.sparkle.four{
- bottom:-12px;right:12%;font-size:17px;
- animation-delay:.4s
-}
+.sparkle.one{top:-15px;left:12%;font-size:18px}
+.sparkle.two{top:-22px;right:15%;font-size:12px;animation-delay:.8s}
+.sparkle.three{bottom:-17px;left:30%;font-size:13px;animation-delay:1.5s}
+.sparkle.four{bottom:-12px;right:12%;font-size:17px;animation-delay:.4s}
 @keyframes sparkleFloat{
- 0%,100%{
-  opacity:0;transform:translateY(5px) scale(.5)
- }
- 50%{
-  opacity:1;transform:translateY(-7px) scale(1.2)
- }
+0%,100%{opacity:0;transform:translateY(5px) scale(.5)}
+50%{opacity:1;transform:translateY(-7px) scale(1.2)}
 }
-
-/* LIVRES MAGIQUES */
 #story{
- display:none;position:fixed;inset:0;z-index:30;
- overflow-y:auto;-webkit-overflow-scrolling:touch;
- background:radial-gradient(ellipse at 50% 10%,
- #304773 0%,transparent 60%),#08152e;
- color:#4c2924;padding:28px 13px 75px;
- perspective:1200px
+display:none;position:fixed;inset:0;z-index:30;
+overflow-y:auto;-webkit-overflow-scrolling:touch;
+background:radial-gradient(ellipse at 50% 10%,#304773 0%,transparent 60%),#08152e;
+color:#4c2924;padding:28px 13px 75px;
+perspective:1200px
 }
 #story.open{display:block}
 #story:before{
- content:"✦       ✧       ✦       ✧       ✦";
- position:fixed;top:8%;left:0;width:100%;
- color:#d9b76c;text-align:center;
- opacity:.3;letter-spacing:12px;
- pointer-events:none
+content:"✦       ✧       ✦       ✧       ✦";
+position:fixed;top:8%;left:0;width:100%;
+color:#d9b76c;text-align:center;
+opacity:.3;letter-spacing:12px;pointer-events:none
 }
 #close{
- display:block;margin:0 auto 25px;
- background:#17294a;color:#f5d68f;
- border:1px solid #d8b76e;border-radius:30px;
- padding:13px 20px;font-size:14px;
- position:relative;z-index:2
+display:block;margin:0 auto 25px;
+background:#17294a;color:#f5d68f;
+border:1px solid #d8b76e;border-radius:30px;
+padding:13px 20px;font-size:14px;
+position:relative;z-index:2
 }
-.book{
- display:none;max-width:570px;margin:auto;
- transform-origin:center left
-}
-.book.active{
- display:block;
- animation:openBook 1.5s ease-out both
-}
+.book{display:none;max-width:570px;margin:auto;transform-origin:center left}
+.book.active{display:block;animation:openBook 1.5s ease-out both}
 @keyframes openBook{
- 0%{
-  opacity:0;
-  transform:rotateY(-75deg) scale(.8)
- }
- 60%{
-  opacity:1;
-  transform:rotateY(8deg) scale(1.02)
- }
- 100%{
-  opacity:1;
-  transform:rotateY(0) scale(1)
- }
+0%{opacity:0;transform:rotateY(-75deg) scale(.8)}
+60%{opacity:1;transform:rotateY(8deg) scale(1.02)}
+100%{opacity:1;transform:rotateY(0) scale(1)}
 }
 .page{
- position:relative;
- background:linear-gradient(90deg,
- #d5bc86 0%,#f6e9c9 8%,
- #fff4d9 50%,#e7d2a6 100%);
- border:5px double #c49a4b;
- border-radius:8px 18px 18px 8px;
- padding:35px 24px;
- box-shadow:7px 9px 0 #b18c53,
- 12px 16px 30px #0009,
- inset 0 0 25px #ae813b44;
- text-align:center
+position:relative;
+background:linear-gradient(90deg,#d5bc86 0%,#f6e9c9 8%,#fff4d9 50%,#e7d2a6 100%);
+border:5px double #c49a4b;
+border-radius:8px 18px 18px 8px;
+padding:35px 24px;
+box-shadow:7px 9px 0 #b18c53,12px 16px 30px #0009,inset 0 0 25px #ae813b44;
+text-align:center
 }
 .page:before{
- content:"";position:absolute;inset:9px;
- border:1px solid #b88e47;
- border-radius:3px 12px 12px 3px;
- pointer-events:none
+content:"";position:absolute;inset:9px;
+border:1px solid #b88e47;
+border-radius:3px 12px 12px 3px;pointer-events:none
 }
 .ornament{
- display:flex;justify-content:center;
- align-items:center;gap:18px;
- margin:12px 0;color:#9b702e
+display:flex;justify-content:center;align-items:center;
+gap:18px;margin:12px 0;color:#9b702e
 }
-.ornament-star{
- font-size:25px;line-height:1
-}
+.ornament-star{font-size:25px;line-height:1}
 .ornament-art{
- display:block;width:70px;height:65px;
- flex-shrink:0;
- filter:drop-shadow(0 2px 2px #956b3233)
+display:block;width:70px;height:65px;flex-shrink:0;
+filter:drop-shadow(0 2px 2px #956b3233)
 }
-.ornament-art.angels{
- width:115px;height:80px
-}
-.ornament-art.bakery{
- width:115px;height:85px
-}
-.ornament-art.makers{
- width:115px;height:100px
-}
+.ornament-art.angels{width:115px;height:80px}
+.ornament-art.bakery{width:115px;height:85px}
+.ornament-art.makers{width:115px;height:100px}
+.ornament-art.hardware{width:125px;height:100px}
 .ornament-bottom{margin-top:35px}
 .kicker{
- font-size:12px;letter-spacing:3px;
- color:#865f34;text-transform:uppercase
+font-size:12px;letter-spacing:3px;
+color:#865f34;text-transform:uppercase
 }
-.page h1{
- color:#7f2938;font-size:34px;
- letter-spacing:1px;margin:15px 0 5px
-}
-.page h2{
- color:#6e3d2e;font-size:21px;
- margin:32px 0 14px
-}
-.page h3{
- color:#8c6833;font-size:16px;
- letter-spacing:2px;margin:6px 0 25px
-}
-.page p{
- text-align:left;font-size:17px;
- line-height:1.8;margin:16px 0
-}
-.chapter{
- border-top:1px solid #c9a76c;
- padding-top:12px;margin-top:30px
-}
-.chapter p:first-letter{
- font-size:28px;color:#8d3540;font-weight:bold
-}
-.quote{
- text-align:center!important;
- font-style:italic;color:#7b3540;
- font-size:19px!important
-}
-.end{
- text-align:center!important;
- color:#7f2938;font-weight:bold
-}
-.page-footer{
- text-align:center;color:#9b702e;
- font-size:13px;margin-top:35px;
- letter-spacing:2px
-}
+.page h1{color:#7f2938;font-size:34px;letter-spacing:1px;margin:15px 0 5px}
+.page h2{color:#6e3d2e;font-size:21px;margin:32px 0 14px}
+.page h3{color:#8c6833;font-size:16px;letter-spacing:2px;margin:6px 0 25px}
+.page p{text-align:left;font-size:17px;line-height:1.8;margin:16px 0}
+.chapter{border-top:1px solid #c9a76c;padding-top:12px;margin-top:30px}
+.chapter p:first-letter{font-size:28px;color:#8d3540;font-weight:bold}
+.quote{text-align:center!important;font-style:italic;color:#7b3540;font-size:19px!important}
+.end{text-align:center!important;color:#7f2938;font-weight:bold}
+.page-footer{text-align:center;color:#9b702e;font-size:13px;margin-top:35px;letter-spacing:2px}
 @media(prefers-reduced-motion:reduce){
- *,*:before,*:after{
-  animation-duration:.01ms!important;
-  animation-iteration-count:1!important
- }
+*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important}
 }
 </style>
 </head>
-
 <body>
 
-<!-- ILLUSTRATIONS ANCIENNES -->
+<!-- ILLUSTRATIONS DES LIVRES -->
 <svg xmlns="http://www.w3.org/2000/svg"
- style="position:absolute;width:0;height:0;overflow:hidden"
- aria-hidden="true">
+style="position:absolute;width:0;height:0;overflow:hidden"
+aria-hidden="true">
 
-<!-- BURGER DU LUMEGA -->
 <symbol id="burger-ancien" viewBox="0 0 100 90">
-<g stroke="#956B32" stroke-width="2.5"
- stroke-linejoin="round" stroke-linecap="round">
-<path d="M14 41 Q15 9 50 9 Q85 9 86 41 Z"
- fill="#D6AE67"/>
-<path d="M14 43 Q50 49 86 43 L85 50 Q50 55 15 50 Z"
- fill="#F0D28D"/>
-<path d="M13 52 Q23 47 32 53 Q42 60 50 52 Q60 47 70 54 Q79 59 87 51"
- fill="#8EAD65" stroke="#71894D"/>
-<path d="M14 59 Q50 54 86 59 L86 68 Q50 73 14 68 Z"
- fill="#8D5034"/>
-<path d="M17 72 Q50 77 83 72 Q83 83 50 83 Q17 83 17 72 Z"
- fill="#D6AE67"/>
+<g stroke="#956B32" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+<path d="M14 41 Q15 9 50 9 Q85 9 86 41 Z" fill="#D6AE67"/>
+<path d="M14 43 Q50 49 86 43 L85 50 Q50 55 15 50 Z" fill="#F0D28D"/>
+<path d="M13 52 Q23 47 32 53 Q42 60 50 52 Q60 47 70 54 Q79 59 87 51" fill="#8EAD65" stroke="#71894D"/>
+<path d="M14 59 Q50 54 86 59 L86 68 Q50 73 14 68 Z" fill="#8D5034"/>
+<path d="M17 72 Q50 77 83 72 Q83 83 50 83 Q17 83 17 72 Z" fill="#D6AE67"/>
 </g>
 <g fill="#FFF0C5">
 <ellipse cx="34" cy="24" rx="2.5" ry="1.4"/>
@@ -339,87 +211,44 @@ button{font-family:inherit;cursor:pointer}
 </g>
 </symbol>
 
-<!-- CIGOGNE DE CHECKPOINT CHARLY -->
 <symbol id="cigogne-ancienne" viewBox="0 0 100 100">
-<g stroke="#956B32" stroke-width="2.4"
- stroke-linecap="round" stroke-linejoin="round">
-<path d="M24 43 Q40 23 62 38 Q74 46 61 60 Q44 71 27 57 Z"
- fill="#F4E5C3"/>
-<path d="M29 46 Q44 38 60 47 Q52 58 35 60 Z"
- fill="#B98C4D"/>
+<g stroke="#956B32" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+<path d="M24 43 Q40 23 62 38 Q74 46 61 60 Q44 71 27 57 Z" fill="#F4E5C3"/>
+<path d="M29 46 Q44 38 60 47 Q52 58 35 60 Z" fill="#B98C4D"/>
 <path d="M34 51 L54 49 M38 55 L51 54" fill="none"/>
-<path d="M59 43 Q73 33 69 19 Q66 12 72 10 Q83 8 82 18 Q84 29 73 43 L65 51 Z"
- fill="#F4E5C3"/>
-<path d="M81 17 L99 21 L81 24 Z"
- fill="#B76E42"/>
-<circle cx="76" cy="16" r="2"
- fill="#593B25" stroke="none"/>
-<path d="M26 47 L12 38 L17 51 L10 57 L29 57 Z"
- fill="#9D713D"/>
-<path d="M43 63 L40 91 M54 62 L57 91
- M40 91 L30 94 M40 91 L48 95
- M57 91 L48 95 M57 91 L65 94" fill="none"/>
-<path d="M20 96 Q50 91 80 96"
- fill="none" stroke-width="1.5"/>
+<path d="M59 43 Q73 33 69 19 Q66 12 72 10 Q83 8 82 18 Q84 29 73 43 L65 51 Z" fill="#F4E5C3"/>
+<path d="M81 17 L99 21 L81 24 Z" fill="#B76E42"/>
+<circle cx="76" cy="16" r="2" fill="#593B25" stroke="none"/>
+<path d="M26 47 L12 38 L17 51 L10 57 L29 57 Z" fill="#9D713D"/>
+<path d="M43 63 L40 91 M54 62 L57 91 M40 91 L30 94 M40 91 L48 95 M57 91 L48 95 M57 91 L65 94" fill="none"/>
+<path d="M20 96 Q50 91 80 96" fill="none" stroke-width="1.5"/>
 </g>
 </symbol>
 
-<!-- DEUX ANGES GARDIENS -->
 <symbol id="anges-gardiens" viewBox="0 0 140 90">
-<g fill="none" stroke="#956B32"
- stroke-width="2.1"
- stroke-linecap="round"
- stroke-linejoin="round">
-<path d="M50 52 Q25 20 7 35 Q17 43 31 47 Q13 45 7 57 Q28 65 50 61"
- fill="#E4C58D"/>
-<path d="M90 52 Q115 20 133 35 Q123 43 109 47 Q127 45 133 57 Q112 65 90 61"
- fill="#E4C58D"/>
-<path d="M47 52 Q53 37 62 46 L70 57 L78 46 Q87 37 93 52 Q88 76 70 79 Q52 76 47 52Z"
- fill="#F7E8C5"/>
+<g fill="none" stroke="#956B32" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+<path d="M50 52 Q25 20 7 35 Q17 43 31 47 Q13 45 7 57 Q28 65 50 61" fill="#E4C58D"/>
+<path d="M90 52 Q115 20 133 35 Q123 43 109 47 Q127 45 133 57 Q112 65 90 61" fill="#E4C58D"/>
+<path d="M47 52 Q53 37 62 46 L70 57 L78 46 Q87 37 93 52 Q88 76 70 79 Q52 76 47 52Z" fill="#F7E8C5"/>
 <circle cx="59" cy="31" r="10" fill="#F7E8C5"/>
 <circle cx="81" cy="31" r="10" fill="#F7E8C5"/>
 <ellipse cx="59" cy="17" rx="13" ry="4"/>
 <ellipse cx="81" cy="17" rx="13" ry="4"/>
-<path d="M67 55 Q70 49 73 55 Q70 63 70 63Z"
- fill="#C29A56"/>
-<path d="M51 30 Q59 19 67 30
- M73 30 Q81 19 89 30"/>
+<path d="M67 55 Q70 49 73 55 Q70 63 70 63Z" fill="#C29A56"/>
+<path d="M51 30 Q59 19 67 30 M73 30 Q81 19 89 30"/>
 </g>
 <g fill="#A97B3E">
 <circle cx="56" cy="31" r="1.3"/>
 <circle cx="78" cy="31" r="1.3"/>
-<path d="M70 7l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/>
+<path d="M70 7l2 5 5 2-5 2-2 5-5-2 5-2z"/>
 </g>
 </symbol>
 
-<!-- DENT ANCIENNE DOREE -->
 <symbol id="dent-ancienne" viewBox="0 0 100 110">
-<g stroke="#956B32" stroke-width="2.8"
- stroke-linejoin="round" stroke-linecap="round">
-<path d="
- M22 15
- Q9 23 13 45
- Q17 62 27 79
- Q33 91 38 98
- Q45 104 47 91
- L49 76
- Q50 69 53 76
- L57 94
- Q60 105 67 96
- Q78 81 85 56
- Q95 29 79 16
- Q68 7 55 15
- Q50 18 45 15
- Q32 8 22 15 Z"
- fill="#E8CA8B"/>
-<path d="
- M24 21 Q19 34 23 46
- Q29 63 36 72
- M76 22 Q84 35 78 51
- Q73 69 65 82"
- fill="none" stroke="#FFF1CD" stroke-width="4"/>
-<path d="M36 23 Q49 29 63 23"
- fill="none" stroke="#B78B49" stroke-width="1.5"/>
+<g stroke="#956B32" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round">
+<path d="M22 15 Q9 23 13 45 Q17 62 27 79 Q33 91 38 98 Q45 104 47 91 L49 76 Q50 69 53 76 L57 94 Q60 105 67 96 Q78 81 85 56 Q95 29 79 16 Q68 7 55 15 Q50 18 45 15 Q32 8 22 15 Z" fill="#E8CA8B"/>
+<path d="M24 21 Q19 34 23 46 Q29 63 36 72 M76 22 Q84 35 78 51 Q73 69 65 82" fill="none" stroke="#FFF1CD" stroke-width="4"/>
+<path d="M36 23 Q49 29 63 23" fill="none" stroke="#B78B49" stroke-width="1.5"/>
 </g>
 <g fill="#FFF2C5">
 <path d="M50 1 L53 8 L60 11 L53 14 L50 21 L47 14 L40 11 L47 8 Z"/>
@@ -428,50 +257,25 @@ button{font-family:inherit;cursor:pointer}
 </g>
 </symbol>
 
-<!-- CROQUE-MONSIEUR ET VIN CHAUD -->
 <symbol id="bakery-ancienne" viewBox="0 0 150 110">
-<ellipse cx="61" cy="91" rx="52" ry="10"
- fill="#E8D1A1" stroke="#956B32"
- stroke-width="2"/>
-<g stroke="#956B32" stroke-width="2"
- stroke-linejoin="round">
-<path d="M16 57 L59 38 L105 57 L62 76 Z"
- fill="#E1AE61"/>
-<path d="M16 57 L16 71 L62 91 L62 76 Z"
- fill="#C88D48"/>
-<path d="M62 76 L105 57 L105 71 L62 91 Z"
- fill="#B47B3F"/>
-<path d="M19 53 L59 36 L102 53 L62 71 Z"
- fill="#F5D992"/>
-<path d="M23 54 L59 41 L97 54 L62 66 Z"
- fill="#F8E7B6"/>
-<path d="M26 60 L61 76 L95 61"
- fill="none" stroke="#A65343" stroke-width="4"/>
+<ellipse cx="61" cy="91" rx="52" ry="10" fill="#E8D1A1" stroke="#956B32" stroke-width="2"/>
+<g stroke="#956B32" stroke-width="2" stroke-linejoin="round">
+<path d="M16 57 L59 38 L105 57 L62 76 Z" fill="#E1AE61"/>
+<path d="M16 57 L16 71 L62 91 L62 76 Z" fill="#C88D48"/>
+<path d="M62 76 L105 57 L105 71 L62 91 Z" fill="#B47B3F"/>
+<path d="M19 53 L59 36 L102 53 L62 71 Z" fill="#F5D992"/>
+<path d="M23 54 L59 41 L97 54 L62 66 Z" fill="#F8E7B6"/>
+<path d="M26 60 L61 76 L95 61" fill="none" stroke="#A65343" stroke-width="4"/>
 </g>
-<path d="M30 56 Q40 60 45 60
- Q49 69 52 62
- Q62 67 71 62
- Q78 69 82 59"
- fill="none" stroke="#F2C66C"
- stroke-width="4" stroke-linecap="round"/>
-<g stroke="#956B32" stroke-width="2.5"
- stroke-linejoin="round">
-<path d="M106 43 L106 80
- Q106 92 124 92
- Q142 92 142 80 L142 43 Z"
- fill="#A34B4C"/>
-<ellipse cx="124" cy="43" rx="18" ry="6"
- fill="#E5B56B"/>
-<ellipse cx="124" cy="43" rx="14" ry="4"
- fill="#74303C" stroke="none"/>
-<path d="M142 51 Q159 48 157 64
- Q155 78 142 75"
- fill="none"/>
-<path d="M112 59 Q124 66 136 59"
- fill="none" stroke="#F2CF8B"/>
+<path d="M30 56 Q40 60 45 60 Q49 69 52 62 Q62 67 71 62 Q78 69 82 59" fill="none" stroke="#F2C66C" stroke-width="4" stroke-linecap="round"/>
+<g stroke="#956B32" stroke-width="2.5" stroke-linejoin="round">
+<path d="M106 43 L106 80 Q106 92 124 92 Q142 92 142 80 L142 43 Z" fill="#A34B4C"/>
+<ellipse cx="124" cy="43" rx="18" ry="6" fill="#E5B56B"/>
+<ellipse cx="124" cy="43" rx="14" ry="4" fill="#74303C" stroke="none"/>
+<path d="M142 51 Q159 48 157 64 Q155 78 142 75" fill="none"/>
+<path d="M112 59 Q124 66 136 59" fill="none" stroke="#F2CF8B"/>
 </g>
-<g fill="none" stroke="#B38B54"
- stroke-width="2" stroke-linecap="round">
+<g fill="none" stroke="#B38B54" stroke-width="2" stroke-linecap="round">
 <path d="M114 34 Q106 25 114 17 Q120 11 114 4"/>
 <path d="M125 33 Q117 24 125 16 Q131 10 125 3"/>
 <path d="M136 34 Q128 25 136 17 Q142 11 136 4"/>
@@ -483,10 +287,7 @@ button{font-family:inherit;cursor:pointer}
 </g>
 </symbol>
 
-<!-- BADGE VIP ET CLE DES MAGIC MAKERS -->
 <symbol id="magic-makers-ancien" viewBox="0 0 150 120">
-
-<!-- ETOILES -->
 <g fill="#C69B50">
 <path d="M26 12l3 7 7 3-7 3-3 7-3-7-7-3 7-3z"/>
 <path d="M121 7l3 8 8 3-8 3-3 8-3-8-8-3 8-3z"/>
@@ -494,1132 +295,482 @@ button{font-family:inherit;cursor:pointer}
 <circle cx="10" cy="62" r="2.5"/>
 <circle cx="74" cy="8" r="2"/>
 </g>
-
-<!-- BADGE VIP -->
-<g stroke="#956B32" stroke-width="2.5"
- stroke-linejoin="round">
-<path d="M32 22 L91 22
- Q97 22 97 28 L97 76
- Q97 83 90 83 L33 83
- Q26 83 26 76 L26 29
- Q26 22 32 22 Z"
- fill="#A63B49"/>
-<path d="M34 29 L89 29 L89 75 L34 75 Z"
- fill="none" stroke="#E7C477" stroke-width="1.5"/>
+<g stroke="#956B32" stroke-width="2.5" stroke-linejoin="round">
+<path d="M32 22 L91 22 Q97 22 97 28 L97 76 Q97 83 90 83 L33 83 Q26 83 26 76 L26 29 Q26 22 32 22 Z" fill="#A63B49"/>
+<path d="M34 29 L89 29 L89 75 L34 75 Z" fill="none" stroke="#E7C477" stroke-width="1.5"/>
 <circle cx="61" cy="22" r="4" fill="#E8C883"/>
-<path d="M61 18 Q55 6 64 5
- Q73 4 71 16" fill="none"/>
+<path d="M61 18 Q55 6 64 5 Q73 4 71 16" fill="none"/>
 </g>
-
-<!-- COURONNE -->
-<path d="M46 44 L50 35 L59 43
- L65 32 L72 43 L81 35 L85 44 Z"
- fill="#E7C477" stroke="#956B32" stroke-width="1.5"/>
+<path d="M46 44 L50 35 L59 43 L65 32 L72 43 L81 35 L85 44 Z" fill="#E7C477" stroke="#956B32" stroke-width="1.5"/>
 <path d="M46 48 L85 48" stroke="#E7C477" stroke-width="2"/>
-
-<!-- VIP -->
-<text x="61" y="67"
- font-family="Georgia,serif"
- font-weight="bold" font-size="17"
- fill="#F7E5B4" text-anchor="middle">VIP</text>
-
-<!-- CLE ANCIENNE -->
-<g transform="translate(91 53) rotate(36)"
- fill="#E0B66C" stroke="#956B32"
- stroke-width="2.5" stroke-linejoin="round">
+<text x="61" y="67" font-family="Georgia,serif" font-weight="bold" font-size="17" fill="#F7E5B4" text-anchor="middle">VIP</text>
+<g transform="translate(91 53) rotate(36)" fill="#E0B66C" stroke="#956B32" stroke-width="2.5" stroke-linejoin="round">
 <circle cx="0" cy="0" r="13"/>
 <circle cx="0" cy="0" r="6" fill="#F4E3B8"/>
-<path d="M0 13 L0 62 L10 62
- L10 54 L5 54 L5 47
- L10 47 L10 39 L5 39
- L5 13 Z"/>
+<path d="M0 13 L0 62 L10 62 L10 54 L5 54 L5 47 L10 47 L10 39 L5 39 L5 13 Z"/>
 </g>
-
-<!-- LUEUR -->
-<path d="M14 95 Q75 107 137 95"
- fill="none" stroke="#C49A4B" stroke-width="2"/>
+<path d="M14 95 Q75 107 137 95" fill="none" stroke="#C49A4B" stroke-width="2"/>
 </symbol>
 
+<!-- FER A REPASSER ET OUTILS -->
+<symbol id="hardware-ancien" viewBox="0 0 160 120">
+<g fill="#C69B50">
+<path d="M24 9l3 7 7 3-7 3-3 7-3-7-7-3 7-3z"/>
+<path d="M135 15l3 7 7 3-7 3-3 7-3-7-7-3 7-3z"/>
+<circle cx="81" cy="8" r="2"/>
+</g>
+<g stroke="#956B32" stroke-width="2.5" stroke-linejoin="round">
+<path d="M14 75 Q18 55 43 53 L79 53 Q95 53 99 75 L105 88 L12 88 Z" fill="#C7A16A"/>
+<path d="M39 53 Q37 35 55 35 Q73 35 72 53" fill="none" stroke-width="6"/>
+<path d="M14 88 L105 88 L97 96 L20 96 Z" fill="#E9D3A4"/>
+<path d="M23 75 Q50 69 86 75" fill="none" stroke="#F8E8C4" stroke-width="3"/>
+</g>
+<g transform="translate(112 39) rotate(35)" stroke="#956B32" stroke-width="2.5" stroke-linejoin="round">
+<path d="M-12 -20 Q-24 -7 -13 6 L-5 0 L3 8 L-3 16 Q11 23 19 8 L8 -3 Z" fill="#D6B57B"/>
+<rect x="-5" y="8" width="10" height="57" rx="3" fill="#D6B57B"/>
+<circle cx="0" cy="56" r="3" fill="#F4E4BF"/>
+</g>
+<g stroke="#956B32" stroke-width="2" stroke-linecap="round">
+<path d="M21 105 Q80 112 139 105" fill="none"/>
+</g>
+</symbol>
 </svg>
 
-<!-- CAMERA ET NEUF FACADES -->
+<!-- CAMERA ET CIBLES -->
 <div id="camera-container">
 <a-scene
- mindar-image="imageTargetSrc: ./targets.mind; autoStart: false; uiScanning: yes;"
- embedded
- color-space="sRGB"
- renderer="colorManagement: true"
- vr-mode-ui="enabled: false"
- device-orientation-permission-ui="enabled: false">
+mindar-image="imageTargetSrc: ./targets.mind; autoStart: false; uiScanning: yes;"
+embedded
+color-space="sRGB"
+renderer="colorManagement: true"
+vr-mode-ui="enabled: false"
+device-orientation-permission-ui="enabled: false">
 
-<a-camera position="0 0 0"
- look-controls="enabled: false"></a-camera>
+<a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
-<a-entity mindar-image-target="targetIndex: 0"
- id="target-0"></a-entity>
-<a-entity mindar-image-target="targetIndex: 1"
- id="target-1"></a-entity>
-<a-entity mindar-image-target="targetIndex: 2"
- id="target-2"></a-entity>
-<a-entity mindar-image-target="targetIndex: 3"
- id="target-3"></a-entity>
-<a-entity mindar-image-target="targetIndex: 4"
- id="target-4"></a-entity>
-<a-entity mindar-image-target="targetIndex: 5"
- id="target-5"></a-entity>
-<a-entity mindar-image-target="targetIndex: 6"
- id="target-6"></a-entity>
-<a-entity mindar-image-target="targetIndex: 7"
- id="target-7"></a-entity>
-<a-entity mindar-image-target="targetIndex: 8"
- id="target-8"></a-entity>
+<a-entity mindar-image-target="targetIndex: 0" id="target-0"></a-entity>
+<a-entity mindar-image-target="targetIndex: 1" id="target-1"></a-entity>
+<a-entity mindar-image-target="targetIndex: 2" id="target-2"></a-entity>
+<a-entity mindar-image-target="targetIndex: 3" id="target-3"></a-entity>
+<a-entity mindar-image-target="targetIndex: 4" id="target-4"></a-entity>
+<a-entity mindar-image-target="targetIndex: 5" id="target-5"></a-entity>
+<a-entity mindar-image-target="targetIndex: 6" id="target-6"></a-entity>
+<a-entity mindar-image-target="targetIndex: 7" id="target-7"></a-entity>
+<a-entity mindar-image-target="targetIndex: 8" id="target-8"></a-entity>
 
 </a-scene>
 </div>
 
-<!-- ECRAN D'ACCUEIL -->
+<!-- ACCUEIL -->
 <div id="intro">
-<button id="start">
-✨ Commencer l'exploration
-</button>
+<button id="start">✨ Commencer l'exploration</button>
 <div id="status"></div>
 </div>
 
-<!-- BULLE DOREE -->
+<!-- BULLE MAGIQUE -->
 <div id="found">
 <span class="sparkle one">✦</span>
 <span class="sparkle two">✧</span>
 <span class="sparkle three">✦</span>
 <span class="sparkle four">✧</span>
-
 <button id="discover">
 <span class="magic-icon">✨</span>
 <span>
-<strong id="bubble-title">
-Le Lumega · 1924
-</strong>
+<strong id="bubble-title">Le Lumega · 1924</strong>
 <small>Découvrir son histoire</small>
 </span>
 <span class="arrow">❯</span>
 </button>
 </div>
 
-<!-- BIBLIOTHEQUE MAGIQUE -->
+<!-- LIVRES -->
 <div id="story">
-<button id="close">
-✕ Retour à l'exploration
-</button>
+<button id="close">✕ Retour à l'exploration</button>
 
-<!-- LIVRE 1 : LE LUMEGA -->
+<!-- LIVRE 1 -->
 <article class="book" id="book-lumega">
 <div class="page">
-
 <div class="ornament">
 <span class="ornament-star">✦</span>
-<svg class="ornament-art" viewBox="0 0 100 90">
-<use href="#burger-ancien"></use>
-</svg>
+<svg class="ornament-art" viewBox="0 0 100 90"><use href="#burger-ancien"></use></svg>
 <span class="ornament-star">✦</span>
 </div>
-
 <div class="kicker">Les Secrets de Main Street</div>
 <h1>Le Lumega</h1>
 <h3>DEPUIS 1924</h3>
-<div class="ornament">✧ ✦ ✧</div>
-
-<p class="quote">
-Une histoire de burgers, de danse
-et surtout d'amitié.
-</p>
+<p class="quote">Une histoire de burgers, de danse et surtout d'amitié.</p>
 
 <section class="chapter">
 <h2>✦ Il était une fois...</h2>
-<p>
-En 2024, Ludovic et Meghane arrivèrent
-à La Réunion avec leurs enfants,
-Emy et Ambre, pour commencer
-une nouvelle aventure.
-</p>
-<p>
-Au rez-de-chaussée de la résidence,
-ils ouvrirent un snack baptisé
-<strong>Le Lumega</strong>,
-où ils préparaient de délicieux burgers
-entièrement faits maison.
-</p>
+<p>En 2024, Ludovic et Meghane arrivèrent à La Réunion avec leurs filles, Emy et Ambre, pour commencer une nouvelle aventure.</p>
+<p>Au rez-de-chaussée de la résidence, ils ouvrirent un snack baptisé <strong>Le Lumega</strong>, où ils préparaient de délicieux burgers entièrement faits maison.</p>
 </section>
 
 <section class="chapter">
 <h2>✦ Une amitié inattendue</h2>
-<p>
-Au fil des jours, une belle amitié
-naquit entre cette famille et le créateur
-de MiniDisneyland Réunion.
-</p>
-<p>
-Lorsque les parents travaillaient
-et que les enfants n'avaient pas école,
-Emy et Ambre venaient régulièrement
-passer leurs journées chez lui.
-</p>
+<p>Au fil des jours, une belle amitié naquit entre cette famille et le créateur de MiniDisneyland Réunion.</p>
+<p>Lorsque les parents travaillaient et que les enfants n'avaient pas école, Emy et Ambre venaient régulièrement passer leurs journées chez lui.</p>
 </section>
 
 <section class="chapter">
 <h2>🩰 L'école de danse d'Emy</h2>
-<p>
-Passionnée de danse, Emy méritait bien
-sa propre école !
-</p>
-<p>
-Une enseigne lui fut dédiée,
-avec une promesse :
-grâce et élégance depuis 1917.
-</p>
+<p>Passionnée de danse, Emy méritait bien sa propre école ! Une enseigne lui fut dédiée, avec une promesse : grâce et élégance depuis 1917.</p>
 </section>
 
 <section class="chapter">
 <h2>🌭 Les meilleures knacks d'Ambre</h2>
-<p>
-Quant à Ambre, grande amatrice de knacks,
-elle reçut un titre tout particulier :
-celui de servir les meilleures knacks
-de toute la ville !
-</p>
+<p>Quant à Ambre, grande amatrice de knacks, elle reçut un titre tout particulier : celui de servir les meilleures knacks de toute la ville !</p>
 </section>
 
 <section class="chapter">
 <h2>✦ Le secret des dates</h2>
-<p>
-Comme Walt Disney aimait donner
-à ses parcs le charme d'une ville
-d'autrefois, certaines dates
-de Main Street ont été reculées
-de cent ans.
-</p>
-<p>
-Ainsi, 2024 est devenue 1924,
-et l'année de naissance d'Emy,
-2017, est devenue 1917.
-</p>
+<p>Pour retrouver le charme d'une ville d'autrefois, les dates de Main Street ont été reculées de cent ans. Ainsi, 2024 est devenue 1924, et l'année de naissance d'Emy, 2017, est devenue 1917.</p>
 </section>
 
 <section class="chapter">
 <h2>❤️ Une façade pour ne jamais oublier</h2>
-<p>
-Depuis, Ludovic, Meghane, Emy
-et Ambre sont retournés vivre
-en métropole.
-</p>
-<p>
-Mais leur histoire, elle, est restée ici.
-</p>
-<p>
-Cette façade leur est entièrement dédiée,
-en souvenir des burgers faits maison,
-des journées passées ensemble,
-des rires des enfants et surtout
-d'une belle amitié.
-</p>
+<p>Depuis, Ludovic, Meghane, Emy et Ambre sont retournés vivre en métropole. Mais leur histoire, elle, est restée ici.</p>
+<p>Cette façade leur est entièrement dédiée, en souvenir des burgers faits maison, des journées passées ensemble, des rires des enfants et surtout d'une belle amitié.</p>
 </section>
 
 <div class="ornament ornament-bottom">
 <span class="ornament-star">✦</span>
-<svg class="ornament-art" viewBox="0 0 100 90">
-<use href="#burger-ancien"></use>
-</svg>
+<svg class="ornament-art" viewBox="0 0 100 90"><use href="#burger-ancien"></use></svg>
 <span class="ornament-star">✦</span>
 </div>
-
-<p class="end">
-Car à MiniDisneyland Réunion,
-derrière certaines façades se cachent
-de véritables histoires de cœur.
-</p>
-
-<div class="page-footer">
-✦ FIN DU PREMIER CONTE ✦
-</div>
+<p class="end">Car à MiniDisneyland Réunion, derrière certaines façades se cachent de véritables histoires de cœur.</p>
+<div class="page-footer">✦ FIN DU PREMIER CONTE ✦</div>
 </div>
 </article>
 
-<!-- LIVRE 2 : CHECKPOINT CHARLY -->
+<!-- LIVRE 2 -->
 <article class="book" id="book-charly">
 <div class="page">
-
 <div class="ornament">
 <span class="ornament-star">✦</span>
-<svg class="ornament-art" viewBox="0 0 100 100">
-<use href="#cigogne-ancienne"></use>
-</svg>
+<svg class="ornament-art" viewBox="0 0 100 100"><use href="#cigogne-ancienne"></use></svg>
 <span class="ornament-star">✦</span>
 </div>
-
 <div class="kicker">Les Secrets de Main Street</div>
 <h1>Checkpoint Charly</h1>
 <h3>DEPUIS 1853</h3>
-<div class="ornament">✧ ✦ ✧</div>
-
-<p class="quote">
-Une histoire de souvenirs,
-de voyages et de transmission.
-</p>
+<p class="quote">Une histoire de souvenirs, de voyages et de transmission.</p>
 
 <section class="chapter">
 <h2>✦ Il était une fois... Charly</h2>
-<p>
-En 1953 naquit un garçon prénommé Charles,
-que ses proches surnommeraient
-affectueusement Charly.
-</p>
-<p>
-Originaire d'Alsace, cette belle région
-de l'est de la France où les cigognes
-font partie du paysage, Charly allait
-vivre une histoire qui le mènerait
-bien au-delà de ses terres natales.
-</p>
+<p>En 1953 naquit un garçon prénommé Charles, que ses proches surnommeraient affectueusement Charly.</p>
+<p>Originaire d'Alsace, cette belle région où les cigognes font partie du paysage, Charly allait vivre une histoire qui le mènerait bien au-delà de ses terres natales.</p>
 </section>
 
 <section class="chapter">
 <h2>✦ Un souvenir de Berlin</h2>
-<p>
-Durant son service militaire, Charly
-fut amené à travailler à Berlin,
-à une époque où le célèbre mur
-séparait encore la ville.
-</p>
-<p>
-C'est de ce chapitre de sa vie
-qu'est né le nom de cette façade :
-<strong>Checkpoint Charly</strong>,
-un clin d'œil au célèbre poste-frontière
-berlinois.
-</p>
-<p>
-Un nom chargé d'histoire,
-devenu ici un hommage personnel.
-</p>
+<p>Durant son service militaire, Charly fut amené à travailler à Berlin, à une époque où le célèbre mur séparait encore la ville.</p>
+<p>C'est de ce chapitre de sa vie qu'est né le nom de cette façade : <strong>Checkpoint Charly</strong>, un clin d'œil au célèbre poste-frontière berlinois.</p>
 </section>
 
 <section class="chapter">
 <h2>✦ La cigogne d'Alsace</h2>
-<p>
-Sur l'enseigne, une cigogne veille
-fièrement sur la façade.
-</p>
-<p>
-Elle n'est pas là par hasard :
-elle représente l'Alsace,
-la terre d'origine de Charly,
-et les racines familiales
-qui traversent les générations.
-</p>
+<p>Sur l'enseigne, une cigogne veille fièrement sur la façade. Elle représente l'Alsace, la terre d'origine de Charly, et les racines familiales qui traversent les générations.</p>
 </section>
 
 <section class="chapter">
 <h2>⌚ L'horlogerie de Charly</h2>
-<p>
-Dans cette petite boutique,
-les montres sont entre de bonnes mains !
-</p>
-<p>
-Car Charly possède une qualité
-bien particulière :
-<strong>il ne supporte pas les retards.</strong>
-</p>
-<p>
-À ses yeux, la ponctualité est
-une affaire sérieuse.
-Alors, quoi de plus naturel
-que de lui offrir son propre
-atelier de réparation de montres ?
-</p>
-<p>Ici, chaque seconde compte !</p>
+<p>Dans cette petite boutique, les montres sont entre de bonnes mains ! Car Charly possède une qualité bien particulière : <strong>il ne supporte pas les retards.</strong></p>
+<p>Alors, quoi de plus naturel que de lui offrir son propre atelier de réparation de montres ? Ici, chaque seconde compte !</p>
 </section>
 
 <section class="chapter">
 <h2>✦ La banque Schildknecht</h2>
-<p>
-Juste à côté se trouve une autre
-institution : la banque Schildknecht.
-</p>
-<p>
-Charly a toujours eu un véritable talent
-pour gérer les comptes, organiser
-les finances et donner de précieux conseils.
-</p>
-<p>
-Une qualité dont son fils
-bénéficie encore aujourd'hui.
-</p>
-<p>
-Derrière cette banque imaginaire
-se cache donc quelque chose de bien réel :
-la sagesse d'un père qui partage
-son expérience et aide son fils
-à faire les bons choix.
-</p>
+<p>Juste à côté se trouve une autre institution : la banque Schildknecht.</p>
+<p>Charly a toujours eu un véritable talent pour gérer les comptes, organiser les finances et donner de précieux conseils. Une qualité dont son fils bénéficie encore aujourd'hui.</p>
 </section>
 
 <section class="chapter">
 <h2>🚗 L'école de conduite de Charly</h2>
-<p>
-Et parce qu'une Main Street ne serait
-pas complète sans quelques commerces
-insolites, Charly possède également
-sa propre école de conduite.
-</p>
-<p>
-Une enseigne pleine de fantaisie
-qui rappelle que, dans cette petite
-ville imaginaire, chaque commerce
-raconte un morceau de la vie
-de ceux qu'on aime.
-</p>
+<p>Et parce qu'une Main Street ne serait pas complète sans quelques commerces insolites, Charly possède également sa propre école de conduite.</p>
+<p>Une enseigne pleine de fantaisie qui rappelle que chaque commerce raconte un morceau de la vie de ceux qu'on aime.</p>
 </section>
 
 <section class="chapter">
 <h2>✦ Le secret de 1853</h2>
-<p>Pourquoi cette date sur la façade ?</p>
-<p>
-Comme pour les autres bâtiments
-de Main Street, les années ont été
-reculées de cent ans afin de retrouver
-le charme des villes d'autrefois.
-</p>
-<p>
-Ainsi, <strong>1953, l'année de naissance
-de Charles, est devenue 1853.</strong>
-</p>
-<p>
-Une date qui transforme un simple
-décor en souvenir de famille.
-</p>
+<p>Comme pour les autres bâtiments de Main Street, les années ont été reculées de cent ans. Ainsi, <strong>1953, l'année de naissance de Charles, est devenue 1853.</strong></p>
 </section>
 
 <section class="chapter">
 <h2>❤️ Une façade dédiée à un père</h2>
-<p>
-Checkpoint Charly n'est pas seulement
-une façade de briques rouges,
-ornée de guirlandes lumineuses.
-</p>
-<p>
-C'est un hommage à un père,
-à ses origines alsaciennes,
-à ses souvenirs berlinois,
-à son sens de la ponctualité
-et à tous les conseils
-qu'il transmet à son fils.
-</p>
-<p>
-Chaque enseigne raconte
-une facette de sa personnalité.
-</p>
-<p>
-Et chaque lumière qui éclaire
-cette façade fait vivre
-un peu de son histoire.
-</p>
+<p>Checkpoint Charly est un hommage à un père, à ses origines alsaciennes, à ses souvenirs berlinois, à son sens de la ponctualité et à tous les conseils qu'il transmet à son fils.</p>
+<p>Chaque enseigne raconte une facette de sa personnalité. Et chaque lumière qui éclaire cette façade fait vivre un peu de son histoire.</p>
 </section>
 
 <div class="ornament ornament-bottom">
 <span class="ornament-star">✦</span>
-<svg class="ornament-art" viewBox="0 0 100 100">
-<use href="#cigogne-ancienne"></use>
-</svg>
+<svg class="ornament-art" viewBox="0 0 100 100"><use href="#cigogne-ancienne"></use></svg>
 <span class="ornament-star">✦</span>
 </div>
-
-<p class="end">
-Car à MiniDisneyland Réunion,
-certaines façades ne sont pas seulement
-construites avec du bois et des briques...
-Elles sont construites avec des souvenirs
-et beaucoup d'amour.
-</p>
-
-<div class="page-footer">
-✦ FIN DU DEUXIÈME CONTE ✦
-</div>
+<p class="end">Car à MiniDisneyland Réunion, certaines façades sont construites avec des souvenirs et beaucoup d'amour.</p>
+<div class="page-footer">✦ FIN DU DEUXIÈME CONTE ✦</div>
 </div>
 </article>
 
-<!-- LIVRE 3 : GUARDIAN ANGELS -->
+<!-- LIVRE 3 -->
 <article class="book" id="book-anges">
 <div class="page">
-
 <div class="ornament">
 <span class="ornament-star">✦</span>
-<svg class="ornament-art angels" viewBox="0 0 140 90">
-<use href="#anges-gardiens"></use>
-</svg>
+<svg class="ornament-art angels" viewBox="0 0 140 90"><use href="#anges-gardiens"></use></svg>
 <span class="ornament-star">✦</span>
 </div>
-
 <div class="kicker">Les Secrets de Main Street</div>
 <h1>Guardian Angels</h1>
 <h3>MEMORIAL HALL — DEPUIS 1900</h3>
-
-<p class="quote">
-L'histoire de deux anges gardiens
-et d'une magie qui ne s'éteint jamais.
-</p>
+<p class="quote">L'histoire de deux anges gardiens et d'une magie qui ne s'éteint jamais.</p>
 
 <section class="chapter">
 <h2>✦ Il était une fois… deux étoiles</h2>
-<p>
-Dans une petite rue de Main Street,
-derrière une façade bleu ciel ornée
-de lumières dorées, se trouve une
-société de sécurité bien particulière.
-</p>
-<p>
-Ici, pas de gardiens en uniforme,
-ni de grandes portes blindées.
-</p>
-<p>
-Car cette société est dirigée par
-deux anges gardiens :
-<strong>Monette et Maëlle</strong>.
-</p>
-<p>
-Deux étoiles qui ont quitté notre monde
-bien trop tôt, mais dont la lumière
-continue de briller dans le cœur
-de ceux qui les aiment.
-</p>
+<p>Dans une petite rue de Main Street se trouve une société de sécurité bien particulière.</p>
+<p>Car cette société est dirigée par deux anges gardiens : <strong>Monette et Maëlle</strong>.</p>
+<p>Deux étoiles qui ont quitté notre monde bien trop tôt, mais dont la lumière continue de briller dans le cœur de ceux qui les aiment.</p>
 </section>
 
 <section class="chapter">
 <h2>✦ Monette, une maman devenue étoile</h2>
-<p>
-Monette était la maman du créateur
-de MiniDisneyland Réunion.
-</p>
-<p>
-Partie beaucoup trop tôt,
-elle a laissé derrière elle un amour
-qui, lui, n'a jamais disparu.
-</p>
-<p>
-Aujourd'hui, dans cette petite ville
-imaginaire où chaque façade possède
-son histoire, Monette a trouvé
-une place toute particulière.
-</p>
-<p>
-Elle est devenue l'un des anges
-gardiens de Main Street.
-</p>
-<p>
-Une présence invisible, mais précieuse,
-qui veille symboliquement sur les rêves,
-les sourires et les moments de bonheur.
-</p>
+<p>Monette était la maman du créateur de MiniDisneyland Réunion.</p>
+<p>Partie beaucoup trop tôt, elle a laissé derrière elle un amour qui, lui, n'a jamais disparu.</p>
+<p>Aujourd'hui, elle est devenue symboliquement l'un des anges gardiens de Main Street, veillant sur les rêves, les sourires et les moments de bonheur.</p>
 </section>
 
 <section class="chapter">
 <h2>✦ Le rêve de Maëlle</h2>
-<p>
-Maëlle était la fille d'une amie.
-</p>
-<p>
-Un jour, alors qu'elle affrontait
-une grave maladie, elle confia
-un souhait qui semblait pourtant
-si simple :
-</p>
-<p class="quote">
-« J'aurais tellement aimé
-aller à Disneyland… »
-</p>
-<p>
-Mais son état de santé rendait
-ce voyage difficile.
-</p>
-<p>Alors une idée naquit.</p>
-<p>
-Et si, pour une fois, ce n'était pas
-elle qui allait à Disneyland ?
-</p>
-<p>
-<strong>
-Et si Disneyland venait jusqu'à elle ?
-</strong>
-</p>
-<p>
-Une soirée fut imaginée spécialement
-pour Maëlle, afin de lui offrir
-un moment d'évasion, de féerie
-et de bonheur.
-</p>
-<p>
-Le temps d'une soirée, les contraintes
-du quotidien laissèrent place aux
-lumières, à la musique et à cette magie
-si particulière qui fait briller
-les yeux.
-</p>
-<p>
-Ce soir-là, le plus important n'était
-pas la taille d'un château ni
-le nombre d'attractions.
-</p>
-<p>C'était de faire vivre un rêve.</p>
+<p>Maëlle était la fille d'une amie. Alors qu'elle affrontait une grave maladie, elle avait un rêve : visiter Disneyland.</p>
+<p>Mais son état de santé rendait ce voyage difficile.</p>
+<p>Alors une idée naquit : <strong>et si Disneyland venait jusqu'à elle ?</strong></p>
+<p>Une soirée fut imaginée spécialement pour Maëlle, afin de lui offrir un moment d'évasion, de féerie et de bonheur.</p>
+<p>Ce soir-là, le plus important n'était pas la taille d'un château ni le nombre d'attractions. C'était de faire vivre un rêve.</p>
 </section>
 
 <section class="chapter">
 <h2>✦ Une magie qui continue</h2>
-<p>Depuis, Maëlle nous a quittés.</p>
-<p>
-Mais son histoire n'a pas disparu
-avec elle.
-</p>
-<p>
-Au contraire, elle fait désormais
-partie de l'âme de MiniDisneyland Réunion.
-</p>
-<p>
-Car derrière chaque illumination,
-chaque spectacle et chaque sourire
-offert aux visiteurs, il existe
-cette même envie :
-</p>
-<p>
-<strong>
-Faire voyager les cœurs, même lorsque
-l'on ne peut pas voyager bien loin.
-</strong>
-</p>
-<p>
-Et c'est peut-être là que se cache
-la plus belle des magies.
-</p>
+<p>Depuis, Maëlle nous a quittés. Mais son histoire fait désormais partie de l'âme de MiniDisneyland Réunion.</p>
+<p>Car derrière chaque illumination, chaque spectacle et chaque sourire, il existe cette même envie : <strong>faire voyager les cœurs, même lorsque l'on ne peut pas voyager bien loin.</strong></p>
 </section>
 
 <section class="chapter">
 <h2>✦ Guardian Angels Security Company</h2>
-<p>
-C'est ainsi que Monette et Maëlle
-sont devenues les deux responsables
-de cette étonnante société de sécurité.
-</p>
-<p>Leur mission ?</p>
-<p>
-Veiller symboliquement sur les visiteurs,
-protéger les souvenirs précieux
-et garder intacte la magie de Main Street.
-</p>
-<p>
-Pas besoin de caméras de surveillance
-ni de badges d'accès.
-</p>
-<p>
-Ici, la sécurité est assurée par
-l'amour, les souvenirs et deux anges
-qui occupent une place éternelle
-dans nos cœurs.
-</p>
-</section>
-
-<section class="chapter">
-<h2>✦ Deux anges, une même lumière</h2>
-<p>
-Sur la façade, leurs noms sont inscrits
-comme ceux de véritables dirigeantes.
-</p>
-<p class="quote">
-<strong>
-MONETTE &amp; MAËLLE — TEAM LEADERS
-</strong>
-</p>
-<p>Un titre qui leur revient de droit.</p>
-<p>
-Car elles sont bien plus que les
-responsables imaginaires d'une entreprise.
-</p>
-<p>
-Elles sont les gardiennes d'une histoire,
-d'un rêve et de toutes ces petites choses
-qui rendent la vie plus belle.
-</p>
+<p>Monette et Maëlle sont devenues les deux responsables imaginaires de cette étonnante société de sécurité.</p>
+<p>Leur mission ? Veiller symboliquement sur les visiteurs, protéger les souvenirs précieux et garder intacte la magie de Main Street.</p>
+<p>Sur la façade, leurs noms sont inscrits comme ceux de véritables dirigeantes : <strong>MONETTE &amp; MAËLLE — TEAM LEADERS.</strong></p>
 </section>
 
 <section class="chapter">
 <h2>❤️ Le secret de Memorial Hall</h2>
-<p>
-Cette façade n'a pas été construite
-uniquement pour décorer Main Street.
-</p>
-<p>
-Elle a été imaginée pour que deux prénoms
-continuent d'exister au milieu
-des lumières et des rires.
-</p>
-<p>
-Pour que les visiteurs découvrent
-qu'un petit appartement peut abriter
-de grandes histoires.
-</p>
-<p>
-Et pour rappeler qu'un rêve partagé
-peut laisser une lumière
-qui ne s'éteint jamais.
-</p>
-<p>
-<strong>
-Car à MiniDisneyland Réunion,
-la magie ne se mesure pas
-à la grandeur d'un château,
-mais au bonheur que l'on réussit
-à offrir.
-</strong>
-</p>
-<p>
-Et quelque part, parmi les étoiles,
-deux anges gardiens veillent toujours
-sur cette magie.
-</p>
+<p>Cette façade a été imaginée pour que deux prénoms continuent d'exister au milieu des lumières et des rires.</p>
+<p>Pour rappeler qu'un petit appartement peut abriter de grandes histoires, et qu'un rêve partagé peut laisser une lumière qui ne s'éteint jamais.</p>
 </section>
 
 <div class="ornament ornament-bottom">
 <span class="ornament-star">✦</span>
-<svg class="ornament-art angels" viewBox="0 0 140 90">
-<use href="#anges-gardiens"></use>
-</svg>
+<svg class="ornament-art angels" viewBox="0 0 140 90"><use href="#anges-gardiens"></use></svg>
 <span class="ornament-star">✦</span>
 </div>
-
-<p class="end">
-Monette &amp; Maëlle.
-Pour toujours, les gardiennes
-de Main Street.
-</p>
-
-<div class="page-footer">
-✦ FIN DU TROISIÈME CONTE ✦
-</div>
-
+<p class="end">Monette &amp; Maëlle. Pour toujours, les gardiennes de Main Street.</p>
+<div class="page-footer">✦ FIN DU TROISIÈME CONTE ✦</div>
 </div>
 </article>
 
-<!-- LIVRE 4 : LE DENTISTE -->
+<!-- LIVRE 4 -->
 <article class="book" id="book-dentiste">
 <div class="page">
-
 <div class="ornament">
 <span class="ornament-star">✦</span>
-<svg class="ornament-art" viewBox="0 0 100 110">
-<use href="#dent-ancienne"></use>
-</svg>
+<svg class="ornament-art" viewBox="0 0 100 110"><use href="#dent-ancienne"></use></svg>
 <span class="ornament-star">✦</span>
 </div>
-
 <div class="kicker">Les Secrets de Main Street</div>
 <h1>Le Dentiste de Main Street</h1>
 <h3>LE SECRET DU SOURIRE</h3>
-
-<p class="quote">
-Une histoire de dents, de magie…
-et de sourires !
-</p>
+<p class="quote">Une histoire de dents, de magie… et de sourires !</p>
 
 <section class="chapter">
 <h2>✦ Il était une fois… un drôle de dentiste</h2>
-<p>
-Dans une petite rue aux façades colorées,
-entre les boutiques et les lumières
-scintillantes, se trouve un cabinet
-pas tout à fait comme les autres.
-</p>
-<p>
-Sur son enseigne, on peut lire :
-<strong>Dentist – MiniDisneyland Réunion</strong>.
-</p>
-<p>
-Mais pourquoi donc installer un dentiste
-dans un endroit où tout n'est que rêve
-et enchantement ?
-</p>
-<p>
-La réponse se cache dans une jolie
-tradition des parcs Disney…
-</p>
+<p>Dans une petite rue aux façades colorées se trouve un cabinet pas tout à fait comme les autres.</p>
+<p>Mais pourquoi donc installer un dentiste dans un endroit où tout n'est que rêve et enchantement ?</p>
 </section>
 
 <section class="chapter">
 <h2>✦ Un clin d'œil à Walt Disney</h2>
-<p>
-Selon une anecdote racontée autour
-de Main Street, Walt Disney aurait
-imaginé une façade de dentiste pour
-rappeler une chose essentielle :
-</p>
-<p>
-<strong>
-À Disneyland, tout le monde doit
-repartir avec le sourire !
-</strong>
-</p>
-<p>
-Et si, par malheur, un visiteur avait
-un petit souci avec ses dents,
-il pourrait toujours compter
-sur le dentiste de Main Street !
-</p>
-<p>
-Bien entendu, il ne s'agissait pas
-d'un véritable cabinet ouvert aux
-visiteurs, mais d'un élément de décor
-plein de fantaisie.
-</p>
-<p>
-Dans certaines versions de Main Street,
-il suffit même de tendre l'oreille
-près des fenêtres pour entendre
-les bruits et les conversations
-qui semblent provenir de l'intérieur
-des bâtiments.
-</p>
-<p>
-Une manière merveilleuse de donner
-vie à cette petite ville imaginaire.
-</p>
+<p>Selon une anecdote racontée autour de Main Street, Walt Disney aurait imaginé une façade de dentiste pour rappeler une chose essentielle : <strong>à Disneyland, tout le monde doit repartir avec le sourire !</strong></p>
+<p>Dans certaines versions de Main Street, il suffit même de tendre l'oreille près des fenêtres pour entendre les bruits et les conversations qui semblent provenir de l'intérieur des bâtiments.</p>
 </section>
 
 <section class="chapter">
 <h2>✦ Le dentiste arrive à La Réunion</h2>
-<p>
-Lorsque MiniDisneyland Réunion a commencé
-à créer sa propre Main Street miniature,
-une évidence s'est imposée :
-</p>
-<p>
-Pourquoi ne pas reprendre, nous aussi,
-cette amusante tradition ?
-</p>
-<p>
-C'est ainsi qu'est né notre petit
-cabinet de dentiste, avec sa façade
-rose, ses stores verts et son
-enseigne d'autrefois.
-</p>
-<p>
-Ici, aucune fraise dentaire ne vous
-attend derrière la porte, et rassurez-vous,
-personne ne vous demandera
-d'ouvrir grand la bouche !
-</p>
-<p>
-Notre dentiste a une mission
-bien plus agréable :
-</p>
-<p>
-<strong>
-Veiller symboliquement sur les
-sourires de tous nos visiteurs.
-</strong>
-</p>
+<p>Lorsque MiniDisneyland Réunion a commencé à créer sa propre Main Street miniature, une évidence s'est imposée : pourquoi ne pas reprendre cette amusante tradition ?</p>
+<p>C'est ainsi qu'est né notre petit cabinet de dentiste, avec sa façade rose, ses stores verts et son enseigne d'autrefois.</p>
+<p>Rassurez-vous, personne ne vous demandera d'ouvrir grand la bouche !</p>
 </section>
 
 <section class="chapter">
 <h2>✦ Le secret du plus beau sourire</h2>
-<p>
-À MiniDisneyland Réunion, nous ne
-promettons pas de réparer les dents.
-</p>
-<p>
-Mais nous espérons pouvoir faire
-quelque chose d'encore plus précieux :
-offrir quelques instants de bonheur,
-de rêve et d'émerveillement.
-</p>
-<p>
-Car derrière cette petite façade rose
-se cache finalement un souhait
-très simple…
-</p>
-<p>
-Que chaque personne qui franchit
-nos portes reparte avec des étoiles
-dans les yeux et un grand sourire
-sur le visage.
-</p>
+<p>Notre dentiste a une mission bien plus agréable : <strong>veiller symboliquement sur les sourires de tous nos visiteurs.</strong></p>
+<p>Que chaque personne qui franchit nos portes reparte avec des étoiles dans les yeux et un grand sourire sur le visage.</p>
 </section>
 
 <div class="ornament ornament-bottom">
 <span class="ornament-star">✦</span>
-<svg class="ornament-art" viewBox="0 0 100 110">
-<use href="#dent-ancienne"></use>
-</svg>
+<svg class="ornament-art" viewBox="0 0 100 110"><use href="#dent-ancienne"></use></svg>
 <span class="ornament-star">✦</span>
 </div>
-
-<p class="end">
-Car à MiniDisneyland Réunion,
-notre plus belle récompense n'est
-pas le nombre de visiteurs…
-mais le nombre de sourires
-que nous réussissons à créer.
-</p>
-
-<div class="page-footer">
-✦ FIN DU QUATRIÈME CONTE ✦
-</div>
-
+<p class="end">Car à MiniDisneyland Réunion, notre plus belle récompense est le nombre de sourires que nous réussissons à créer.</p>
+<div class="page-footer">✦ FIN DU QUATRIÈME CONTE ✦</div>
 </div>
 </article>
 
-<!-- LIVRE 5 : MAIN STREET BAKERY -->
+<!-- LIVRE 5 -->
 <article class="book" id="book-bakery">
 <div class="page">
-
 <div class="ornament">
 <span class="ornament-star">✦</span>
-<svg class="ornament-art bakery" viewBox="0 0 150 110">
-<use href="#bakery-ancienne"></use>
-</svg>
+<svg class="ornament-art bakery" viewBox="0 0 150 110"><use href="#bakery-ancienne"></use></svg>
 <span class="ornament-star">✦</span>
 </div>
-
 <div class="kicker">Les Secrets de Main Street</div>
 <h1>Main Street Bakery</h1>
 <h3>LA RECETTE DU BONHEUR</h3>
-
-<p class="quote">
-Une histoire de gourmandises,
-de traditions et de passionnés de Noël.
-</p>
+<p class="quote">Une histoire de gourmandises, de traditions et de passionnés de Noël.</p>
 
 <section class="chapter">
 <h2>✦ Une boulangerie pas comme les autres</h2>
-
 <p>Bienvenue à Main Street Bakery !</p>
-
-<p>
-Derrière cette jolie façade se préparent
-toutes les gourmandises qui accompagnent
-nos soirées magiques.
-</p>
-
-<p>
-Des délicieux croque-monsieurs au vin
-chaud de Noël, tout est préparé avec
-amour par le créateur de
-MiniDisneyland Réunion, puis réchauffé
-et servi avec le sourire par
-<strong>notre charmante Valérie !</strong>
-</p>
-
-<p>
-Et pour le vin chaud, la recette vient
-tout droit de ses origines alsaciennes !
-Un petit parfum des marchés de Noël
-d'Alsace, transporté sous le soleil
-de La Réunion.
-</p>
-
-<p>
-Car oui, même sous les tropiques,
-la magie de Noël se déguste aussi !
-</p>
+<p>Derrière cette jolie façade se préparent toutes les gourmandises qui accompagnent nos soirées magiques.</p>
+<p>Des délicieux croque-monsieurs au vin chaud de Noël, tout est préparé avec amour par le créateur de MiniDisneyland Réunion, puis réchauffé et servi avec le sourire par <strong>notre charmante Valérie !</strong></p>
+<p>Et pour le vin chaud, la recette vient tout droit de ses origines alsaciennes ! Un petit parfum des marchés de Noël d'Alsace, transporté sous le soleil de La Réunion.</p>
+<p>Car oui, même sous les tropiques, la magie de Noël se déguste aussi !</p>
 </section>
 
 <section class="chapter">
 <h2>✦ Les fenêtres des passionnés</h2>
-
-<p>
-Levez les yeux vers les fenêtres
-du premier étage !
-</p>
-
-<p>
-Vous y découvrirez le groupe Facebook
-<strong>« Passionné de Noël –
-Île de La Réunion »</strong>,
-une belle communauté grâce à laquelle
-MiniDisneyland Réunion s'est fait connaître.
-</p>
-
-<p>
-Un lieu où chacun partage ses décorations,
-ses créations et ses événements.
-</p>
-
-<p>
-Vous retrouverez également
-<strong>L'Atelier des Lutins</strong>,
-avec ses magnifiques villages miniatures
-réalisés en impression 3D,
-ainsi que <strong>Le Monde Magique
-de Sébastien</strong>, situé à Saint-Pierre,
-où se rencontrent l'univers Disney,
-les villages miniatures et la féerie
-de Noël.
-</p>
+<p>Levez les yeux vers les fenêtres du premier étage !</p>
+<p>Vous y découvrirez le groupe Facebook <strong>« Passionné de Noël – Île de La Réunion »</strong>, une belle communauté grâce à laquelle MiniDisneyland Réunion s'est fait connaître.</p>
+<p>Un lieu où chacun partage ses décorations, ses créations et ses événements.</p>
+<p>Vous retrouverez également <strong>L'Atelier des Lutins</strong>, avec ses magnifiques villages miniatures réalisés en impression 3D, ainsi que <strong>Le Monde Magique de Sébastien</strong>, situé à Saint-Pierre, où se rencontrent l'univers Disney, les villages miniatures et la féerie de Noël.</p>
 </section>
 
 <section class="chapter">
 <h2>❤️ Le secret de Main Street Bakery</h2>
-
-<p>
-Cette boulangerie ne raconte pas
-seulement une histoire de gourmandises.
-</p>
-
-<p>
-Elle célèbre les traditions,
-la créativité et surtout le plaisir
-de partager sa passion.
-</p>
-
-<p class="end">
-Car à MiniDisneyland Réunion,
-la plus belle recette du bonheur,
-c'est un peu de magie, beaucoup d'amour…
-et un bon croque-monsieur !
-</p>
+<p>Cette boulangerie ne raconte pas seulement une histoire de gourmandises.</p>
+<p>Elle célèbre les traditions, la créativité et surtout le plaisir de partager sa passion.</p>
+<p class="end">Car à MiniDisneyland Réunion, la plus belle recette du bonheur, c'est un peu de magie, beaucoup d'amour… et un bon croque-monsieur !</p>
 </section>
 
 <div class="ornament ornament-bottom">
 <span class="ornament-star">✦</span>
-<svg class="ornament-art bakery" viewBox="0 0 150 110">
-<use href="#bakery-ancienne"></use>
-</svg>
+<svg class="ornament-art bakery" viewBox="0 0 150 110"><use href="#bakery-ancienne"></use></svg>
 <span class="ornament-star">✦</span>
 </div>
-
-<div class="page-footer">
-✦ FIN DU CINQUIÈME CONTE ✦
-</div>
-
+<div class="page-footer">✦ FIN DU CINQUIÈME CONTE ✦</div>
 </div>
 </article>
 
-<!-- LIVRE 6 : THE MAGIC MAKERS -->
+<!-- LIVRE 6 -->
 <article class="book" id="book-makers">
 <div class="page">
-
 <div class="ornament">
 <span class="ornament-star">✦</span>
-<svg class="ornament-art makers" viewBox="0 0 150 120">
-<use href="#magic-makers-ancien"></use>
-</svg>
+<svg class="ornament-art makers" viewBox="0 0 150 120"><use href="#magic-makers-ancien"></use></svg>
 <span class="ornament-star">✦</span>
 </div>
-
-<div class="kicker">
-Les Secrets de Main Street
-</div>
-
+<div class="kicker">Les Secrets de Main Street</div>
 <h1>The Magic Makers</h1>
 <h3>LE PASSAGE SECRET DES CRÉATEURS DE MAGIE</h3>
-
-<p class="quote">
-Une histoire de passion, de complicité
-et de magie en coulisses.
-</p>
+<p class="quote">Une histoire de passion, de complicité et de magie en coulisses.</p>
 
 <section class="chapter">
 <h2>✦ Un passage pas comme les autres</h2>
-
-<p>
-À Main Street, certaines portes
-cachent de merveilleux secrets…
-</p>
-
-<p>
-Sous cette enseigne se trouve
-un passage très particulier,
-réservé à ceux que l'on appelle
-affectueusement
-<strong>les Magic Makers</strong>.
-</p>
-
-<p>
-Ce sont ces personnes formidables
-qui, dans l'ombre, donnent vie
-à MiniDisneyland Réunion.
-</p>
-
-<p>
-Sans elles, les lumières ne brilleraient
-pas aussi fort, les spectacles
-ne seraient pas aussi magiques…
-et cette petite aventure ne pourrait
-tout simplement pas fonctionner !
-</p>
-
+<p>À Main Street, certaines portes cachent de merveilleux secrets…</p>
+<p>Sous cette enseigne se trouve un passage très particulier, réservé à ceux que l'on appelle affectueusement <strong>les Magic Makers</strong>.</p>
+<p>Ce sont ces personnes formidables qui, dans l'ombre, donnent vie à MiniDisneyland Réunion.</p>
+<p>Sans elles, les lumières ne brilleraient pas aussi fort, les spectacles ne seraient pas aussi magiques… et cette petite aventure ne pourrait tout simplement pas fonctionner !</p>
 </section>
 
 <section class="chapter">
 <h2>✦ Un accès très VIP !</h2>
-
-<p>
-Attention, ce passage n'est
-pas ouvert à tout le monde !
-</p>
-
-<p>
-Seuls les détenteurs du précieux
-<strong>badge Magic Makers</strong>
-peuvent l'emprunter pour rejoindre
-les coulisses.
-</p>
-
-<p>
-Car après tout, même ceux qui
-fabriquent la magie méritent
-leur propre entrée VIP !
-</p>
-
+<p>Attention, ce passage n'est pas ouvert à tout le monde !</p>
+<p>Seuls les détenteurs du précieux <strong>badge Magic Makers</strong> peuvent l'emprunter pour rejoindre les coulisses.</p>
+<p>Car après tout, même ceux qui fabriquent la magie méritent leur propre entrée VIP !</p>
 </section>
 
 <section class="chapter">
 <h2>❤️ Le véritable secret des Magic Makers</h2>
-
-<p>
-Derrière chaque spectacle,
-chaque sourire et chaque moment
-d'émerveillement se cache
-une équipe de passionnés.
-</p>
-
-<p>
-Et si les visiteurs voient
-la magie prendre vie devant leurs yeux,
-les Magic Makers, eux, savent
-tout le travail et tout l'amour
-qu'il faut pour la créer.
-</p>
-
-<p class="end">
-Car à MiniDisneyland Réunion,
-la magie ne se fait jamais
-tout seul… elle se partage !
-</p>
-
+<p>Derrière chaque spectacle, chaque sourire et chaque moment d'émerveillement se cache une équipe de passionnés.</p>
+<p>Et si les visiteurs voient la magie prendre vie devant leurs yeux, les Magic Makers, eux, savent tout le travail et tout l'amour qu'il faut pour la créer.</p>
+<p class="end">Car à MiniDisneyland Réunion, la magie ne se fait jamais toute seule… elle se partage !</p>
 </section>
 
 <div class="ornament ornament-bottom">
 <span class="ornament-star">✦</span>
-<svg class="ornament-art makers" viewBox="0 0 150 120">
-<use href="#magic-makers-ancien"></use>
-</svg>
+<svg class="ornament-art makers" viewBox="0 0 150 120"><use href="#magic-makers-ancien"></use></svg>
 <span class="ornament-star">✦</span>
 </div>
-
-<div class="page-footer">
-✦ FIN DU SIXIÈME CONTE ✦
+<div class="page-footer">✦ FIN DU SIXIÈME CONTE ✦</div>
 </div>
+</article>
 
+<!-- LIVRE 7 : VOEGTLING HARDWARE -->
+<article class="book" id="book-hardware">
+<div class="page">
+<div class="ornament">
+<span class="ornament-star">✦</span>
+<svg class="ornament-art hardware" viewBox="0 0 160 120"><use href="#hardware-ancien"></use></svg>
+<span class="ornament-star">✦</span>
+</div>
+<div class="kicker">Les Secrets de Main Street</div>
+<h1>Vœgtling Hardware</h1>
+<h3>LA MAISON OÙ L'ON TROUVE TOUJOURS UNE SOLUTION</h3>
+<p class="quote">Depuis 1896 — Une histoire de famille, de générosité et de souvenirs.</p>
+
+<section class="chapter">
+<h2>✦ Une nouvelle vie en Alsace</h2>
+<p>En 1996, un petit garçon quitte son île de La Réunion pour rejoindre son père en métropole.</p>
+<p>Mais son père étant souvent en déplacement, c'est auprès de sa tante <strong>Lisbeth</strong> et de son oncle, dans la famille Vœgtling, qu'il va grandir.</p>
+<p><strong>C'est ainsi qu'en 1996, le numéro 42 devient sa résidence principale.</strong> Bien plus qu'une simple adresse, cette maison deviendra le décor de son enfance, de ses souvenirs et de ses plus belles années auprès de sa famille de cœur.</p>
+</section>
+
+<section class="chapter">
+<h2>✦ Deux métiers, beaucoup d'amour</h2>
+<p>Regardez les fenêtres de cette façade !</p>
+<p>L'une rend hommage à <strong>Lisbeth</strong>, qui a consacré de nombreuses années au repassage pour les autres. Un métier exigeant, exercé avec courage et dévouement.</p>
+<p>L'autre célèbre son oncle et son entreprise de réparation d'appareils électroportatifs. Ici, les machines en panne avaient toujours une chance de retrouver une seconde vie !</p>
+</section>
+
+<section class="chapter">
+<h2>✦ La quincaillerie aux mille trésors</h2>
+<p>Pourquoi une quincaillerie ?</p>
+<p>Parce que chez les Vœgtling, le bricolage est une véritable affaire de famille !</p>
+<p>Une vis introuvable ? Un outil particulier ? Une pièce dont personne ne connaît le nom ?</p>
+<p>Dans cette maison, il y a toujours quelqu'un pour prononcer cette phrase devenue presque légendaire :</p>
+<p class="quote"><strong>« Attends… je pense que j'ai ce que tu cherches ! »</strong></p>
+<p>Et le plus incroyable, c'est que bien souvent… c'est vrai !</p>
+</section>
+
+<section class="chapter">
+<h2>❤️ Bien plus qu'une façade</h2>
+<p>Cette quincaillerie est un hommage à une famille qui a accueilli un enfant venu de loin, l'a accompagné et l'a aidé à devenir l'homme qu'il est aujourd'hui.</p>
+<p>Et si l'enseigne indique <strong>1896</strong>, c'est parce qu'à Main Street, les souvenirs remontent le temps : 1996 devient 1896.</p>
+<p class="end">Car chez les Vœgtling, on ne trouve pas seulement des outils et des pièces détachées… On trouve surtout une famille, de l'amour et toujours une solution !</p>
+</section>
+
+<div class="ornament ornament-bottom">
+<span class="ornament-star">✦</span>
+<svg class="ornament-art hardware" viewBox="0 0 160 120"><use href="#hardware-ancien"></use></svg>
+<span class="ornament-star">✦</span>
+</div>
+<div class="page-footer">✦ FIN DU SEPTIÈME CONTE ✦</div>
 </div>
 </article>
 
 </div>
 
-<!-- SYSTEME DE RECONNAISSANCE -->
+<!-- RECONNAISSANCE DES FACADES -->
 <script>
 const scene=document.querySelector('a-scene');
 const intro=document.querySelector('#intro');
@@ -1629,51 +780,32 @@ const status=document.querySelector('#status');
 const bubbleTitle=document.querySelector('#bubble-title');
 
 /*
- CIBLES :
- 0 = Le Lumega
- 1 = Checkpoint Charly
- 2 = Guardian Angels
- 3 = Le Dentiste
- 4 = Main Street Bakery
- 5 = The Magic Makers
- 6 a 8 = futurs livres
+0 = Le Lumega
+1 = Checkpoint Charly
+2 = Guardian Angels
+3 = Le Dentiste
+4 = Main Street Bakery
+5 = The Magic Makers
+6 = Voegtling Hardware
+7 et 8 = futurs livres
 */
 
 const books=[
- {
-  title:'Le Lumega · 1924',
-  id:'book-lumega'
- },
- {
-  title:'Checkpoint Charly · 1853',
-  id:'book-charly'
- },
- {
-  title:'Guardian Angels · 1900',
-  id:'book-anges'
- },
- {
-  title:'Le Dentiste · Le sourire',
-  id:'book-dentiste'
- },
- {
-  title:'Main Street Bakery · La recette du bonheur',
-  id:'book-bakery'
- },
- {
-  title:'The Magic Makers · Le passage secret',
-  id:'book-makers'
- }
+{title:'Le Lumega · 1924',id:'book-lumega'},
+{title:'Checkpoint Charly · 1853',id:'book-charly'},
+{title:'Guardian Angels · 1900',id:'book-anges'},
+{title:'Le Dentiste · Le sourire',id:'book-dentiste'},
+{title:'Main Street Bakery · La recette du bonheur',id:'book-bakery'},
+{title:'The Magic Makers · Le passage secret',id:'book-makers'},
+{title:'Vœgtling Hardware · Les trésors de la famille',id:'book-hardware'}
 ];
 
 const places=Array.from({length:9},(_,index)=>({
- index,
- target:document.querySelector('#target-'+index),
- detected:false,
- title:books[index]?.title||null,
- book:books[index]
-  ?document.querySelector('#'+books[index].id)
-  :null
+index,
+target:document.querySelector('#target-'+index),
+detected:false,
+title:books[index]?.title||null,
+book:books[index]?document.querySelector('#'+books[index].id):null
 }));
 
 let activePlace=null;
@@ -1681,139 +813,84 @@ let storyOpen=false;
 let cameraStarted=false;
 
 function hideBubble(){
- found.classList.remove('visible');
+found.classList.remove('visible');
 }
 
 function visiblePlace(){
- if(
-  activePlace!==null &&
-  places[activePlace].detected &&
-  places[activePlace].book
- ){
-  return activePlace;
- }
-
- const place=places.find(
-  p=>p.detected&&p.book
- );
-
- return place?place.index:null;
+if(activePlace!==null&&places[activePlace].detected&&places[activePlace].book){
+return activePlace;
+}
+const place=places.find(p=>p.detected&&p.book);
+return place?place.index:null;
 }
 
 function showBubble(index){
- const place=places[index];
-
- if(
-  !cameraStarted ||
-  storyOpen ||
-  !place ||
-  !place.detected ||
-  !place.book
- )return;
-
- activePlace=index;
- bubbleTitle.textContent=place.title;
-
- hideBubble();
- void found.offsetWidth;
- found.classList.add('visible');
+const place=places[index];
+if(!cameraStarted||storyOpen||!place||!place.detected||!place.book)return;
+activePlace=index;
+bubbleTitle.textContent=place.title;
+hideBubble();
+void found.offsetWidth;
+found.classList.add('visible');
 }
 
-/* DETECTION DES NEUF FACADES */
 places.forEach(place=>{
-
- place.target.addEventListener('targetFound',()=>{
-  place.detected=true;
-
-  if(place.book){
-   showBubble(place.index);
-  }
- });
-
- place.target.addEventListener('targetLost',()=>{
-  place.detected=false;
-
-  if(activePlace===place.index){
-   hideBubble();
-   activePlace=null;
-
-   const next=visiblePlace();
-   if(next!==null)showBubble(next);
-  }
- });
-
+place.target.addEventListener('targetFound',()=>{
+place.detected=true;
+if(place.book)showBubble(place.index);
+});
+place.target.addEventListener('targetLost',()=>{
+place.detected=false;
+if(activePlace===place.index){
+hideBubble();
+activePlace=null;
+const next=visiblePlace();
+if(next!==null)showBubble(next);
+}
+});
 });
 
-/* DEMARRAGE DE LA CAMERA */
 document.querySelector('#start').onclick=async()=>{
- const btn=document.querySelector('#start');
- btn.disabled=true;
-
- status.textContent='Ouverture de la caméra...';
-
- try{
-  await scene.systems['mindar-image-system'].start();
-
-  cameraStarted=true;
-  intro.style.display='none';
-
-  const next=visiblePlace();
-  if(next!==null)showBubble(next);
-
- }catch(e){
-  status.textContent=
-   'Impossible d’ouvrir la caméra. Vérifiez les autorisations Safari.';
-
-  btn.disabled=false;
-  console.error(e);
- }
+const btn=document.querySelector('#start');
+btn.disabled=true;
+status.textContent='Ouverture de la caméra...';
+try{
+await scene.systems['mindar-image-system'].start();
+cameraStarted=true;
+intro.style.display='none';
+const next=visiblePlace();
+if(next!==null)showBubble(next);
+}catch(e){
+status.textContent='Impossible d’ouvrir la caméra. Vérifiez les autorisations Safari.';
+btn.disabled=false;
+console.error(e);
+}
 };
 
-/* OUVERTURE DU BON LIVRE */
 document.querySelector('#discover').onclick=()=>{
- if(
-  activePlace===null ||
-  !places[activePlace].book
- )return;
-
- storyOpen=true;
- hideBubble();
-
- places.forEach(p=>{
-  if(p.book){
-   p.book.classList.remove('active');
-  }
- });
-
- story.classList.add('open');
- story.scrollTop=0;
-
- const book=places[activePlace].book;
-
- void book.offsetWidth;
- book.classList.add('active');
+if(activePlace===null||!places[activePlace].book)return;
+storyOpen=true;
+hideBubble();
+places.forEach(p=>{
+if(p.book)p.book.classList.remove('active');
+});
+story.classList.add('open');
+story.scrollTop=0;
+const book=places[activePlace].book;
+void book.offsetWidth;
+book.classList.add('active');
 };
 
-/* FERMETURE DU LIVRE */
 document.querySelector('#close').onclick=()=>{
- story.classList.remove('open');
- storyOpen=false;
-
- places.forEach(p=>{
-  if(p.book){
-   p.book.classList.remove('active');
-  }
- });
-
- const next=visiblePlace();
-
- if(next!==null){
-  showBubble(next);
- }else{
-  hideBubble();
- }
+story.classList.remove('open');
+storyOpen=false;
+places.forEach(p=>{
+if(p.book)p.book.classList.remove('active');
+});
+const next=visiblePlace();
+if(next!==null)showBubble(next);
+else hideBubble();
 };
 </script>
-
 </body>
 </html>
