@@ -14,222 +14,241 @@
 <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
 
 <style>
-:root {
-  --navy:#071631;
-  --glass:rgba(7,22,49,.49);
-  --border:rgba(255,255,255,.7);
-  --gold:#f8e4ad;
-  --green:#a3ffd0;
-  --orange:#ffd39a;
-  --red:#ff9ca4;
+:root{
+--navy:#071631;
+--glass:rgba(7,22,49,.49);
+--border:rgba(255,255,255,.7);
+--green:#a3ffd0;
+--orange:#ffd39a;
+--red:#ff9ca4
 }
-* {box-sizing:border-box}
-html,body {margin:0;width:100%;height:100%}
-body {
-  background:var(--navy);
-  color:#fff;
-  font-family:Georgia,"Times New Roman",serif;
-  overflow:hidden;
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%}
+body{background:var(--navy);color:white;font-family:Georgia,"Times New Roman",serif;overflow:hidden}
+button{font:inherit;cursor:pointer}
+.hidden{display:none!important}
+#background{
+position:fixed;inset:0;z-index:2;
+background:#071631 url("./Bazaart_2026-11-20_132143.jpeg") center/cover no-repeat;
+pointer-events:none
 }
-button {font:inherit;cursor:pointer}
-.hidden {display:none!important}
-#background {
-  position:fixed;
-  inset:0;
-  z-index:2;
-  background:#071631 url("./Bazaart_2026-11-20_132143.jpeg") center/cover no-repeat;
-  pointer-events:none;
+body.ar-mode #background{display:none}
+#app{
+position:fixed;inset:0;z-index:20;overflow-y:auto;
+-webkit-overflow-scrolling:touch;
+padding:calc(18px + env(safe-area-inset-top)) 15px calc(35px + env(safe-area-inset-bottom))
 }
-body.ar-mode #background {display:none}
-#app {
-  position:fixed;
-  inset:0;
-  z-index:20;
-  overflow-y:auto;
-  -webkit-overflow-scrolling:touch;
-  padding:calc(18px + env(safe-area-inset-top)) 15px calc(35px + env(safe-area-inset-bottom));
+.wrap{max-width:600px;margin:auto}
+.section{display:none}
+.section.active{display:block}
+.logo-space{height:clamp(125px,24vh,220px)}
+.header{text-align:center;text-shadow:0 2px 12px #000a;margin-bottom:23px}
+.header h1{font-size:29px;font-weight:normal;margin:0 0 9px}
+.header p{font-size:10px;letter-spacing:2px}
+.glass{
+background:var(--glass);border:1px solid var(--border);
+border-radius:19px;backdrop-filter:blur(9px);
+-webkit-backdrop-filter:blur(9px);box-shadow:0 7px 22px #0003
 }
-.wrap {max-width:600px;margin:auto}
-.section {display:none}
-.section.active {display:block}
-.logo-space {height:clamp(125px,24vh,220px)}
-.header {text-align:center;text-shadow:0 2px 12px #000a;margin-bottom:23px}
-.header h1 {font-size:29px;font-weight:normal;margin:0 0 9px}
-.header p {font-size:10px;letter-spacing:2px}
-.glass {
-  background:var(--glass);
-  border:1px solid var(--border);
-  border-radius:19px;
-  backdrop-filter:blur(9px);
-  -webkit-backdrop-filter:blur(9px);
-  box-shadow:0 7px 22px #0003;
+.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.menu-card{
+min-height:137px;padding:15px 8px;color:white;
+display:flex;flex-direction:column;justify-content:center;
+align-items:center;text-align:center;gap:9px
 }
-.menu-grid {display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.menu-card {
-  min-height:137px;
-  padding:15px 8px;
-  color:white;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  gap:9px;
+.menu-card strong{font-size:14px;font-weight:normal}
+.menu-card small{font-size:11px;line-height:1.4}
+.menu-card.ticket-menu{grid-column:1/-1;min-height:104px;flex-direction:row;gap:15px}
+.ticket-label{text-align:left}
+.ticket-label strong,.ticket-label small{display:block}
+.ticket-label small{margin-top:5px}
+.icon{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+.icon svg{
+width:100%;height:100%;fill:none;stroke:currentColor;
+stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round
 }
-.menu-card strong {font-size:14px;font-weight:normal}
-.menu-card small {font-size:11px;line-height:1.4}
-.icon {display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
-.icon svg {
-  width:100%;
-  height:100%;
-  fill:none;
-  stroke:currentColor;
-  stroke-width:1.6;
-  stroke-linecap:round;
-  stroke-linejoin:round;
+.icon.large{width:53px;height:53px}
+.icon.medium{width:26px;height:26px}
+.panel{padding:18px;margin-top:15px}
+.panel h2{font-size:18px;font-weight:normal;margin:0 0 12px;display:flex;align-items:center;gap:9px}
+.panel p{font-size:14px;line-height:1.7;margin:10px 0}
+.highlight{font-size:18px!important}
+.sub{font-size:12px!important}
+.green{color:var(--green)!important}
+.orange{color:var(--orange)!important}
+.red{color:var(--red)!important}
+.status{
+display:inline-block;padding:6px 12px;border:1px solid currentColor;
+border-radius:20px;font-size:12px;background:#0003
 }
-.icon.large {width:53px;height:53px}
-.icon.medium {width:26px;height:26px}
-.icon.small {width:18px;height:18px}
-.panel {padding:18px;margin-top:15px}
-.panel h2 {font-size:18px;font-weight:normal;margin:0 0 12px;display:flex;align-items:center;gap:9px}
-.panel p {font-size:14px;line-height:1.7;margin:10px 0}
-.highlight {font-size:18px!important}
-.sub {font-size:12px!important}
-.green {color:var(--green)!important}
-.orange {color:var(--orange)!important}
-.red {color:var(--red)!important}
-.status {
-  display:inline-block;
-  padding:6px 12px;
-  border:1px solid currentColor;
-  border-radius:20px;
-  font-size:12px;
-  background:#0003;
+.action,.back{
+color:white;background:#ffffff1c;border:1px solid #fffc;
+border-radius:30px;padding:13px 16px
 }
-.action,.back {
-  color:white;
-  background:#ffffff1c;
-  border:1px solid #fffc;
-  border-radius:30px;
-  padding:13px 16px;
+.action{width:100%;margin-top:12px}
+.back{display:inline-flex;align-items:center;gap:7px}
+.page-title{text-align:center;padding:24px 0 12px;text-shadow:0 2px 10px #000a}
+.page-title h1{font-size:27px;font-weight:normal;margin:8px 0}
+.page-title p{font-size:11px;letter-spacing:2px}
+.event{display:flex;gap:14px;padding:15px 0;border-bottom:1px solid #ffffff40}
+.event:last-child{border-bottom:0}
+.event time{flex:0 0 55px;font-size:15px;font-weight:bold}
+.event strong{display:block;font-size:15px;font-weight:normal}
+.event small{display:block;font-size:12px;line-height:1.5;margin-top:5px}
+.footer{text-align:center;font-size:12px;padding:24px 0 35px}
+
+/* CAMÉRA */
+#camera-container{position:fixed;inset:0;z-index:1;overflow:hidden;background:#101b38}
+#camera-container a-scene,#camera-container .a-canvas{
+position:absolute!important;inset:0!important;width:100%!important;height:100%!important
 }
-.action {width:100%;margin-top:12px}
-.back {display:inline-flex;align-items:center;gap:7px}
-.page-title {text-align:center;padding:24px 0 12px;text-shadow:0 2px 10px #000a}
-.page-title h1 {font-size:27px;font-weight:normal;margin:8px 0}
-.page-title p {font-size:11px;letter-spacing:2px}
-.event {display:flex;gap:14px;padding:15px 0;border-bottom:1px solid #ffffff40}
-.event:last-child {border-bottom:0}
-.event time {flex:0 0 55px;font-size:15px;font-weight:bold}
-.event strong {display:block;font-size:15px;font-weight:normal}
-.event small {display:block;font-size:12px;line-height:1.5;margin-top:5px}
-.footer {text-align:center;font-size:12px;padding:24px 0 35px}
-#camera-container {position:fixed;inset:0;z-index:1;overflow:hidden;background:#101b38}
-#camera-container a-scene,#camera-container .a-canvas {
-  position:absolute!important;inset:0!important;width:100%!important;height:100%!important;
+#camera-container video{
+position:absolute!important;top:50%!important;left:50%!important;
+width:100%!important;height:100%!important;object-fit:cover!important;
+transform:translate(-50%,-50%)!important
 }
-#camera-container video {
-  position:absolute!important;top:50%!important;left:50%!important;
-  width:100%!important;height:100%!important;object-fit:cover!important;
-  transform:translate(-50%,-50%)!important;
+#camera-menu{
+position:fixed;z-index:35;top:calc(15px + env(safe-area-inset-top));
+left:15px;padding:12px 17px;color:white;border:1px solid white;
+border-radius:30px;background:#071631c9
 }
-#camera-menu {
-  position:fixed;z-index:35;top:calc(15px + env(safe-area-inset-top));left:15px;
-  padding:12px 17px;color:white;border:1px solid white;
-  border-radius:30px;background:#071631c9;
+#found{
+position:fixed;z-index:35;left:50%;
+bottom:calc(9% + env(safe-area-inset-bottom));
+transform:translateX(-50%);display:none;width:max-content;max-width:93%
 }
-#found {
-  position:fixed;z-index:35;left:50%;
-  bottom:calc(9% + env(safe-area-inset-bottom));
-  transform:translateX(-50%);display:none;width:max-content;max-width:93%;
+#found.visible{display:block}
+#discover{
+display:flex;align-items:center;gap:12px;color:white;
+background:#091c40e6;border:1px solid white;border-radius:35px;
+padding:14px 17px;backdrop-filter:blur(10px)
 }
-#found.visible {display:block}
-#discover {
-  display:flex;align-items:center;gap:12px;
-  color:white;background:#091c40e6;border:1px solid white;
-  border-radius:35px;padding:14px 17px;
-  backdrop-filter:blur(10px);
+#discover strong{display:block;font-size:14px;font-weight:normal}
+#discover small{display:block;font-size:12px;margin-top:5px}
+
+/* LIVRES */
+#story{
+display:none;position:fixed;inset:0;z-index:50;
+overflow-y:auto;background:#040c22f2;padding:25px 12px 70px;
+perspective:1200px
 }
-#discover strong {display:block;font-size:14px;font-weight:normal}
-#discover small {display:block;font-size:12px;margin-top:5px}
-#story {
-  display:none;position:fixed;inset:0;z-index:50;
-  overflow-y:auto;background:#040c22f2;padding:25px 12px 70px;
-  perspective:1200px;
+#story.open{display:block}
+#close{
+display:block;margin:0 auto 23px;padding:12px 20px;
+border-radius:30px;color:white;background:#ffffff20;border:1px solid white
 }
-#story.open {display:block}
-#close {
-  display:block;margin:0 auto 23px;padding:12px 20px;
-  border-radius:30px;color:white;background:#ffffff20;border:1px solid white;
+.book{display:none;max-width:570px;margin:auto;transform-origin:left center}
+.book.active{display:block;animation:bookOpen .8s ease-out}
+@keyframes bookOpen{
+from{opacity:0;transform:rotateY(-50deg) scale(.9)}
+to{opacity:1;transform:rotateY(0) scale(1)}
 }
-.book {display:none;max-width:570px;margin:auto;transform-origin:left center}
-.book.active {display:block;animation:bookOpen .8s ease-out}
-@keyframes bookOpen {
-  from {opacity:0;transform:rotateY(-50deg) scale(.9)}
-  to {opacity:1;transform:rotateY(0) scale(1)}
+.page{
+position:relative;color:#4c2924;text-align:center;padding:34px 24px;
+background:linear-gradient(90deg,#d5bc86,#f6e9c9 8%,#fff4d9 50%,#e7d2a6);
+border:5px double #c49a4b;border-radius:8px 18px 18px 8px;
+box-shadow:7px 9px 0 #b18c53,12px 16px 30px #0009
 }
-.page {
-  position:relative;color:#4c2924;text-align:center;
-  padding:34px 24px;
-  background:linear-gradient(90deg,#d5bc86,#f6e9c9 8%,#fff4d9 50%,#e7d2a6);
-  border:5px double #c49a4b;border-radius:8px 18px 18px 8px;
-  box-shadow:7px 9px 0 #b18c53,12px 16px 30px #0009;
+.page:before{
+content:"";position:absolute;inset:9px;border:1px solid #b88e47;
+border-radius:3px 12px 12px 3px;pointer-events:none
 }
-.page:before {
-  content:"";position:absolute;inset:9px;border:1px solid #b88e47;
-  border-radius:3px 12px 12px 3px;pointer-events:none;
+.ornament{color:#9b702e;font-size:34px}
+.kicker{font-size:11px;letter-spacing:3px;color:#865f34;text-transform:uppercase}
+.page h1{color:#7f2938;font-size:29px;margin:16px 0 5px}
+.page h2{color:#6e3d2e;font-size:21px;margin:28px 0 14px}
+.page h3{color:#8c6833;font-size:13px;letter-spacing:2px;margin:7px 0 25px}
+.page p{text-align:left;font-size:16px;line-height:1.8;margin:16px 0}
+.chapter{border-top:1px solid #c9a76c;padding-top:12px;margin-top:29px}
+.quote{text-align:center!important;font-style:italic;color:#7b3540;font-size:18px!important}
+.end{text-align:center!important;color:#7f2938;font-weight:bold}
+.page-footer{text-align:center;color:#9b702e;font-size:12px;margin-top:30px;letter-spacing:2px}
+.continue-exploration{
+position:relative;z-index:2;width:100%;padding:15px;margin-top:25px;
+color:#fff4d8;background:#82334b;border:2px solid #d7ae61;border-radius:30px
 }
-.ornament {color:#9b702e;font-size:34px}
-.kicker {font-size:11px;letter-spacing:3px;color:#865f34;text-transform:uppercase}
-.page h1 {color:#7f2938;font-size:29px;margin:16px 0 5px}
-.page h2 {color:#6e3d2e;font-size:21px;margin:28px 0 14px}
-.page h3 {color:#8c6833;font-size:13px;letter-spacing:2px;margin:7px 0 25px}
-.page p {text-align:left;font-size:16px;line-height:1.8;margin:16px 0}
-.chapter {border-top:1px solid #c9a76c;padding-top:12px;margin-top:29px}
-.quote {text-align:center!important;font-style:italic;color:#7b3540;font-size:18px!important}
-.end {text-align:center!important;color:#7f2938;font-weight:bold}
-.page-footer {text-align:center;color:#9b702e;font-size:12px;margin-top:30px;letter-spacing:2px}
-.continue-exploration {
-  position:relative;z-index:2;width:100%;padding:15px;margin-top:25px;
-  color:#fff4d8;background:#82334b;border:2px solid #d7ae61;border-radius:30px;
+
+/* BILLETS */
+.ticket-upload{
+border:1px dashed #ffffffa8;border-radius:18px;
+padding:24px 14px;text-align:center;background:#ffffff0b
 }
-#alert {
-  position:fixed;z-index:70;top:calc(15px + env(safe-area-inset-top));
-  left:50%;transform:translateX(-50%);width:min(92%,430px);
-  padding:19px;color:white;background:#081c41f2;border:1px solid white;
-  border-radius:18px;box-shadow:0 10px 35px #0009;
+.ticket-row{padding:15px 0;border-bottom:1px solid #ffffff40}
+.ticket-row:last-child{border-bottom:0}
+.ticket-name{font-size:14px;overflow-wrap:anywhere}
+.ticket-meta{font-size:11px;opacity:.8;margin-top:6px}
+.ticket-buttons{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.ticket-buttons button{
+color:white;background:#ffffff1c;border:1px solid #ffffffa8;
+border-radius:24px;padding:10px 14px;font-size:12px
 }
-#alert h2 {font-size:19px;font-weight:normal;margin:0 0 9px}
-#alert p {line-height:1.6;font-size:14px}
-#alert button {padding:11px 17px;color:white;border:1px solid white;background:#ffffff20;border-radius:25px}
-#install-overlay {
-  position:fixed;inset:0;z-index:100;background:#000b;
-  display:flex;align-items:center;justify-content:center;
-  padding:20px;
+.ticket-buttons .delete{color:#ffbec3;border-color:#ff9ca4}
+#ticket-file{display:none}
+#ticket-viewer{
+position:fixed;inset:0;z-index:90;background:#06142bf5;
+display:flex;flex-direction:column;
+padding:calc(12px + env(safe-area-inset-top)) 12px
+calc(12px + env(safe-area-inset-bottom))
 }
-.install-card {
-  width:min(100%,420px);max-height:90vh;overflow-y:auto;
-  color:white;background:linear-gradient(160deg,#0c2856,#07132e);
-  border:1px solid #d7c69a;border-radius:25px;
-  box-shadow:0 15px 55px #000b;padding:25px 21px;text-align:center;
+.viewer-top{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+#viewer-name{flex:1;min-width:0;overflow-wrap:anywhere;font-size:13px}
+.viewer-top button{
+color:white;background:#ffffff20;border:1px solid white;
+border-radius:25px;padding:11px 15px
 }
-.install-card h2 {font-size:24px;font-weight:normal;margin:12px 0}
-.install-card p {font-size:14px;line-height:1.7}
-.install-step {
-  border:1px solid #ffffff66;border-radius:13px;
-  padding:12px;margin:10px 0;text-align:left;font-size:13px;line-height:1.6;
+#viewer-content{
+flex:1;min-height:0;display:flex;align-items:center;
+justify-content:center;overflow:auto;background:#ffffff0b;border-radius:12px
 }
-.install-actions {display:flex;flex-direction:column;gap:10px;margin-top:18px}
-.install-actions button {
-  border-radius:30px;padding:13px 15px;
-  border:1px solid white;background:#ffffff20;color:white;
+#viewer-content img{max-width:100%;max-height:100%;object-fit:contain}
+#viewer-content iframe{width:100%;height:100%;border:0;background:white}
+#viewer-download{
+display:block;margin-top:12px;text-align:center;padding:13px;
+border:1px solid white;border-radius:25px;
+color:white;text-decoration:none;background:#ffffff20
 }
-.install-actions .primary {background:#fff;color:#071631}
-#install-note {font-size:11px;opacity:.8}
-@media(max-width:370px) {
-  .menu-card {min-height:118px}
-  .page {padding:28px 16px}
+
+/* INSTALLATION */
+#install-overlay{
+position:fixed;inset:0;z-index:100;background:#000b;
+display:flex;align-items:center;justify-content:center;padding:20px
+}
+.install-card{
+width:min(100%,420px);max-height:90vh;overflow-y:auto;
+color:white;background:linear-gradient(160deg,#0c2856,#07132e);
+border:1px solid #d7c69a;border-radius:25px;
+box-shadow:0 15px 55px #000b;padding:25px 21px;text-align:center
+}
+.install-card h2{font-size:24px;font-weight:normal;margin:12px 0}
+.install-card p{font-size:14px;line-height:1.7}
+.install-step{
+border:1px solid #ffffff66;border-radius:13px;
+padding:12px;margin:10px 0;text-align:left;font-size:13px;line-height:1.6
+}
+.install-actions{display:flex;flex-direction:column;gap:10px;margin-top:18px}
+.install-actions button{
+border-radius:30px;padding:13px 15px;
+border:1px solid white;background:#ffffff20;color:white
+}
+.install-actions .primary{background:#fff;color:#071631}
+#install-note{font-size:11px;opacity:.8}
+
+/* RAPPELS */
+#alert{
+position:fixed;z-index:70;top:calc(15px + env(safe-area-inset-top));
+left:50%;transform:translateX(-50%);width:min(92%,430px);
+padding:19px;color:white;background:#081c41f2;
+border:1px solid white;border-radius:18px;box-shadow:0 10px 35px #0009
+}
+#alert h2{font-size:19px;font-weight:normal;margin:0 0 9px}
+#alert p{line-height:1.6;font-size:14px}
+#alert button{
+padding:11px 17px;color:white;border:1px solid white;
+background:#ffffff20;border-radius:25px
+}
+@media(max-width:370px){
+.menu-card{min-height:118px}
+.page{padding:28px 16px}
 }
 </style>
 </head>
@@ -237,19 +256,22 @@ body.ar-mode #background {display:none}
 <body>
 <div id="background"></div>
 
-<!-- LES MÊMES PICTOGRAMMES QUE LE MENU -->
+<!-- PICTOGRAMMES BLANCS -->
 <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
 <symbol id="i-search" viewBox="0 0 64 64">
 <circle cx="27" cy="27" r="17"/>
-<path d="M39 39L55 55M18 27H36M27 18V36" />
+<path d="M39 39L55 55M18 27H36M27 18V36"/>
 <path d="M45 9V17M41 13H49M52 23V29M49 26H55"/>
 </symbol>
+
 <symbol id="i-fireworks" viewBox="0 0 64 64">
 <path d="M32 8V20M32 36V48M12 28H24M40 28H52M18 14L26 22M38 34L46 42M46 14L38 22M26 34L18 42"/>
 <path d="M32 20L35 25L41 28L35 31L32 36L29 31L23 28L29 25Z"/>
 <path d="M12 45V57M6 51H18M45 44L49 48L53 44M49 48V57"/>
-<circle cx="10" cy="13" r="2"/><circle cx="53" cy="10" r="2"/>
+<circle cx="10" cy="13" r="2"/>
+<circle cx="53" cy="10" r="2"/>
 </symbol>
+
 <symbol id="i-space" viewBox="0 0 80 64">
 <circle cx="65" cy="12" r="8"/>
 <path d="M62 9L65 12L63 15M8 18L25 31L18 39L2 26Z"/>
@@ -260,23 +282,25 @@ body.ar-mode #background {display:none}
 <path d="M14 50V61M27 42V61M61 39V61M72 31V61" opacity=".55"/>
 <path d="M19 43L24 39L32 40L36 45"/>
 </symbol>
+
 <symbol id="i-info" viewBox="0 0 48 48">
 <circle cx="24" cy="24" r="19"/>
 <path d="M24 21V34M19 34H29M18 21H24"/>
 <circle cx="24" cy="14" r="1.5" fill="currentColor" stroke="none"/>
 </symbol>
-<symbol id="i-clock" viewBox="0 0 48 48">
-<circle cx="24" cy="24" r="19"/><path d="M24 11V24L33 29"/>
-</symbol>
-<symbol id="i-arrow" viewBox="0 0 24 24">
-<path d="M15 5L8 12L15 19"/>
-</symbol>
+
 <symbol id="i-book" viewBox="0 0 48 48">
 <path d="M24 11C17 6 10 7 4 10V37C11 34 18 34 24 39M24 11C31 6 38 7 44 10V37C37 34 30 34 24 39M24 11V39"/>
 </symbol>
+
+<symbol id="i-ticket" viewBox="0 0 64 64">
+<path d="M8 17H56V26C52 26 49 29 49 32S52 38 56 38V47H8V38C12 38 15 35 15 32S12 26 8 26Z"/>
+<path d="M25 18V23M25 28V34M25 39V46" stroke-dasharray="2 3"/>
+<path d="M39 23L43 29L50 30L45 35L46 42L39 39L32 42L33 35L28 30L35 29Z"/>
+</symbol>
 </svg>
 
-<!-- CAMÉRA -->
+<!-- RÉALITÉ AUGMENTÉE -->
 <div id="camera-container">
 <a-scene
 mindar-image="imageTargetSrc: ./targets.mind; autoStart: false; uiScanning: yes;"
@@ -310,26 +334,39 @@ device-orientation-permission-ui="enabled: false">
 </header>
 
 <div class="menu-grid">
+
 <button class="menu-card glass" data-go="explore">
 <span class="icon large"><svg><use href="#i-search"/></svg></span>
 <strong>Explorer Main Street</strong>
 <small>Les neuf histoires secrètes</small>
 </button>
+
 <button class="menu-card glass" data-go="schedule">
 <span class="icon large"><svg><use href="#i-fireworks"/></svg></span>
 <strong>Horaires des spectacles</strong>
 <small>Votre programme magique</small>
 </button>
+
 <button class="menu-card glass" data-go="space">
 <span class="icon large"><svg><use href="#i-space"/></svg></span>
 <strong>Space Mountain VR</strong>
 <small>De la Terre à la Lune</small>
 </button>
+
 <button class="menu-card glass" data-go="information">
 <span class="icon large"><svg><use href="#i-info"/></svg></span>
 <strong>Informations pratiques</strong>
 <small>Profitez de votre visite</small>
 </button>
+
+<button class="menu-card glass ticket-menu" data-go="tickets">
+<span class="icon large"><svg><use href="#i-ticket"/></svg></span>
+<span class="ticket-label">
+<strong>Mes billets magiques</strong>
+<small>Importer et retrouver mes billets</small>
+</span>
+</button>
+
 </div>
 
 <div class="panel glass">
@@ -347,16 +384,21 @@ device-orientation-permission-ui="enabled: false">
 </div>
 
 <div class="panel glass">
+<h2><span class="icon medium"><svg><use href="#i-ticket"/></svg></span>Votre entrée dans la magie</h2>
+<p>Retrouvez tous vos billets Billetweb directement dans votre Compagnon Magique.</p>
+<button class="action" data-go="tickets">Accéder à mes billets</button>
+</div>
+
+<div class="panel glass">
 <h2><span class="icon medium"><svg><use href="#i-info"/></svg></span>Votre application magique</h2>
-<p>Installez le Compagnon Magique sur votre écran d'accueil pour le retrouver facilement.</p>
+<p>Ajoutez le Compagnon Magique à votre écran d'accueil pour le retrouver facilement.</p>
 <button class="action" id="show-install">Comment installer l'application ?</button>
-<p class="sub">Les rappels des spectacles fonctionnent actuellement lorsque le site est ouvert.</p>
 </div>
 
 <p class="footer">✧ La magie se cache dans les moindres détails ✧</p>
 </section>
 
-<!-- PROGRAMME -->
+<!-- HORAIRES -->
 <section id="schedule" class="section">
 <button class="back" data-go="home">‹ Menu magique</button>
 <div class="page-title">
@@ -385,7 +427,7 @@ device-orientation-permission-ui="enabled: false">
 <p>19h55 : Les Vœux Magiques de Noël.</p>
 <p>20h10 : Illumination du sapin.</p>
 <p>20h40 : Disney Illuminations.</p>
-<p class="sub">Calendrier : tous les soirs du 20 novembre au 31 décembre 2026. Les rappels intégrés s'affichent lorsque le site est ouvert.</p>
+<p class="sub">Programmation : tous les soirs du 20 novembre au 31 décembre 2026. Les rappels s'affichent lorsque cette page est ouverte.</p>
 </div>
 </section>
 
@@ -397,11 +439,13 @@ device-orientation-permission-ui="enabled: false">
 <h1>Space Mountain VR</h1>
 <p>DE LA TERRE À LA LUNE</p>
 </div>
+
 <div class="panel glass">
 <h2>Statut de l'attraction</h2>
 <p><span id="space-status" class="status">Chargement...</span></p>
 <p id="space-detail"></p>
 </div>
+
 <div class="panel glass">
 <h2>Horaires de l'attraction</h2>
 <div class="event"><time>19h45</time><div><strong>Ouverture</strong><small>Premier départ vers la Lune.</small></div></div>
@@ -409,6 +453,7 @@ device-orientation-permission-ui="enabled: false">
 <div class="event"><time>21h30</time><div><strong>Réouverture prévue</strong><small>Sous réserve de confirmation par l'équipe.</small></div></div>
 <div class="event"><time>22h00</time><div><strong>Fermeture</strong><small>Dernier retour sur Terre.</small></div></div>
 </div>
+
 <div class="panel glass">
 <h2>Avant votre voyage</h2>
 <p>Space Mountain VR est une expérience de réalité virtuelle inspirée de De la Terre à la Lune.</p>
@@ -424,57 +469,122 @@ device-orientation-permission-ui="enabled: false">
 <h1>Informations pratiques</h1>
 <p>PROFITEZ DE VOTRE VISITE</p>
 </div>
+
 <div class="panel glass">
 <h2>Bienvenue chez nous</h2>
 <p>MiniDisneyland Réunion est une expérience immersive imaginée avec passion dans un petit appartement à Saint-Pierre. L'entrée est gratuite.</p>
 </div>
+
 <div class="panel glass">
 <h2>Horaires</h2>
 <p>Ouverture des portes à 19h30. Fin de soirée à 22h00.</p>
 <p>Les spectacles étant automatisés, nous vous remercions d'arriver à l'heure.</p>
 </div>
+
 <div class="panel glass">
 <h2>Photos et vidéos</h2>
 <p>Vous pouvez prendre des photos et des vidéos. Pour préserver la magie des spectacles, merci d'éviter les flashs.</p>
 </div>
+
 <div class="panel glass">
 <h2>Nos précieux décors</h2>
 <p>Tous nos décors ont été réalisés avec amour. Certains sont aussi fragiles que les ailes de la Fée Clochette ! Merci de les admirer avec les yeux.</p>
 </div>
+
 <div class="panel glass">
 <h2>Besoin de partir ?</h2>
 <p>Prévenez simplement un Magic Maker. Quelqu'un vous accompagnera jusqu'à la sortie de la résidence.</p>
 </div>
+
 <div class="panel glass">
 <h2>Les Magic Makers</h2>
 <p>Derrière chaque spectacle se cache une équipe de passionnés qui rend cette aventure possible.</p>
 </div>
 </section>
 
+<!-- MES BILLETS MAGIQUES -->
+<section id="tickets" class="section">
+<button class="back" data-go="home">‹ Menu magique</button>
+
+<div class="page-title">
+<span class="icon large"><svg><use href="#i-ticket"/></svg></span>
+<h1>Mes billets magiques</h1>
+<p>VOTRE PASSEPORT POUR LA MAGIE</p>
+</div>
+
+<div class="panel glass">
+<h2>Vos billets, toujours à portée de main</h2>
+<p>Importez les billets téléchargés depuis Billetweb et retrouvez-les facilement le soir de votre visite.</p>
+
+<div class="ticket-upload">
+<span class="icon large"><svg><use href="#i-ticket"/></svg></span>
+<p>Un petit clic et votre billet rejoint votre collection magique !</p>
+<input
+id="ticket-file"
+type="file"
+accept=".pdf,.jpg,.jpeg,.png,.webp,application/pdf,image/jpeg,image/png,image/webp"
+multiple>
+<button id="import-ticket" class="action" type="button">
++ Importer mes billets
+</button>
+<p class="sub">PDF, JPG, PNG ou WebP — 15 Mo maximum par fichier.</p>
+</div>
+</div>
+
+<div class="panel glass">
+<h2>Ma collection de billets</h2>
+<p id="ticket-count" class="sub"></p>
+<div id="ticket-list">
+<p>Chargement de vos billets...</p>
+</div>
+</div>
+
+<div class="panel glass">
+<h2>Le soir de votre visite</h2>
+<p>Ouvrez votre Compagnon Magique, choisissez votre billet et présentez-le à l'équipe à votre arrivée.</p>
+<p class="sub">Vos billets sont enregistrés uniquement dans ce navigateur, sur cet appareil. Ils ne sont pas transmis à MiniDisneyland Réunion et ne sont pas vérifiés automatiquement auprès de Billetweb.</p>
+<p class="sub">Conservez également vos billets originaux. Un changement de téléphone ou la suppression des données du navigateur peut effacer votre collection.</p>
+</div>
+</section>
+
 </div>
 </main>
 
+<!-- MENU CAMÉRA -->
 <button id="camera-menu" class="hidden">☰ Menu magique</button>
 
 <div id="found">
 <button id="discover">
 <span class="icon medium"><svg><use href="#i-book"/></svg></span>
-<span><strong id="bubble-title">Un secret découvert</strong><small>Toucher pour découvrir son histoire</small></span>
+<span>
+<strong id="bubble-title">Un secret découvert</strong>
+<small>Toucher pour découvrir son histoire</small>
+</span>
 </button>
 </div>
 
-<!-- LIVRES DE MAIN STREET -->
+<!-- LIVRES -->
 <div id="story">
 <button id="close">✕ Retour à l'exploration</button>
 <div id="books-container"></div>
 </div>
 
-<!-- POP-UP D'INSTALLATION -->
+<!-- VISIONNEUSE BILLETS -->
+<div id="ticket-viewer" class="hidden" role="dialog" aria-modal="true" aria-label="Afficher mon billet">
+<div class="viewer-top">
+<strong id="viewer-name"></strong>
+<button id="close-viewer">✕ Fermer</button>
+</div>
+<div id="viewer-content"></div>
+<a id="viewer-download" href="#" download>Enregistrer mon billet</a>
+</div>
+
+<!-- INSTALLATION -->
 <div id="install-overlay" class="hidden" role="dialog" aria-modal="true" aria-labelledby="install-title">
 <div class="install-card">
 <span class="icon large"><svg><use href="#i-fireworks"/></svg></span>
 <h2 id="install-title">Emportez la magie avec vous !</h2>
-<p>Installez le <strong>Compagnon Magique</strong> sur l'écran d'accueil de votre téléphone pour retrouver Main Street, les spectacles et Space Mountain en un instant.</p>
+<p>Ajoutez le Compagnon Magique sur l'écran d'accueil de votre téléphone pour retrouver facilement les spectacles, les histoires et vos billets.</p>
 
 <div id="ios-instructions" class="hidden">
 <div class="install-step">
@@ -487,7 +597,7 @@ device-orientation-permission-ui="enabled: false">
 
 <div id="android-instructions" class="hidden">
 <div class="install-step">
-<strong>1.</strong> Ouvrez le site dans Chrome.<br>
+<strong>1.</strong> Ouvrez ce site dans Chrome.<br>
 <strong>2.</strong> Touchez le menu ⋮.<br>
 <strong>3.</strong> Choisissez « Installer l'application » ou « Ajouter à l'écran d'accueil ».
 </div>
@@ -495,11 +605,11 @@ device-orientation-permission-ui="enabled: false">
 
 <div id="other-instructions" class="hidden">
 <div class="install-step">
-Utilisez le menu de votre navigateur pour ajouter le site à l'écran d'accueil, si cette fonction est disponible.
+Utilisez le menu de votre navigateur pour ajouter ce site à l'écran d'accueil, si cette fonction est disponible.
 </div>
 </div>
 
-<p id="install-note">L'installation permet de retrouver facilement le site. Les notifications lorsque l'application est fermée nécessitent une activation supplémentaire.</p>
+<p id="install-note">Les notifications lorsque le site est fermé nécessitent une configuration supplémentaire.</p>
 
 <div class="install-actions">
 <button class="primary hidden" id="native-install">Installer l'application</button>
@@ -508,7 +618,7 @@ Utilisez le menu de votre navigateur pour ajouter le site à l'écran d'accueil,
 </div>
 </div>
 
-<!-- RAPPEL À L'ÉCRAN -->
+<!-- RAPPEL SPECTACLE -->
 <div id="alert" class="hidden" role="alertdialog" aria-live="assertive">
 <h2>
 <span class="icon medium"><svg><use href="#i-fireworks"/></svg></span>
@@ -521,14 +631,10 @@ Un spectacle approche !
 <script>
 "use strict";
 
-/*
- CALENDRIER DES REPRÉSENTATIONS
- Modifiable plus tard.
+/* ===================================
+   CALENDRIER DES REPRÉSENTATIONS
+   =================================== */
 
- Pour désactiver une date particulière,
- ajoutez-la dans excludedDates :
- par exemple "2026-12-24".
-*/
 const CALENDAR = {
   start:"2026-11-20",
   end:"2026-12-31",
@@ -541,12 +647,12 @@ const SHOWS = [
   {time:1245,reminder:1240,name:"Disney Illuminations",place:"le château"}
 ];
 
-const $ = s => document.querySelector(s);
+const $ = selector => document.querySelector(selector);
+
 const scene = $("a-scene");
 const app = $("#app");
 const story = $("#story");
 const found = $("#found");
-const alerted = new Set();
 
 let cameraStarted = false;
 let cameraStarting = false;
@@ -554,180 +660,191 @@ let storyOpen = false;
 let activePlace = null;
 let deferredInstallPrompt = null;
 
-/* HISTOIRES */
+const alerted = new Set();
+
+/* ===================================
+   LES NEUF HISTOIRES DE MAIN STREET
+   =================================== */
+
 const stories = [
 {
- title:"Le Lumega",
- subtitle:"DEPUIS 1924",
- quote:"Une histoire de burgers, de danse et d'amitié.",
- chapters:[
- ["Il était une fois...","En 2024, Ludovic et Meghane arrivèrent à La Réunion avec leurs filles, Emy et Ambre, pour commencer une nouvelle aventure. Au rez-de-chaussée de la résidence, ils ouvrirent un snack baptisé Le Lumega, où ils préparaient de délicieux burgers entièrement faits maison."],
- ["Une amitié inattendue","Au fil des jours, une belle amitié naquit entre cette famille et le créateur de MiniDisneyland Réunion. Lorsque les parents travaillaient et que les enfants n'avaient pas école, Emy et Ambre venaient régulièrement passer leurs journées chez lui."],
- ["L'école de danse d'Emy","Passionnée de danse, Emy méritait bien sa propre école ! Une enseigne lui fut dédiée, avec une promesse : grâce et élégance depuis 1917."],
- ["Les meilleures knacks d'Ambre","Quant à Ambre, grande amatrice de knacks, elle reçut un titre particulier : celui de servir les meilleures knacks de toute la ville !"],
- ["Le secret des dates","Pour retrouver le charme d'une ville d'autrefois, les dates de Main Street ont été reculées de cent ans. Ainsi, 2024 est devenue 1924 et 2017 est devenue 1917."],
- ["Une façade pour ne jamais oublier","Depuis, Ludovic, Meghane, Emy et Ambre sont retournés vivre en métropole. Mais leur histoire est restée ici. Cette façade leur est dédiée, en souvenir des burgers, des journées passées ensemble, des rires des enfants et surtout d'une belle amitié."]
- ],
- ending:"À MiniDisneyland Réunion, derrière certaines façades se cachent de véritables histoires de cœur."
+title:"Le Lumega",
+subtitle:"DEPUIS 1924",
+quote:"Une histoire de burgers, de danse et d'amitié.",
+chapters:[
+["Il était une fois...","En 2024, Ludovic et Meghane arrivèrent à La Réunion avec leurs filles, Emy et Ambre, pour commencer une nouvelle aventure. Au rez-de-chaussée de la résidence, ils ouvrirent un snack baptisé Le Lumega, où ils préparaient de délicieux burgers entièrement faits maison."],
+["Une amitié inattendue","Au fil des jours, une belle amitié naquit entre cette famille et le créateur de MiniDisneyland Réunion. Lorsque les parents travaillaient et que les enfants n'avaient pas école, Emy et Ambre venaient régulièrement passer leurs journées chez lui."],
+["L'école de danse d'Emy","Passionnée de danse, Emy méritait bien sa propre école ! Une enseigne lui fut dédiée, avec une promesse : grâce et élégance depuis 1917."],
+["Les meilleures knacks d'Ambre","Quant à Ambre, grande amatrice de knacks, elle reçut un titre particulier : celui de servir les meilleures knacks de toute la ville !"],
+["Le secret des dates","Pour retrouver le charme d'une ville d'autrefois, les dates de Main Street ont été reculées de cent ans. Ainsi, 2024 est devenue 1924 et 2017 est devenue 1917."],
+["Une façade pour ne jamais oublier","Depuis, Ludovic, Meghane, Emy et Ambre sont retournés vivre en métropole. Mais leur histoire est restée ici. Cette façade leur est dédiée, en souvenir des burgers, des journées passées ensemble, des rires des enfants et surtout d'une belle amitié."]
+],
+ending:"À MiniDisneyland Réunion, derrière certaines façades se cachent de véritables histoires de cœur."
 },
 {
- title:"Checkpoint Charly",
- subtitle:"DEPUIS 1853",
- quote:"Une histoire de souvenirs, de voyages et de transmission.",
- chapters:[
- ["Il était une fois Charly","En 1953 naquit un garçon prénommé Charles, que ses proches surnommeraient affectueusement Charly. Originaire d'Alsace, où les cigognes font partie du paysage, Charly allait vivre une histoire qui le mènerait bien au-delà de ses terres natales."],
- ["Un souvenir de Berlin","Durant son service militaire, Charly fut amené à travailler à Berlin, à une époque où le célèbre mur séparait encore la ville. C'est de ce chapitre de sa vie qu'est né le nom de cette façade : Checkpoint Charly, un clin d'œil au célèbre poste-frontière berlinois."],
- ["La cigogne d'Alsace","Sur l'enseigne, une cigogne veille fièrement sur la façade. Elle représente l'Alsace, les racines familiales et les souvenirs qui traversent les générations."],
- ["L'horlogerie de Charly","Charly possède une qualité particulière : il ne supporte pas les retards ! Alors, quoi de plus naturel que de lui offrir son propre atelier de réparation de montres ? Ici, chaque seconde compte !"],
- ["La banque Schildknecht","Charly a toujours eu un talent pour gérer les comptes, organiser les finances et donner de précieux conseils. Une qualité dont son fils bénéficie encore aujourd'hui."],
- ["L'école de conduite","Charly possède également sa propre école de conduite. Une enseigne pleine de fantaisie qui rappelle que chaque commerce raconte un morceau de la vie de ceux qu'on aime."],
- ["Le secret de 1853","Comme pour les autres bâtiments de Main Street, les années ont été reculées de cent ans. 1953, l'année de naissance de Charles, est donc devenue 1853."]
- ],
- ending:"Checkpoint Charly est un hommage à un père, à ses origines alsaciennes, à ses souvenirs et à tous les conseils qu'il transmet à son fils."
+title:"Checkpoint Charly",
+subtitle:"DEPUIS 1853",
+quote:"Une histoire de souvenirs, de voyages et de transmission.",
+chapters:[
+["Il était une fois Charly","En 1953 naquit un garçon prénommé Charles, que ses proches surnommeraient affectueusement Charly. Originaire d'Alsace, où les cigognes font partie du paysage, Charly allait vivre une histoire qui le mènerait bien au-delà de ses terres natales."],
+["Un souvenir de Berlin","Durant son service militaire, Charly fut amené à travailler à Berlin, à une époque où le célèbre mur séparait encore la ville. C'est de ce chapitre de sa vie qu'est né le nom de cette façade : Checkpoint Charly, un clin d'œil au célèbre poste-frontière berlinois."],
+["La cigogne d'Alsace","Sur l'enseigne, une cigogne veille fièrement sur la façade. Elle représente l'Alsace, les racines familiales et les souvenirs qui traversent les générations."],
+["L'horlogerie de Charly","Charly possède une qualité particulière : il ne supporte pas les retards ! Alors, quoi de plus naturel que de lui offrir son propre atelier de réparation de montres ? Ici, chaque seconde compte !"],
+["La banque Schildknecht","Charly a toujours eu un talent pour gérer les comptes, organiser les finances et donner de précieux conseils. Une qualité dont son fils bénéficie encore aujourd'hui."],
+["L'école de conduite","Charly possède également sa propre école de conduite. Une enseigne pleine de fantaisie qui rappelle que chaque commerce raconte un morceau de la vie de ceux qu'on aime."],
+["Le secret de 1853","Comme pour les autres bâtiments de Main Street, les années ont été reculées de cent ans. 1953, l'année de naissance de Charles, est donc devenue 1853."]
+],
+ending:"Checkpoint Charly est un hommage à un père, à ses origines alsaciennes, à ses souvenirs et à tous les conseils qu'il transmet à son fils."
 },
 {
- title:"Guardian Angels",
- subtitle:"MEMORIAL HALL — DEPUIS 1900",
- quote:"L'histoire de deux anges gardiens et d'une magie qui ne s'éteint jamais.",
- chapters:[
- ["Il était une fois deux étoiles","Dans une petite rue de Main Street se trouve une société de sécurité bien particulière. Cette société est dirigée par deux anges gardiens : Monette et Maëlle. Deux étoiles parties bien trop tôt, mais dont la lumière continue de briller dans le cœur de ceux qui les aiment."],
- ["Monette, une maman devenue étoile","Monette était la maman du créateur de MiniDisneyland Réunion. Partie beaucoup trop tôt, elle a laissé derrière elle un amour qui n'a jamais disparu. Aujourd'hui, elle est devenue symboliquement l'un des anges gardiens de Main Street, veillant sur les rêves, les sourires et les moments de bonheur."],
- ["Le rêve de Maëlle","Maëlle était la fille d'une amie. Alors qu'elle affrontait une grave maladie, elle avait un rêve : visiter Disneyland. Mais son état de santé rendait ce voyage difficile. Alors une idée naquit : et si Disneyland venait jusqu'à elle ? Une soirée fut imaginée spécialement pour Maëlle, afin de lui offrir un moment d'évasion, de féerie et de bonheur. Ce soir-là, le plus important n'était pas la taille d'un château ni le nombre d'attractions. C'était de faire vivre un rêve."],
- ["Une magie qui continue","Depuis, Maëlle nous a quittés. Mais son histoire fait désormais partie de l'âme de MiniDisneyland Réunion. Derrière chaque illumination, chaque spectacle et chaque sourire, il existe cette même envie : faire voyager les cœurs, même lorsque l'on ne peut pas voyager bien loin."],
- ["Guardian Angels Security Company","Monette et Maëlle sont devenues les deux responsables imaginaires de cette étonnante société de sécurité. Leur mission ? Veiller symboliquement sur les visiteurs, protéger les souvenirs précieux et garder intacte la magie de Main Street. Sur la façade, leurs noms sont inscrits : MONETTE & MAËLLE — TEAM LEADERS."]
- ],
- ending:"Monette et Maëlle. Pour toujours, les gardiennes de Main Street."
+title:"Guardian Angels",
+subtitle:"MEMORIAL HALL — DEPUIS 1900",
+quote:"L'histoire de deux anges gardiens et d'une magie qui ne s'éteint jamais.",
+chapters:[
+["Il était une fois deux étoiles","Dans une petite rue de Main Street se trouve une société de sécurité bien particulière. Cette société est dirigée par deux anges gardiens : Monette et Maëlle. Deux étoiles parties bien trop tôt, mais dont la lumière continue de briller dans le cœur de ceux qui les aiment."],
+["Monette, une maman devenue étoile","Monette était la maman du créateur de MiniDisneyland Réunion. Partie beaucoup trop tôt, elle a laissé derrière elle un amour qui n'a jamais disparu. Aujourd'hui, elle est devenue symboliquement l'un des anges gardiens de Main Street, veillant sur les rêves, les sourires et les moments de bonheur."],
+["Le rêve de Maëlle","Maëlle était la fille d'une amie. Alors qu'elle affrontait une grave maladie, elle avait un rêve : visiter Disneyland. Mais son état de santé rendait ce voyage difficile. Alors une idée naquit : et si Disneyland venait jusqu'à elle ? Une soirée fut imaginée spécialement pour Maëlle, afin de lui offrir un moment d'évasion, de féerie et de bonheur. Ce soir-là, le plus important n'était pas la taille d'un château ni le nombre d'attractions. C'était de faire vivre un rêve."],
+["Une magie qui continue","Depuis, Maëlle nous a quittés. Mais son histoire fait désormais partie de l'âme de MiniDisneyland Réunion. Derrière chaque illumination, chaque spectacle et chaque sourire, il existe cette même envie : faire voyager les cœurs, même lorsque l'on ne peut pas voyager bien loin."],
+["Guardian Angels Security Company","Monette et Maëlle sont devenues les deux responsables imaginaires de cette étonnante société de sécurité. Leur mission ? Veiller symboliquement sur les visiteurs, protéger les souvenirs précieux et garder intacte la magie de Main Street. Sur la façade, leurs noms sont inscrits : MONETTE & MAËLLE — TEAM LEADERS."]
+],
+ending:"Monette et Maëlle. Pour toujours, les gardiennes de Main Street."
 },
 {
- title:"Le Dentiste de Main Street",
- subtitle:"LE SECRET DU SOURIRE",
- quote:"Une histoire de dents, de magie et de sourires !",
- chapters:[
- ["Un drôle de dentiste","Dans une petite rue aux façades colorées se trouve un cabinet pas tout à fait comme les autres. Pourquoi installer un dentiste dans un endroit où tout n'est que rêve et enchantement ?"],
- ["Un clin d'œil à Walt Disney","Selon une anecdote racontée autour de Main Street, Walt Disney aurait imaginé une façade de dentiste pour rappeler une chose essentielle : à Disneyland, tout le monde doit repartir avec le sourire ! Dans certaines versions de Main Street, il suffit de tendre l'oreille près des fenêtres pour entendre les conversations et les bruits qui semblent provenir des bâtiments."],
- ["Le dentiste arrive à La Réunion","Lorsque MiniDisneyland Réunion a commencé à créer sa propre Main Street miniature, une évidence s'est imposée : pourquoi ne pas reprendre cette amusante tradition ? C'est ainsi qu'est né notre petit cabinet de dentiste, avec sa façade rose, ses stores verts et son enseigne d'autrefois. Rassurez-vous, personne ne vous demandera d'ouvrir grand la bouche !"],
- ["Le secret du plus beau sourire","Notre dentiste a une mission bien plus agréable : veiller symboliquement sur les sourires de tous nos visiteurs."]
- ],
- ending:"Notre plus belle récompense est le nombre de sourires que nous réussissons à créer."
+title:"Le Dentiste de Main Street",
+subtitle:"LE SECRET DU SOURIRE",
+quote:"Une histoire de dents, de magie et de sourires !",
+chapters:[
+["Un drôle de dentiste","Dans une petite rue aux façades colorées se trouve un cabinet pas tout à fait comme les autres. Pourquoi installer un dentiste dans un endroit où tout n'est que rêve et enchantement ?"],
+["Un clin d'œil à Walt Disney","Selon une anecdote racontée autour de Main Street, Walt Disney aurait imaginé une façade de dentiste pour rappeler une chose essentielle : à Disneyland, tout le monde doit repartir avec le sourire ! Dans certaines versions de Main Street, il suffit de tendre l'oreille près des fenêtres pour entendre les conversations et les bruits qui semblent provenir des bâtiments."],
+["Le dentiste arrive à La Réunion","Lorsque MiniDisneyland Réunion a commencé à créer sa propre Main Street miniature, une évidence s'est imposée : pourquoi ne pas reprendre cette amusante tradition ? C'est ainsi qu'est né notre petit cabinet de dentiste, avec sa façade rose, ses stores verts et son enseigne d'autrefois. Rassurez-vous, personne ne vous demandera d'ouvrir grand la bouche !"],
+["Le secret du plus beau sourire","Notre dentiste a une mission bien plus agréable : veiller symboliquement sur les sourires de tous nos visiteurs."]
+],
+ending:"Notre plus belle récompense est le nombre de sourires que nous réussissons à créer."
 },
 {
- title:"Main Street Bakery",
- subtitle:"LA RECETTE DU BONHEUR",
- quote:"Une histoire de gourmandises, de traditions et de passionnés de Noël.",
- chapters:[
- ["Une boulangerie pas comme les autres","Bienvenue à Main Street Bakery ! Derrière cette jolie façade se préparent les gourmandises qui accompagnent nos soirées magiques. Des délicieux croque-monsieurs au vin chaud de Noël, tout est préparé avec amour par le créateur de MiniDisneyland Réunion, puis réchauffé et servi avec le sourire par notre charmante Valérie ! Et pour le vin chaud, la recette vient tout droit de ses origines alsaciennes ! Un petit parfum des marchés de Noël d'Alsace, transporté sous le soleil de La Réunion. Car oui, même sous les tropiques, la magie de Noël se déguste aussi !"],
- ["Les fenêtres des passionnés","Levez les yeux vers les fenêtres du premier étage ! Vous y découvrirez le groupe Facebook « Passionné de Noël – Île de La Réunion », une belle communauté grâce à laquelle MiniDisneyland Réunion s'est fait connaître. Un lieu où chacun partage ses décorations, ses créations et ses événements. Vous retrouverez également L'Atelier des Lutins, avec ses magnifiques villages miniatures réalisés en impression 3D, ainsi que Le Monde Magique de Sébastien, situé à Saint-Pierre, où se rencontrent l'univers Disney, les villages miniatures et la féerie de Noël."],
- ["Le secret de Main Street Bakery","Cette boulangerie ne raconte pas seulement une histoire de gourmandises. Elle célèbre les traditions, la créativité et surtout le plaisir de partager sa passion."]
- ],
- ending:"La plus belle recette du bonheur, c'est un peu de magie, beaucoup d'amour et un bon croque-monsieur !"
+title:"Main Street Bakery",
+subtitle:"LA RECETTE DU BONHEUR",
+quote:"Une histoire de gourmandises, de traditions et de passionnés de Noël.",
+chapters:[
+["Une boulangerie pas comme les autres","Bienvenue à Main Street Bakery ! Derrière cette jolie façade se préparent les gourmandises qui accompagnent nos soirées magiques. Des délicieux croque-monsieurs au vin chaud de Noël, tout est préparé avec amour par le créateur de MiniDisneyland Réunion, puis réchauffé et servi avec le sourire par notre charmante Valérie ! Et pour le vin chaud, la recette vient tout droit de ses origines alsaciennes ! Un petit parfum des marchés de Noël d'Alsace, transporté sous le soleil de La Réunion. Car oui, même sous les tropiques, la magie de Noël se déguste aussi !"],
+["Les fenêtres des passionnés","Levez les yeux vers les fenêtres du premier étage ! Vous y découvrirez le groupe Facebook « Passionné de Noël – Île de La Réunion », une belle communauté grâce à laquelle MiniDisneyland Réunion s'est fait connaître. Un lieu où chacun partage ses décorations, ses créations et ses événements. Vous retrouverez également L'Atelier des Lutins, avec ses magnifiques villages miniatures réalisés en impression 3D, ainsi que Le Monde Magique de Sébastien, situé à Saint-Pierre, où se rencontrent l'univers Disney, les villages miniatures et la féerie de Noël."],
+["Le secret de Main Street Bakery","Cette boulangerie ne raconte pas seulement une histoire de gourmandises. Elle célèbre les traditions, la créativité et surtout le plaisir de partager sa passion."]
+],
+ending:"La plus belle recette du bonheur, c'est un peu de magie, beaucoup d'amour et un bon croque-monsieur !"
 },
 {
- title:"The Magic Makers",
- subtitle:"LE PASSAGE SECRET DES CRÉATEURS DE MAGIE",
- quote:"Une histoire de passion, de complicité et de magie en coulisses.",
- chapters:[
- ["Un passage pas comme les autres","À Main Street, certaines portes cachent de merveilleux secrets. Sous cette enseigne se trouve un passage réservé à ceux que l'on appelle affectueusement les Magic Makers. Ce sont ces personnes formidables qui, dans l'ombre, donnent vie à MiniDisneyland Réunion. Sans elles, les lumières ne brilleraient pas aussi fort, les spectacles ne seraient pas aussi magiques et cette petite aventure ne pourrait tout simplement pas fonctionner !"],
- ["Un accès très VIP !","Attention, ce passage n'est pas ouvert à tout le monde ! Seuls les détenteurs du précieux badge Magic Makers peuvent l'emprunter pour rejoindre les coulisses. Car après tout, même ceux qui fabriquent la magie méritent leur propre entrée VIP !"],
- ["Le véritable secret des Magic Makers","Derrière chaque spectacle, chaque sourire et chaque moment d'émerveillement se cache une équipe de passionnés. Et si les visiteurs voient la magie prendre vie devant leurs yeux, les Magic Makers savent, eux, tout le travail et tout l'amour qu'il faut pour la créer."]
- ],
- ending:"À MiniDisneyland Réunion, la magie ne se fait jamais toute seule : elle se partage !"
+title:"The Magic Makers",
+subtitle:"LE PASSAGE SECRET DES CRÉATEURS DE MAGIE",
+quote:"Une histoire de passion, de complicité et de magie en coulisses.",
+chapters:[
+["Un passage pas comme les autres","À Main Street, certaines portes cachent de merveilleux secrets. Sous cette enseigne se trouve un passage réservé à ceux que l'on appelle affectueusement les Magic Makers. Ce sont ces personnes formidables qui, dans l'ombre, donnent vie à MiniDisneyland Réunion. Sans elles, les lumières ne brilleraient pas aussi fort, les spectacles ne seraient pas aussi magiques et cette petite aventure ne pourrait tout simplement pas fonctionner !"],
+["Un accès très VIP !","Attention, ce passage n'est pas ouvert à tout le monde ! Seuls les détenteurs du précieux badge Magic Makers peuvent l'emprunter pour rejoindre les coulisses. Car après tout, même ceux qui fabriquent la magie méritent leur propre entrée VIP !"],
+["Le véritable secret des Magic Makers","Derrière chaque spectacle, chaque sourire et chaque moment d'émerveillement se cache une équipe de passionnés. Et si les visiteurs voient la magie prendre vie devant leurs yeux, les Magic Makers savent, eux, tout le travail et tout l'amour qu'il faut pour la créer."]
+],
+ending:"À MiniDisneyland Réunion, la magie ne se fait jamais toute seule : elle se partage !"
 },
 {
- title:"Vœgtling Hardware",
- subtitle:"LA MAISON OÙ L'ON TROUVE TOUJOURS UNE SOLUTION",
- quote:"Depuis 1896 — Une histoire de famille, de générosité et de souvenirs.",
- chapters:[
- ["Une nouvelle vie en Alsace","En 1996, un petit garçon quitte son île de La Réunion pour rejoindre son père en métropole. Mais son père étant souvent en déplacement, c'est auprès de sa tante Lisbeth et de son oncle, dans la famille Vœgtling, qu'il va grandir. C'est ainsi qu'en 1996, le numéro 42 devient sa résidence principale. Bien plus qu'une simple adresse, cette maison deviendra le décor de son enfance, de ses souvenirs et de ses plus belles années auprès de sa famille de cœur."],
- ["Deux métiers, beaucoup d'amour","Regardez les fenêtres de cette façade ! L'une rend hommage à Lisbeth, qui a consacré de nombreuses années au repassage pour les autres. Un métier exigeant, exercé avec courage et dévouement. L'autre célèbre son oncle et son entreprise de réparation d'appareils électroportatifs. Ici, les machines en panne avaient toujours une chance de retrouver une seconde vie !"],
- ["La quincaillerie aux mille trésors","Pourquoi une quincaillerie ? Parce que chez les Vœgtling, le bricolage est une véritable affaire de famille ! Une vis introuvable ? Un outil particulier ? Une pièce dont personne ne connaît le nom ? Dans cette maison, il y a toujours quelqu'un pour prononcer cette phrase devenue légendaire : « Attends… je pense que j'ai ce que tu cherches ! » Et le plus incroyable, c'est que bien souvent, c'est vrai !"],
- ["Bien plus qu'une façade","Cette quincaillerie est un hommage à une famille qui a accueilli un enfant venu de loin, l'a accompagné et l'a aidé à devenir l'homme qu'il est aujourd'hui. Et si l'enseigne indique 1896, c'est parce qu'à Main Street, les souvenirs remontent le temps : 1996 devient 1896."]
- ],
- ending:"Chez les Vœgtling, on ne trouve pas seulement des outils et des pièces détachées. On trouve surtout une famille, de l'amour et toujours une solution !"
+title:"Vœgtling Hardware",
+subtitle:"LA MAISON OÙ L'ON TROUVE TOUJOURS UNE SOLUTION",
+quote:"Depuis 1896 — Une histoire de famille, de générosité et de souvenirs.",
+chapters:[
+["Une nouvelle vie en Alsace","En 1996, un petit garçon quitte son île de La Réunion pour rejoindre son père en métropole. Mais son père étant souvent en déplacement, c'est auprès de sa tante Lisbeth et de son oncle, dans la famille Vœgtling, qu'il va grandir. C'est ainsi qu'en 1996, le numéro 42 devient sa résidence principale. Bien plus qu'une simple adresse, cette maison deviendra le décor de son enfance, de ses souvenirs et de ses plus belles années auprès de sa famille de cœur."],
+["Deux métiers, beaucoup d'amour","Regardez les fenêtres de cette façade ! L'une rend hommage à Lisbeth, qui a consacré de nombreuses années au repassage pour les autres. Un métier exigeant, exercé avec courage et dévouement. L'autre célèbre son oncle et son entreprise de réparation d'appareils électroportatifs. Ici, les machines en panne avaient toujours une chance de retrouver une seconde vie !"],
+["La quincaillerie aux mille trésors","Pourquoi une quincaillerie ? Parce que chez les Vœgtling, le bricolage est une véritable affaire de famille ! Une vis introuvable ? Un outil particulier ? Une pièce dont personne ne connaît le nom ? Dans cette maison, il y a toujours quelqu'un pour prononcer cette phrase devenue légendaire : « Attends… je pense que j'ai ce que tu cherches ! » Et le plus incroyable, c'est que bien souvent, c'est vrai !"],
+["Bien plus qu'une façade","Cette quincaillerie est un hommage à une famille qui a accueilli un enfant venu de loin, l'a accompagné et l'a aidé à devenir l'homme qu'il est aujourd'hui. Et si l'enseigne indique 1896, c'est parce qu'à Main Street, les souvenirs remontent le temps : 1996 devient 1896."]
+],
+ending:"Chez les Vœgtling, on ne trouve pas seulement des outils et des pièces détachées. On trouve surtout une famille, de l'amour et toujours une solution !"
 },
 {
- title:"Main Street Station",
- subtitle:"LE TEMPS PASSE, LES SOUVENIRS RESTENT",
- quote:"La gare où commence la magie.",
- chapters:[
- ["Il était une fois une gare enchantée","À Disneyland Paris, il existe un passage que des millions de visiteurs ont emprunté : celui qui passe sous la gare de Main Street, U.S.A., avant de découvrir la magie du parc. C'est de ce lieu emblématique qu'est née cette façade de MiniDisneyland Réunion. Une gare sans train ni quai, mais avec une destination particulière : le monde des souvenirs et des rêves."],
- ["Quatre fenêtres, mille souvenirs","Regardez attentivement les vitraux qui entourent la gare. Ils racontent les quatre grands univers de notre petit monde enchanté : Main Street avec ses façades miniatures, le château de la Belle au bois dormant, Space Mountain – De la Terre à la Lune, et le spectacle final, lorsque le château s'illumine et que la magie atteint son apogée. Chaque vitrail est comme une petite fenêtre ouverte sur un souvenir que les visiteurs pourront emporter avec eux."],
- ["Le temps passe, les souvenirs restent","Au-dessus du passage, une phrase résume toute la philosophie de MiniDisneyland Réunion : « Le temps passe, les souvenirs restent. » Les lumières finissent par s'éteindre, les spectacles se terminent et les visiteurs reprennent le chemin de leur maison. Mais les sourires, les émotions et les étoiles dans les yeux continuent de vivre bien après la soirée."]
- ],
- ending:"Et si cette gare n'a pas de train, elle possède quelque chose de bien plus précieux : le pouvoir de faire voyager les cœurs."
+title:"Main Street Station",
+subtitle:"LE TEMPS PASSE, LES SOUVENIRS RESTENT",
+quote:"La gare où commence la magie.",
+chapters:[
+["Il était une fois une gare enchantée","À Disneyland Paris, il existe un passage que des millions de visiteurs ont emprunté : celui qui passe sous la gare de Main Street, U.S.A., avant de découvrir la magie du parc. C'est de ce lieu emblématique qu'est née cette façade de MiniDisneyland Réunion. Une gare sans train ni quai, mais avec une destination particulière : le monde des souvenirs et des rêves."],
+["Quatre fenêtres, mille souvenirs","Regardez attentivement les vitraux qui entourent la gare. Ils racontent les quatre grands univers de notre petit monde enchanté : Main Street avec ses façades miniatures, le château de la Belle au bois dormant, Space Mountain – De la Terre à la Lune, et le spectacle final, lorsque le château s'illumine et que la magie atteint son apogée. Chaque vitrail est comme une petite fenêtre ouverte sur un souvenir que les visiteurs pourront emporter avec eux."],
+["Le temps passe, les souvenirs restent","Au-dessus du passage, une phrase résume toute la philosophie de MiniDisneyland Réunion : « Le temps passe, les souvenirs restent. » Les lumières finissent par s'éteindre, les spectacles se terminent et les visiteurs reprennent le chemin de leur maison. Mais les sourires, les émotions et les étoiles dans les yeux continuent de vivre bien après la soirée."]
+],
+ending:"Et si cette gare n'a pas de train, elle possède quelque chose de bien plus précieux : le pouvoir de faire voyager les cœurs."
 },
 {
- title:"Space Mountain VR",
- subtitle:"DE LA TERRE À LA LUNE",
- quote:"La plus grande aventure dans le plus petit des espaces.",
- chapters:[
- ["Un anniversaire exceptionnel","En 2025, Space Mountain – De la Terre à la Lune célèbre les 30 ans de son ouverture à Disneyland Paris. Pour rendre hommage à cette attraction mythique, MiniDisneyland Réunion décide de lui offrir une place toute particulière. Mais comment faire entrer une montagne russe aussi spectaculaire dans un petit appartement ?"],
- ["Un voyage sans limites","La réponse se trouve derrière cette porte : la réalité virtuelle ! Grâce à un casque VR, les visiteurs peuvent embarquer pour une aventure inspirée de l'univers de Space Mountain, comme s'ils quittaient réellement la Terre pour rejoindre la Lune. Pas besoin d'un immense bâtiment ni de kilomètres de rails : ici, l'imagination fait le reste !"],
- ["Le secret de Space Mountain","Cette attraction représente toute la philosophie de MiniDisneyland Réunion : prouver que même dans le plus petit des endroits, on peut faire vivre la plus grande des aventures."]
- ],
- ending:"Car la magie ne se mesure pas en mètres carrés, mais en émotions !"
+title:"Space Mountain VR",
+subtitle:"DE LA TERRE À LA LUNE",
+quote:"La plus grande aventure dans le plus petit des espaces.",
+chapters:[
+["Un anniversaire exceptionnel","En 2025, Space Mountain – De la Terre à la Lune célèbre les 30 ans de son ouverture à Disneyland Paris. Pour rendre hommage à cette attraction mythique, MiniDisneyland Réunion décide de lui offrir une place toute particulière. Mais comment faire entrer une montagne russe aussi spectaculaire dans un petit appartement ?"],
+["Un voyage sans limites","La réponse se trouve derrière cette porte : la réalité virtuelle ! Grâce à un casque VR, les visiteurs peuvent embarquer pour une aventure inspirée de l'univers de Space Mountain, comme s'ils quittaient réellement la Terre pour rejoindre la Lune. Pas besoin d'un immense bâtiment ni de kilomètres de rails : ici, l'imagination fait le reste !"],
+["Le secret de Space Mountain","Cette attraction représente toute la philosophie de MiniDisneyland Réunion : prouver que même dans le plus petit des endroits, on peut faire vivre la plus grande des aventures."]
+],
+ending:"Car la magie ne se mesure pas en mètres carrés, mais en émotions !"
 }
 ];
 
-/* CRÉATION DES LIVRES */
-function createBooks() {
-  const container = $("#books-container");
+/* ===================================
+   CONSTRUCTION DES LIVRES
+   =================================== */
+
+function createBooks(){
+  const container=$("#books-container");
 
   stories.forEach((s,i)=>{
-    const article = document.createElement("article");
-    article.className = "book";
-    article.id = "book-"+(i+1);
+    const article=document.createElement("article");
+    article.className="book";
+    article.id="book-"+(i+1);
 
-    const page = document.createElement("div");
-    page.className = "page";
+    const page=document.createElement("div");
+    page.className="page";
 
-    const ornament = document.createElement("div");
-    ornament.className = "ornament";
-    ornament.textContent = "✦";
+    const ornament=document.createElement("div");
+    ornament.className="ornament";
+    ornament.textContent="✦";
     page.appendChild(ornament);
 
-    const kicker = document.createElement("div");
-    kicker.className = "kicker";
-    kicker.textContent = "Les Secrets de Main Street";
+    const kicker=document.createElement("div");
+    kicker.className="kicker";
+    kicker.textContent="Les Secrets de Main Street";
     page.appendChild(kicker);
 
-    const title = document.createElement("h1");
-    title.textContent = s.title;
+    const title=document.createElement("h1");
+    title.textContent=s.title;
     page.appendChild(title);
 
-    const subtitle = document.createElement("h3");
-    subtitle.textContent = s.subtitle;
+    const subtitle=document.createElement("h3");
+    subtitle.textContent=s.subtitle;
     page.appendChild(subtitle);
 
-    const quote = document.createElement("p");
-    quote.className = "quote";
-    quote.textContent = s.quote;
+    const quote=document.createElement("p");
+    quote.className="quote";
+    quote.textContent=s.quote;
     page.appendChild(quote);
 
     s.chapters.forEach(([heading,body])=>{
-      const section = document.createElement("section");
-      section.className = "chapter";
-      const h = document.createElement("h2");
-      h.textContent = heading;
-      const p = document.createElement("p");
-      p.textContent = body;
+      const section=document.createElement("section");
+      section.className="chapter";
+
+      const h=document.createElement("h2");
+      h.textContent=heading;
+
+      const p=document.createElement("p");
+      p.textContent=body;
+
       section.append(h,p);
       page.appendChild(section);
     });
 
-    const end = document.createElement("p");
-    end.className = "end";
-    end.textContent = s.ending;
+    const end=document.createElement("p");
+    end.className="end";
+    end.textContent=s.ending;
     page.appendChild(end);
 
-    const footer = document.createElement("div");
-    footer.className = "page-footer";
-    footer.textContent = "FIN DU CONTE";
+    const footer=document.createElement("div");
+    footer.className="page-footer";
+    footer.textContent="FIN DU CONTE";
     page.appendChild(footer);
 
-    const button = document.createElement("button");
-    button.className = "continue-exploration";
-    button.textContent = "Continuer l'exploration";
-    button.onclick = closeStory;
+    const button=document.createElement("button");
+    button.className="continue-exploration";
+    button.textContent="Continuer l'exploration";
+    button.onclick=closeStory;
     page.appendChild(button);
 
     article.appendChild(page);
@@ -736,67 +853,80 @@ function createBooks() {
 }
 createBooks();
 
-/* DATE ET HEURE DE LA RÉUNION */
-function reunionNow() {
-  const parts = new Intl.DateTimeFormat("en-GB",{
+/* ===================================
+   HEURE DE LA RÉUNION
+   =================================== */
+
+function reunionNow(){
+  const parts=new Intl.DateTimeFormat("en-GB",{
     timeZone:"Indian/Reunion",
     year:"numeric",month:"2-digit",day:"2-digit",
     hour:"2-digit",minute:"2-digit",hourCycle:"h23"
   }).formatToParts(new Date());
 
-  const v = Object.fromEntries(parts.map(x=>[x.type,x.value]));
+  const v=Object.fromEntries(parts.map(x=>[x.type,x.value]));
 
-  return {
+  return{
     date:v.year+"-"+v.month+"-"+v.day,
     minute:Number(v.hour)*60+Number(v.minute)
   };
 }
 
-function representation(date) {
+function representation(date){
   return date>=CALENDAR.start &&
          date<=CALENDAR.end &&
          !CALENDAR.excludedDates.includes(date);
 }
 
-function duration(n) {
-  const h=Math.floor(n/60),m=n%60;
-  return h ? h+" h "+String(m).padStart(2,"0")+" min" : m+" min";
+function duration(n){
+  const h=Math.floor(n/60);
+  const m=n%60;
+  return h
+    ? h+" h "+String(m).padStart(2,"0")+" min"
+    : m+" min";
 }
 
-function spaceStatus(t) {
-  if(t<1185) return {name:"FERMÉ",detail:"Ouverture prévue à 19h45.",color:"red"};
-  if(t<1245) return {name:"OUVERT",detail:"L'attraction vous accueille jusqu'à 20h45.",color:"green"};
-  if(t<1290) return {name:"FERMETURE TEMPORAIRE",detail:"Réouverture prévue vers 21h30.",color:"orange"};
-  if(t<1320) return {name:"RÉOUVERTURE PRÉVUE",detail:"Vérifiez auprès des Magic Makers que l'attraction est ouverte.",color:"orange"};
-  return {name:"FERMÉ",detail:"L'attraction est fermée pour ce soir.",color:"red"};
+function spaceStatus(t){
+  if(t<1185)
+    return{name:"FERMÉ",detail:"Ouverture prévue à 19h45.",color:"red"};
+
+  if(t<1245)
+    return{name:"OUVERT",detail:"L'attraction vous accueille jusqu'à 20h45.",color:"green"};
+
+  if(t<1290)
+    return{name:"FERMETURE TEMPORAIRE",detail:"Réouverture prévue vers 21h30.",color:"orange"};
+
+  if(t<1320)
+    return{name:"RÉOUVERTURE PRÉVUE",detail:"Vérifiez auprès des Magic Makers que l'attraction est ouverte.",color:"orange"};
+
+  return{name:"FERMÉ",detail:"L'attraction est fermée pour ce soir.",color:"red"};
 }
 
-function updateStatus(element,s) {
+function updateStatus(element,s){
   element.textContent=s.name;
   element.className="status "+s.color;
 }
 
-/* PROGRAMME ET RAPPELS */
-function updateClock() {
+function updateClock(){
   const now=reunionNow();
   const t=now.minute;
   const active=representation(now.date);
-  const next=active ? SHOWS.find(e=>e.time>t) : null;
+  const next=active?SHOWS.find(e=>e.time>t):null;
 
   let title="",sub="";
 
-  if(!active) {
+  if(!active){
     title="Pas de représentation programmée ce soir";
     sub="Consultez les prochaines soirées.";
-  } else if(t<1170) {
+  }else if(t<1170){
     title="Ouverture des portes à 19h30";
     sub="La magie commence bientôt !";
-  } else if(next) {
+  }else if(next){
     const hh=String(Math.floor(next.time/60)).padStart(2,"0");
     const mm=String(next.time%60).padStart(2,"0");
     title=next.name+" — "+hh+"h"+mm;
     sub="Dans "+duration(next.time-t);
-  } else {
+  }else{
     title="Les spectacles sont terminés";
     sub="Merci pour cette soirée magique !";
   }
@@ -807,19 +937,20 @@ function updateClock() {
   $("#schedule-countdown").textContent=sub;
 
   const s=active
-    ? spaceStatus(t)
-    : {name:"FERMÉ",detail:"Aucune représentation programmée ce soir.",color:"red"};
+    ?spaceStatus(t)
+    :{name:"FERMÉ",detail:"Aucune représentation programmée ce soir.",color:"red"};
 
   updateStatus($("#home-space-status"),s);
   updateStatus($("#space-status"),s);
+
   $("#home-space-detail").textContent=s.detail;
   $("#space-detail").textContent=s.detail;
 
-  if(active && !document.hidden) {
-    for(const e of SHOWS) {
+  if(active&&!document.hidden){
+    for(const e of SHOWS){
       const key=now.date+"-"+e.time;
 
-      if(t===e.reminder && !alerted.has(key)) {
+      if(t===e.reminder&&!alerted.has(key)){
         alerted.add(key);
         $("#alert-message").textContent=
           e.name+" commence dans 5 minutes ! Rendez-vous à "+e.place+".";
@@ -830,17 +961,27 @@ function updateClock() {
   }
 }
 
-/* NAVIGATION */
-function showSection(name) {
+/* ===================================
+   NAVIGATION
+   =================================== */
+
+function showSection(name){
   document.querySelectorAll(".section").forEach(el=>{
     el.classList.toggle("active",el.id===name);
   });
+
   app.classList.remove("hidden");
   app.scrollTop=0;
+
+  if(name==="tickets") renderTickets();
+
   updateClock();
 }
 
-/* CAMÉRA ET DÉTECTION */
+/* ===================================
+   CAMÉRA ET DÉTECTION
+   =================================== */
+
 const places=stories.map((s,index)=>({
   index,
   title:s.title,
@@ -848,20 +989,23 @@ const places=stories.map((s,index)=>({
   detected:false
 }));
 
-function hideBubble() {
+function hideBubble(){
   found.classList.remove("visible");
 }
 
-function visiblePlace() {
-  if(activePlace!==null && places[activePlace].detected) return activePlace;
+function visiblePlace(){
+  if(activePlace!==null&&places[activePlace].detected)
+    return activePlace;
+
   const p=places.find(x=>x.detected);
   return p?p.index:null;
 }
 
-function showBubble(index) {
+function showBubble(index){
   const p=places[index];
-  if(!cameraStarted || storyOpen || !p || !p.detected ||
-     !app.classList.contains("hidden")) return;
+
+  if(!cameraStarted||storyOpen||!p||!p.detected||
+     !app.classList.contains("hidden"))return;
 
   activePlace=index;
   $("#bubble-title").textContent=p.title;
@@ -876,67 +1020,79 @@ places.forEach(p=>{
 
   p.target.addEventListener("targetLost",()=>{
     p.detected=false;
-    if(activePlace===p.index) {
+
+    if(activePlace===p.index){
       activePlace=null;
       hideBubble();
+
       const next=visiblePlace();
-      if(next!==null) showBubble(next);
+      if(next!==null)showBubble(next);
     }
   });
 });
 
-function openStory() {
-  if(activePlace===null) return;
+function openStory(){
+  if(activePlace===null)return;
+
   storyOpen=true;
   hideBubble();
 
-  document.querySelectorAll(".book").forEach(b=>b.classList.remove("active"));
+  document.querySelectorAll(".book").forEach(b=>{
+    b.classList.remove("active");
+  });
+
   story.classList.add("open");
   story.scrollTop=0;
   $("#book-"+(activePlace+1)).classList.add("active");
 }
 
-function closeStory() {
+function closeStory(){
   story.classList.remove("open");
   storyOpen=false;
-  document.querySelectorAll(".book").forEach(b=>b.classList.remove("active"));
+
+  document.querySelectorAll(".book").forEach(b=>{
+    b.classList.remove("active");
+  });
+
   const next=visiblePlace();
-  if(next!==null) showBubble(next);
+  if(next!==null)showBubble(next);
 }
 
-async function enterCamera() {
-  if(cameraStarting) return;
+async function enterCamera(){
+  if(cameraStarting)return;
+
   cameraStarting=true;
   app.classList.add("hidden");
   document.body.classList.add("ar-mode");
   $("#camera-menu").classList.remove("hidden");
 
-  try {
-    if(!cameraStarted) {
+  try{
+    if(!cameraStarted){
       await scene.systems["mindar-image-system"].start();
       cameraStarted=true;
     }
-  } catch(error) {
+  }catch(error){
     console.error(error);
     document.body.classList.remove("ar-mode");
     $("#camera-menu").classList.add("hidden");
     showSection("home");
-    alert("Impossible d'ouvrir la caméra. Vérifiez les autorisations Safari.");
-  } finally {
+    alert("Impossible d'ouvrir la caméra. Vérifiez les autorisations du navigateur.");
+  }finally{
     cameraStarting=false;
   }
 }
 
-async function leaveCamera() {
-  if(cameraStarting) return;
+async function leaveCamera(){
+  if(cameraStarting)return;
+
   hideBubble();
   $("#camera-menu").classList.add("hidden");
   document.body.classList.remove("ar-mode");
 
-  if(cameraStarted) {
-    try {
+  if(cameraStarted){
+    try{
       await scene.systems["mindar-image-system"].stop();
-    } catch(error) {
+    }catch(error){
       console.warn(error);
     }
     cameraStarted=false;
@@ -947,34 +1103,340 @@ async function leaveCamera() {
   showSection("home");
 }
 
-/* INSTALLATION */
-function isInstalled() {
-  return window.matchMedia("(display-mode: standalone)").matches ||
+/* ===================================
+   MES BILLETS MAGIQUES
+   STOCKAGE LOCAL INDEXEDDB
+   =================================== */
+
+const DB_NAME="CompagnonMagiqueBillets";
+const DB_STORE="billets";
+const MAX_TICKET_SIZE=15*1024*1024;
+
+let ticketDB=null;
+let ticketViewerURL=null;
+
+function openTicketDB(){
+  return new Promise((resolve,reject)=>{
+    if(!window.indexedDB){
+      reject(new Error("IndexedDB indisponible"));
+      return;
+    }
+
+    const request=indexedDB.open(DB_NAME,1);
+
+    request.onupgradeneeded=()=>{
+      const db=request.result;
+
+      if(!db.objectStoreNames.contains(DB_STORE)){
+        db.createObjectStore(DB_STORE,{keyPath:"id"});
+      }
+    };
+
+    request.onsuccess=()=>resolve(request.result);
+    request.onerror=()=>reject(request.error);
+  });
+}
+
+function ticketTransaction(mode,action){
+  return new Promise((resolve,reject)=>{
+    if(!ticketDB){
+      reject(new Error("Stockage indisponible"));
+      return;
+    }
+
+    const transaction=ticketDB.transaction(DB_STORE,mode);
+    const store=transaction.objectStore(DB_STORE);
+    const request=action(store);
+
+    request.onsuccess=()=>resolve(request.result);
+    request.onerror=()=>reject(request.error);
+  });
+}
+
+function allTickets(){
+  return ticketTransaction("readonly",store=>store.getAll());
+}
+
+function getTicket(id){
+  return ticketTransaction("readonly",store=>store.get(id));
+}
+
+function saveTicket(ticket){
+  return ticketTransaction("readwrite",store=>store.put(ticket));
+}
+
+function removeTicket(id){
+  return ticketTransaction("readwrite",store=>store.delete(id));
+}
+
+function formatFileSize(bytes){
+  return(bytes/1024/1024).toFixed(2)+" Mo";
+}
+
+function supportedTicket(file){
+  const ext=file.name.toLowerCase().split(".").pop();
+
+  const types={
+    pdf:"application/pdf",
+    jpg:"image/jpeg",
+    jpeg:"image/jpeg",
+    png:"image/png",
+    webp:"image/webp"
+  };
+
+  if(!Object.prototype.hasOwnProperty.call(types,ext))return false;
+
+  return !file.type||file.type===types[ext];
+}
+
+function ticketMime(ticket){
+  const ext=ticket.name.toLowerCase().split(".").pop();
+
+  if(ext==="pdf")return"application/pdf";
+  if(ext==="png")return"image/png";
+  if(ext==="webp")return"image/webp";
+  return"image/jpeg";
+}
+
+async function importTickets(event){
+  const files=Array.from(event.target.files||[]);
+  event.target.value="";
+
+  if(!files.length)return;
+
+  if(!ticketDB){
+    alert("Le stockage des billets n'est pas disponible dans ce navigateur.");
+    return;
+  }
+
+  let success=0;
+  const errors=[];
+
+  for(const file of files){
+    if(!supportedTicket(file)){
+      errors.push(file.name+" : format non accepté.");
+      continue;
+    }
+
+    if(file.size>MAX_TICKET_SIZE){
+      errors.push(file.name+" : plus de 15 Mo.");
+      continue;
+    }
+
+    try{
+      const ticket={
+        id:window.crypto&&crypto.randomUUID
+          ?crypto.randomUUID()
+          :Date.now()+"-"+Math.random(),
+        name:file.name,
+        type:ticketMime(file),
+        size:file.size,
+        date:Date.now(),
+        blob:file
+      };
+
+      await saveTicket(ticket);
+      success++;
+    }catch(error){
+      console.error(error);
+      errors.push(file.name+" : stockage impossible.");
+    }
+  }
+
+  await renderTickets();
+
+  let message=success
+    ?success+" billet(s) ajouté(s) à votre collection magique !"
+    :"Aucun billet importé.";
+
+  if(errors.length)message+="\n\n"+errors.join("\n");
+
+  alert(message);
+}
+
+async function renderTickets(){
+  const list=$("#ticket-list");
+  const count=$("#ticket-count");
+
+  list.replaceChildren();
+
+  if(!ticketDB){
+    count.textContent="";
+    const p=document.createElement("p");
+    p.textContent="Le stockage des billets est indisponible. Essayez Safari ou Chrome en navigation normale.";
+    list.appendChild(p);
+    return;
+  }
+
+  let tickets;
+
+  try{
+    tickets=await allTickets();
+  }catch(error){
+    console.error(error);
+    const p=document.createElement("p");
+    p.textContent="Impossible de charger vos billets.";
+    list.appendChild(p);
+    return;
+  }
+
+  tickets.sort((a,b)=>b.date-a.date);
+
+  count.textContent=tickets.length
+    ?tickets.length+" billet(s) enregistré(s)."
+    :"Aucun billet enregistré pour le moment.";
+
+  if(!tickets.length){
+    const p=document.createElement("p");
+    p.textContent="Votre collection est encore vide. Importez votre premier billet magique !";
+    list.appendChild(p);
+    return;
+  }
+
+  for(const ticket of tickets){
+    const row=document.createElement("div");
+    row.className="ticket-row";
+
+    const name=document.createElement("div");
+    name.className="ticket-name";
+    name.textContent=ticket.name;
+
+    const meta=document.createElement("div");
+    meta.className="ticket-meta";
+    meta.textContent=formatFileSize(ticket.size)+
+      " · Ajouté le "+
+      new Date(ticket.date).toLocaleDateString("fr-FR");
+
+    const buttons=document.createElement("div");
+    buttons.className="ticket-buttons";
+
+    const open=document.createElement("button");
+    open.type="button";
+    open.textContent="Afficher le billet";
+    open.onclick=()=>viewTicket(ticket.id);
+
+    const del=document.createElement("button");
+    del.type="button";
+    del.className="delete";
+    del.textContent="Supprimer";
+    del.onclick=()=>deleteSavedTicket(ticket.id,ticket.name);
+
+    buttons.append(open,del);
+    row.append(name,meta,buttons);
+    list.appendChild(row);
+  }
+}
+
+async function viewTicket(id){
+  try{
+    const ticket=await getTicket(id);
+
+    if(!ticket){
+      alert("Ce billet est introuvable.");
+      return;
+    }
+
+    closeTicketViewer();
+
+    const blob=new Blob([ticket.blob],{type:ticketMime(ticket)});
+    ticketViewerURL=URL.createObjectURL(blob);
+
+    const content=$("#viewer-content");
+    content.replaceChildren();
+
+    if(ticketMime(ticket)==="application/pdf"){
+      const iframe=document.createElement("iframe");
+      iframe.src=ticketViewerURL;
+      iframe.title=ticket.name;
+      content.appendChild(iframe);
+    }else{
+      const image=document.createElement("img");
+      image.src=ticketViewerURL;
+      image.alt="Billet "+ticket.name;
+      content.appendChild(image);
+    }
+
+    $("#viewer-name").textContent=ticket.name;
+
+    const download=$("#viewer-download");
+    download.href=ticketViewerURL;
+    download.download=ticket.name;
+
+    $("#ticket-viewer").classList.remove("hidden");
+  }catch(error){
+    console.error(error);
+    alert("Impossible d'ouvrir ce billet.");
+  }
+}
+
+function closeTicketViewer(){
+  $("#ticket-viewer").classList.add("hidden");
+  $("#viewer-content").replaceChildren();
+
+  if(ticketViewerURL){
+    URL.revokeObjectURL(ticketViewerURL);
+    ticketViewerURL=null;
+  }
+}
+
+async function deleteSavedTicket(id,name){
+  if(!confirm("Supprimer « "+name+" » de votre collection ?"))return;
+
+  try{
+    await removeTicket(id);
+    await renderTickets();
+  }catch(error){
+    console.error(error);
+    alert("Impossible de supprimer ce billet.");
+  }
+}
+
+async function initializeTickets(){
+  try{
+    ticketDB=await openTicketDB();
+  }catch(error){
+    console.warn("Stockage des billets indisponible :",error);
+  }
+
+  await renderTickets();
+}
+
+/* ===================================
+   INSTALLATION SUR LE TÉLÉPHONE
+   =================================== */
+
+function isInstalled(){
+  return window.matchMedia("(display-mode: standalone)").matches||
          window.navigator.standalone===true;
 }
 
-function showInstall() {
-  if(isInstalled()) {
-    alert("Le Compagnon Magique est déjà ouvert comme une application !");
+function showInstall(){
+  if(isInstalled()){
+    alert("Le Compagnon Magique est déjà ouvert depuis votre écran d'accueil !");
     return;
   }
 
   const ua=navigator.userAgent;
-  const ios=/iPhone|iPad|iPod/.test(ua) ||
-    (navigator.platform==="MacIntel" && navigator.maxTouchPoints>1);
+
+  const ios=/iPhone|iPad|iPod/.test(ua)||
+    (navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+
   const android=/Android/i.test(ua);
 
   $("#ios-instructions").classList.toggle("hidden",!ios);
   $("#android-instructions").classList.toggle("hidden",!android);
   $("#other-instructions").classList.toggle("hidden",ios||android);
-  $("#native-install").classList.toggle("hidden",!deferredInstallPrompt);
 
+  $("#native-install").classList.toggle("hidden",!deferredInstallPrompt);
   $("#install-overlay").classList.remove("hidden");
 }
 
-function closeInstall() {
+function closeInstall(){
   $("#install-overlay").classList.add("hidden");
-  try {localStorage.setItem("magic-install-seen","yes");} catch(e) {}
+
+  try{
+    localStorage.setItem("magic-install-seen","yes");
+  }catch(error){}
 }
 
 window.addEventListener("beforeinstallprompt",event=>{
@@ -984,9 +1446,11 @@ window.addEventListener("beforeinstallprompt",event=>{
 });
 
 $("#native-install").onclick=async()=>{
-  if(!deferredInstallPrompt) return;
+  if(!deferredInstallPrompt)return;
+
   deferredInstallPrompt.prompt();
   await deferredInstallPrompt.userChoice;
+
   deferredInstallPrompt=null;
   closeInstall();
 };
@@ -994,29 +1458,58 @@ $("#native-install").onclick=async()=>{
 $("#show-install").onclick=showInstall;
 $("#close-install").onclick=closeInstall;
 
-/* BOUTONS */
+/* ===================================
+   BOUTONS
+   =================================== */
+
 document.querySelectorAll("[data-go]").forEach(button=>{
   button.onclick=()=>{
     const page=button.dataset.go;
-    if(page==="explore") enterCamera();
-    else showSection(page);
+
+    if(page==="explore"){
+      enterCamera();
+    }else{
+      showSection(page);
+    }
   };
 });
 
 $("#camera-menu").onclick=leaveCamera;
 $("#discover").onclick=openStory;
 $("#close").onclick=closeStory;
-$("#dismiss-alert").onclick=()=>$("#alert").classList.add("hidden");
 
-/* DÉMARRAGE */
+$("#dismiss-alert").onclick=()=>{
+  $("#alert").classList.add("hidden");
+};
+
+$("#import-ticket").onclick=()=>{
+  $("#ticket-file").click();
+};
+
+$("#ticket-file").addEventListener("change",importTickets);
+$("#close-viewer").onclick=closeTicketViewer;
+
+/* ===================================
+   DÉMARRAGE
+   =================================== */
+
 updateClock();
 setInterval(updateClock,15000);
+
 document.addEventListener("visibilitychange",updateClock);
+
+initializeTickets();
 
 window.addEventListener("load",()=>{
   let seen=false;
-  try {seen=localStorage.getItem("magic-install-seen")==="yes";} catch(e) {}
-  if(!seen && !isInstalled()) showInstall();
+
+  try{
+    seen=localStorage.getItem("magic-install-seen")==="yes";
+  }catch(error){}
+
+  if(!seen&&!isInstalled()){
+    showInstall();
+  }
 });
 </script>
 </body>
