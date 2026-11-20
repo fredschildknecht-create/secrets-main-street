@@ -18,7 +18,7 @@ html,body{
 }
 button{font-family:inherit;cursor:pointer}
 
-/* CAMERA PLEIN ECRAN */
+/* CAMERA PLEIN ECRAN IPHONE */
 #camera-container{
  position:fixed;inset:0;width:100%;
  height:100%;height:100dvh;
@@ -251,6 +251,9 @@ button{font-family:inherit;cursor:pointer}
 .ornament-art.angels{
  width:115px;height:80px
 }
+.ornament-art.bakery{
+ width:115px;height:85px
+}
 .ornament-bottom{margin-top:35px}
 .kicker{
  font-size:12px;letter-spacing:3px;
@@ -421,6 +424,74 @@ button{font-family:inherit;cursor:pointer}
 <circle cx="84" cy="8" r="2"/>
 </g>
 </symbol>
+
+<!-- CROQUE-MONSIEUR ET VIN CHAUD -->
+<symbol id="bakery-ancienne" viewBox="0 0 150 110">
+
+<!-- Assiette -->
+<ellipse cx="61" cy="91" rx="52" ry="10"
+ fill="#E8D1A1" stroke="#956B32"
+ stroke-width="2"/>
+
+<!-- Croque-monsieur -->
+<g stroke="#956B32" stroke-width="2"
+ stroke-linejoin="round">
+<path d="M16 57 L59 38 L105 57 L62 76 Z"
+ fill="#E1AE61"/>
+<path d="M16 57 L16 71 L62 91 L62 76 Z"
+ fill="#C88D48"/>
+<path d="M62 76 L105 57 L105 71 L62 91 Z"
+ fill="#B47B3F"/>
+<path d="M19 53 L59 36 L102 53 L62 71 Z"
+ fill="#F5D992"/>
+<path d="M23 54 L59 41 L97 54 L62 66 Z"
+ fill="#F8E7B6"/>
+<path d="M26 60 L61 76 L95 61"
+ fill="none" stroke="#A65343" stroke-width="4"/>
+</g>
+
+<!-- Fromage fondu -->
+<path d="M30 56 Q40 60 45 60
+ Q49 69 52 62
+ Q62 67 71 62
+ Q78 69 82 59"
+ fill="none" stroke="#F2C66C"
+ stroke-width="4" stroke-linecap="round"/>
+
+<!-- Tasse de vin chaud -->
+<g stroke="#956B32" stroke-width="2.5"
+ stroke-linejoin="round">
+<path d="M106 43 L106 80
+ Q106 92 124 92
+ Q142 92 142 80 L142 43 Z"
+ fill="#A34B4C"/>
+<ellipse cx="124" cy="43" rx="18" ry="6"
+ fill="#E5B56B"/>
+<ellipse cx="124" cy="43" rx="14" ry="4"
+ fill="#74303C" stroke="none"/>
+<path d="M142 51 Q159 48 157 64
+ Q155 78 142 75"
+ fill="none"/>
+<path d="M112 59 Q124 66 136 59"
+ fill="none" stroke="#F2CF8B"/>
+</g>
+
+<!-- Vapeur -->
+<g fill="none" stroke="#B38B54"
+ stroke-width="2" stroke-linecap="round">
+<path d="M114 34 Q106 25 114 17 Q120 11 114 4"/>
+<path d="M125 33 Q117 24 125 16 Q131 10 125 3"/>
+<path d="M136 34 Q128 25 136 17 Q142 11 136 4"/>
+</g>
+
+<!-- Etoiles -->
+<g fill="#D2A653">
+<path d="M30 15l3 7 7 3-7 3-3 7-3-7-7-3 7-3z"/>
+<path d="M73 13l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/>
+<circle cx="47" cy="12" r="2"/>
+</g>
+
+</symbol>
 </svg>
 
 <!-- CAMERA ET NEUF FACADES -->
@@ -491,7 +562,7 @@ Le Lumega · 1924
 ✕ Retour à l'exploration
 </button>
 
-<!-- PREMIER LIVRE : LE LUMEGA -->
+<!-- LIVRE 1 : LE LUMEGA -->
 <article class="book" id="book-lumega">
 <div class="page">
 
@@ -626,7 +697,7 @@ de véritables histoires de cœur.
 </div>
 </article>
 
-<!-- DEUXIEME LIVRE : CHECKPOINT CHARLY -->
+<!-- LIVRE 2 : CHECKPOINT CHARLY -->
 <article class="book" id="book-charly">
 <div class="page">
 
@@ -831,7 +902,7 @@ et beaucoup d'amour.
 </div>
 </article>
 
-<!-- TROISIEME LIVRE : GUARDIAN ANGELS -->
+<!-- LIVRE 3 : GUARDIAN ANGELS -->
 <article class="book" id="book-anges">
 <div class="page">
 
@@ -1093,7 +1164,7 @@ de Main Street.
 </div>
 </article>
 
-<!-- QUATRIEME LIVRE : LE DENTISTE -->
+<!-- LIVRE 4 : LE DENTISTE -->
 <article class="book" id="book-dentiste">
 <div class="page">
 
@@ -1262,6 +1333,134 @@ que nous réussissons à créer.
 </div>
 </article>
 
+<!-- LIVRE 5 : MAIN STREET BAKERY -->
+<article class="book" id="book-bakery">
+<div class="page">
+
+<div class="ornament">
+<span class="ornament-star">✦</span>
+<svg class="ornament-art bakery" viewBox="0 0 150 110">
+<use href="#bakery-ancienne"></use>
+</svg>
+<span class="ornament-star">✦</span>
+</div>
+
+<div class="kicker">
+Les Secrets de Main Street
+</div>
+<h1>Main Street Bakery</h1>
+<h3>LA RECETTE DU BONHEUR</h3>
+
+<p class="quote">
+Une histoire de gourmandises,
+de traditions et de passionnés de Noël.
+</p>
+
+<section class="chapter">
+<h2>✦ Une boulangerie pas comme les autres</h2>
+
+<p>
+Bienvenue à Main Street Bakery !
+</p>
+
+<p>
+Derrière cette jolie façade se préparent
+toutes les gourmandises qui accompagnent
+nos soirées magiques.
+</p>
+
+<p>
+Des délicieux croque-monsieurs au vin
+chaud de Noël, tout est préparé avec
+amour par le créateur de
+MiniDisneyland Réunion.
+</p>
+
+<p>
+Et pour le vin chaud, la recette vient
+tout droit de ses origines alsaciennes !
+Un petit parfum des marchés de Noël
+d'Alsace, transporté sous le soleil
+de La Réunion.
+</p>
+
+<p>
+Car oui, même sous les tropiques,
+la magie de Noël se déguste aussi !
+</p>
+</section>
+
+<section class="chapter">
+<h2>✦ Les fenêtres des passionnés</h2>
+
+<p>
+Levez les yeux vers les fenêtres
+du premier étage !
+</p>
+
+<p>
+Vous y découvrirez le groupe Facebook
+<strong>« Passionné de Noël –
+Île de La Réunion »</strong>,
+une belle communauté grâce à laquelle
+MiniDisneyland Réunion s'est fait connaître.
+</p>
+
+<p>
+Un lieu où chacun partage ses décorations,
+ses créations et ses événements.
+</p>
+
+<p>
+Vous retrouverez également
+<strong>L'Atelier des Lutins</strong>,
+avec ses magnifiques villages miniatures
+réalisés en impression 3D,
+ainsi que <strong>Le Monde Magique
+de Sébastien</strong>, situé à Saint-Pierre,
+où se rencontrent l'univers Disney,
+les villages miniatures et la féerie
+de Noël.
+</p>
+</section>
+
+<section class="chapter">
+<h2>❤️ Le secret de Main Street Bakery</h2>
+
+<p>
+Cette boulangerie ne raconte pas
+seulement une histoire de gourmandises.
+</p>
+
+<p>
+Elle célèbre les traditions,
+la créativité et surtout le plaisir
+de partager sa passion.
+</p>
+
+<p class="end">
+Car à MiniDisneyland Réunion,
+la plus belle recette du bonheur,
+c'est un peu de magie, beaucoup d'amour…
+et un bon croque-monsieur !
+</p>
+</section>
+
+<div class="ornament ornament-bottom">
+<span class="ornament-star">✦</span>
+<svg class="ornament-art bakery" viewBox="0 0 150 110">
+<use href="#bakery-ancienne"></use>
+</svg>
+<span class="ornament-star">✦</span>
+</div>
+
+<div class="page-footer">
+✦ FIN DU CINQUIÈME CONTE ✦
+</div>
+
+</div>
+</article>
+
 </div>
 
 <!-- SYSTEME DE RECONNAISSANCE -->
@@ -1279,25 +1478,26 @@ const bubbleTitle=document.querySelector('#bubble-title');
  1 = Checkpoint Charly
  2 = Guardian Angels
  3 = Le Dentiste
- 4 a 8 = futurs livres
+ 4 = Main Street Bakery
+ 5 a 8 = futurs livres
 */
+
+const books=[
+ {title:'Le Lumega · 1924',id:'book-lumega'},
+ {title:'Checkpoint Charly · 1853',id:'book-charly'},
+ {title:'Guardian Angels · 1900',id:'book-anges'},
+ {title:'Le Dentiste · Le sourire',id:'book-dentiste'},
+ {title:'Main Street Bakery · La recette du bonheur',id:'book-bakery'}
+];
 
 const places=Array.from({length:9},(_,index)=>({
  index,
  target:document.querySelector('#target-'+index),
  detected:false,
- title:
-  index===0?'Le Lumega · 1924':
-  index===1?'Checkpoint Charly · 1853':
-  index===2?'Guardian Angels · 1900':
-  index===3?'Le Dentiste · Le sourire':
-  null,
- book:
-  index===0?document.querySelector('#book-lumega'):
-  index===1?document.querySelector('#book-charly'):
-  index===2?document.querySelector('#book-anges'):
-  index===3?document.querySelector('#book-dentiste'):
-  null
+ title:books[index]?.title||null,
+ book:books[index]
+  ?document.querySelector('#'+books[index].id)
+  :null
 }));
 
 let activePlace=null;
