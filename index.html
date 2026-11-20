@@ -21,14 +21,9 @@ html,body{
  color:#fff0d0;
  font-family:Georgia,serif;
 }
+button{font-family:inherit;cursor:pointer}
 
-button{
- font-family:inherit;
- cursor:pointer;
-}
-
-/* CAMERA PLEIN ECRAN */
-
+/* CAMERA PLEIN ECRAN — REGLAGES CONSERVES */
 #camera-container{
  position:fixed;
  inset:0;
@@ -39,7 +34,6 @@ button{
  z-index:1;
  background:#101b38;
 }
-
 #camera-container a-scene,
 #camera-container .a-canvas{
  position:absolute!important;
@@ -47,7 +41,6 @@ button{
  width:100%!important;
  height:100%!important;
 }
-
 #camera-container video{
  position:absolute!important;
  top:50%!important;
@@ -61,7 +54,6 @@ button{
 }
 
 /* PAGE D'ACCUEIL */
-
 #intro{
  position:fixed;
  inset:0;
@@ -70,20 +62,16 @@ button{
  url("./Bazaart_2026-11-20_101224.JPEG")
  center/contain no-repeat;
 }
-
 #intro:before{
  content:"";
  position:absolute;
  inset:0;
  background:linear-gradient(
- to bottom,
- transparent 55%,
- #06112a22 75%,
- #06112a99
+ to bottom,transparent 55%,
+ #06112a22 75%,#06112a99
  );
  pointer-events:none;
 }
-
 #start{
  position:absolute;
  bottom:13%;
@@ -95,22 +83,14 @@ button{
  border:2px solid #f1d28c;
  border-radius:40px;
  color:#fff4d8;
- background:linear-gradient(
- 135deg,#74233e,#a23b53
- );
+ background:linear-gradient(135deg,#74233e,#a23b53);
  font-size:17px;
  animation:glow 2.5s infinite alternate;
 }
-
 @keyframes glow{
- from{
-  box-shadow:0 0 8px #e4b75d55;
- }
- to{
-  box-shadow:0 0 25px #e4b75dcc;
- }
+ from{box-shadow:0 0 8px #e4b75d55}
+ to{box-shadow:0 0 25px #e4b75dcc}
 }
-
 #status{
  position:absolute;
  bottom:5%;
@@ -122,7 +102,6 @@ button{
 }
 
 /* BULLE MAGIQUE */
-
 #found{
  position:fixed;
  z-index:15;
@@ -133,13 +112,10 @@ button{
  display:none;
  transform:translateX(-50%);
 }
-
 #found.visible{
  display:block;
- animation:magicAppear .85s
- cubic-bezier(.2,.8,.2,1) both;
+ animation:magicAppear .85s cubic-bezier(.2,.8,.2,1) both;
 }
-
 @keyframes magicAppear{
  0%{
   opacity:0;
@@ -157,7 +133,6 @@ button{
   filter:brightness(1);
  }
 }
-
 #discover{
  display:flex;
  align-items:center;
@@ -166,10 +141,7 @@ button{
  border:1.5px solid #f1d28c;
  border-radius:45px;
  background:linear-gradient(
- 135deg,
- #0f1d39f5,
- #23375bf5,
- #0f1d39f5
+ 135deg,#0f1d39f5,#23375bf5,#0f1d39f5
  );
  color:#f7dc9d;
  text-align:left;
@@ -178,41 +150,31 @@ button{
  animation:magicGlow 3s ease-in-out infinite;
  transition:transform .2s;
 }
-
-#discover:active{
- transform:scale(.94);
-}
-
+#discover:active{transform:scale(.94)}
 @keyframes magicGlow{
  0%,100%{
-  box-shadow:
-  0 0 12px #d5a95155,
-  0 0 25px #d5a95122;
+  box-shadow:0 0 12px #d5a95155,
+             0 0 25px #d5a95122;
  }
  50%{
-  box-shadow:
-  0 0 23px #f1d28cbb,
-  0 0 45px #d5a95155;
+  box-shadow:0 0 23px #f1d28cbb,
+             0 0 45px #d5a95155;
  }
 }
-
 #discover strong{
  display:block;
  font-size:17px;
 }
-
 #discover small{
  display:block;
  color:#fff1d3;
  font-size:12px;
  margin-top:4px;
 }
-
 .magic-icon{
  font-size:23px;
  animation:twinkle 2s ease-in-out infinite;
 }
-
 @keyframes twinkle{
  0%,100%{
   opacity:.65;
@@ -223,12 +185,7 @@ button{
   transform:scale(1.2) rotate(12deg);
  }
 }
-
-.arrow{
- font-size:21px;
- color:#f1d28c;
-}
-
+.arrow{font-size:21px;color:#f1d28c}
 .sparkle{
  position:absolute;
  pointer-events:none;
@@ -237,34 +194,21 @@ button{
  text-shadow:0 0 8px #ffd36b;
  animation:sparkleFloat 2.8s ease-in-out infinite;
 }
-
 .sparkle.one{
- top:-15px;
- left:12%;
- font-size:18px;
+ top:-15px;left:12%;font-size:18px;
 }
-
 .sparkle.two{
- top:-22px;
- right:15%;
- font-size:12px;
+ top:-22px;right:15%;font-size:12px;
  animation-delay:.8s;
 }
-
 .sparkle.three{
- bottom:-17px;
- left:30%;
- font-size:13px;
+ bottom:-17px;left:30%;font-size:13px;
  animation-delay:1.5s;
 }
-
 .sparkle.four{
- bottom:-12px;
- right:12%;
- font-size:17px;
+ bottom:-12px;right:12%;font-size:17px;
  animation-delay:.4s;
 }
-
 @keyframes sparkleFloat{
  0%,100%{
   opacity:0;
@@ -276,8 +220,7 @@ button{
  }
 }
 
-/* LIVRE DE CONTES MAGIQUE */
-
+/* LIVRE DE CONTES */
 #story{
  display:none;
  position:fixed;
@@ -288,19 +231,13 @@ button{
  background:
  radial-gradient(
  ellipse at 50% 10%,
- #304773 0%,
- transparent 60%
- ),
- #08152e;
+ #304773 0%,transparent 60%
+ ),#08152e;
  color:#4c2924;
  padding:28px 13px 75px;
  perspective:1200px;
 }
-
-#story.open{
- display:block;
-}
-
+#story.open{display:block}
 #story:before{
  content:"✦       ✧       ✦       ✧       ✦";
  position:fixed;
@@ -313,7 +250,6 @@ button{
  letter-spacing:12px;
  pointer-events:none;
 }
-
 #close{
  display:block;
  margin:0 auto 25px;
@@ -326,14 +262,12 @@ button{
  position:relative;
  z-index:2;
 }
-
 .book{
  max-width:570px;
  margin:auto;
  transform-origin:center left;
  animation:openBook 1.5s ease-out both;
 }
-
 @keyframes openBook{
  0%{
   opacity:0;
@@ -348,7 +282,6 @@ button{
   transform:rotateY(0) scale(1);
  }
 }
-
 .page{
  position:relative;
  background:linear-gradient(
@@ -367,7 +300,6 @@ button{
  inset 0 0 25px #ae813b44;
  text-align:center;
 }
-
 .page:before{
  content:"";
  position:absolute;
@@ -377,72 +309,81 @@ button{
  pointer-events:none;
 }
 
+/* NOUVEL ORNEMENT AVEC BURGER */
 .ornament{
- color:#9b702e;
- font-size:25px;
- letter-spacing:7px;
+ display:flex;
+ justify-content:center;
+ align-items:center;
+ gap:18px;
  margin:12px 0;
+ color:#9b702e;
+}
+.ornament-star{
+ font-size:25px;
+ line-height:1;
+}
+.burger-art{
+ display:block;
+ width:70px;
+ height:60px;
+ flex-shrink:0;
+ filter:drop-shadow(0 2px 2px #956b3233);
+}
+.ornament-bottom{
+ margin-top:35px;
 }
 
+/* TEXTE DU LIVRE */
 .kicker{
  font-size:12px;
  letter-spacing:3px;
  color:#865f34;
  text-transform:uppercase;
 }
-
 .page h1{
  color:#7f2938;
  font-size:38px;
  letter-spacing:2px;
  margin:15px 0 5px;
 }
-
 .page h2{
  color:#6e3d2e;
  font-size:21px;
  margin:32px 0 14px;
 }
-
 .page h3{
  color:#8c6833;
  font-size:16px;
  letter-spacing:2px;
  margin:6px 0 25px;
 }
-
 .page p{
  text-align:left;
  font-size:17px;
  line-height:1.8;
  margin:16px 0;
 }
-
 .chapter{
  border-top:1px solid #c9a76c;
  padding-top:12px;
  margin-top:30px;
 }
-
 .chapter p:first-letter{
  font-size:28px;
  color:#8d3540;
  font-weight:bold;
 }
-
 .quote{
  text-align:center!important;
  font-style:italic;
  color:#7b3540;
  font-size:19px!important;
 }
-
 .end{
  text-align:center!important;
  color:#7f2938;
  font-weight:bold;
 }
-
 .page-footer{
  text-align:center;
  color:#9b702e;
@@ -450,7 +391,6 @@ button{
  margin-top:35px;
  letter-spacing:2px;
 }
-
 @media(prefers-reduced-motion:reduce){
  *,*:before,*:after{
   animation-duration:.01ms!important;
@@ -462,10 +402,40 @@ button{
 
 <body>
 
+<!-- DESSIN DU BURGER REUTILISABLE -->
+<svg xmlns="http://www.w3.org/2000/svg"
+ style="position:absolute;width:0;height:0;overflow:hidden"
+ aria-hidden="true">
+<symbol id="burger-ancien" viewBox="0 0 100 90">
+ <g stroke="#956B32"
+    stroke-width="2.5"
+    stroke-linejoin="round"
+    stroke-linecap="round">
+  <path d="M14 41 Q15 9 50 9 Q85 9 86 41 Z"
+        fill="#D6AE67"/>
+  <path d="M14 43 Q50 49 86 43 L85 50 Q50 55 15 50 Z"
+        fill="#F0D28D"/>
+  <path d="M13 52 Q23 47 32 53 Q42 60 50 52 Q60 47 70 54 Q79 59 87 51"
+        fill="#8EAD65" stroke="#71894D"/>
+  <path d="M14 59 Q50 54 86 59 L86 68 Q50 73 14 68 Z"
+        fill="#8D5034"/>
+  <path d="M17 72 Q50 77 83 72 Q83 83 50 83 Q17 83 17 72 Z"
+        fill="#D6AE67"/>
+ </g>
+ <g fill="#FFF0C5">
+  <ellipse cx="34" cy="24" rx="2.5" ry="1.4"
+           transform="rotate(-20 34 24)"/>
+  <ellipse cx="49" cy="18" rx="2.5" ry="1.4"/>
+  <ellipse cx="65" cy="27" rx="2.5" ry="1.4"
+           transform="rotate(20 65 27)"/>
+  <ellipse cx="43" cy="33" rx="2.5" ry="1.4"/>
+  <ellipse cx="59" cy="36" rx="2.5" ry="1.4"/>
+ </g>
+</symbol>
+</svg>
+
 <!-- CAMERA -->
-
 <div id="camera-container">
-
 <a-scene
  mindar-image="imageTargetSrc: ./targets.mind; autoStart: false; uiScanning: yes;"
  embedded
@@ -474,63 +444,69 @@ button{
  vr-mode-ui="enabled: false"
  device-orientation-permission-ui="enabled: false">
 
-<a-camera
- position="0 0 0"
- look-controls="enabled: false">
-</a-camera>
+ <a-camera
+  position="0 0 0"
+  look-controls="enabled: false">
+ </a-camera>
 
-<a-entity
- mindar-image-target="targetIndex: 0"
- id="lumega">
-</a-entity>
+ <a-entity
+  mindar-image-target="targetIndex: 0"
+  id="lumega">
+ </a-entity>
 
 </a-scene>
 </div>
 
 <!-- ACCUEIL -->
-
 <div id="intro">
-<button id="start">
-✨ Commencer l'exploration
-</button>
-<div id="status"></div>
+ <button id="start">
+  ✨ Commencer l'exploration
+ </button>
+ <div id="status"></div>
 </div>
 
-<!-- BULLE MAGIQUE DU LUMEGA -->
-
+<!-- BULLE DU LUMEGA -->
 <div id="found">
+ <span class="sparkle one">✦</span>
+ <span class="sparkle two">✧</span>
+ <span class="sparkle three">✦</span>
+ <span class="sparkle four">✧</span>
 
-<span class="sparkle one">✦</span>
-<span class="sparkle two">✧</span>
-<span class="sparkle three">✦</span>
-<span class="sparkle four">✧</span>
-
-<button id="discover">
-<span class="magic-icon">✨</span>
-<span>
-<strong>Le Lumega · 1924</strong>
-<small>Découvrir son histoire</small>
-</span>
-<span class="arrow">❯</span>
-</button>
-
+ <button id="discover">
+  <span class="magic-icon">✨</span>
+  <span>
+   <strong>Le Lumega · 1924</strong>
+   <small>Découvrir son histoire</small>
+  </span>
+  <span class="arrow">❯</span>
+ </button>
 </div>
 
 <!-- LIVRE MAGIQUE -->
-
 <div id="story">
 
 <button id="close">
-✕ Retour à l'exploration
+ ✕ Retour à l'exploration
 </button>
 
 <article class="book">
 <div class="page">
 
-<div class="ornament">✦ ❧ ✦</div>
+<!-- ORNEMENT SUPERIEUR -->
+<div class="ornament">
+ <span class="ornament-star">✦</span>
+ <svg class="burger-art"
+      viewBox="0 0 100 90"
+      role="img"
+      aria-label="Burger illustré ancien">
+  <use href="#burger-ancien"
+       xlink:href="#burger-ancien"></use>
+ </svg>
+ <span class="ornament-star">✦</span>
+</div>
 
 <div class="kicker">
-Les Secrets de Main Street
+ Les Secrets de Main Street
 </div>
 
 <h1>Le Lumega</h1>
@@ -539,12 +515,11 @@ Les Secrets de Main Street
 <div class="ornament">✧ ✦ ✧</div>
 
 <p class="quote">
-Une histoire de burgers, de danse
-et surtout d'amitié.
+ Une histoire de burgers, de danse
+ et surtout d'amitié.
 </p>
 
 <section class="chapter">
-
 <h2>✦ Il était une fois...</h2>
 
 <p>
@@ -561,11 +536,9 @@ ils ouvrirent un snack baptisé
 où ils préparaient de délicieux burgers
 entièrement faits maison.
 </p>
-
 </section>
 
 <section class="chapter">
-
 <h2>✦ Une amitié inattendue</h2>
 
 <p>
@@ -580,11 +553,9 @@ et que les enfants n'avaient pas école,
 Emy et Ambre venaient régulièrement
 passer leurs journées chez lui.
 </p>
-
 </section>
 
 <section class="chapter">
-
 <h2>🩰 L'école de danse d'Emy</h2>
 
 <p>
@@ -597,11 +568,9 @@ Une enseigne lui fut dédiée,
 avec une promesse :
 grâce et élégance depuis 1917.
 </p>
-
 </section>
 
 <section class="chapter">
-
 <h2>🌭 Les meilleures knacks d'Ambre</h2>
 
 <p>
@@ -610,11 +579,9 @@ elle reçut un titre tout particulier :
 celui de servir les meilleures knacks
 de toute la ville !
 </p>
-
 </section>
 
 <section class="chapter">
-
 <h2>✦ Le secret des dates</h2>
 
 <p>
@@ -630,11 +597,9 @@ Ainsi, 2024 est devenue 1924,
 et l'année de naissance d'Emy,
 2017, est devenue 1917.
 </p>
-
 </section>
 
 <section class="chapter">
-
 <h2>❤️ Une façade pour ne jamais oublier</h2>
 
 <p>
@@ -655,10 +620,20 @@ des journées passées ensemble,
 des rires des enfants et surtout
 d'une belle amitié.
 </p>
-
 </section>
 
-<div class="ornament">✦ ❧ ✦</div>
+<!-- ORNEMENT INFERIEUR -->
+<div class="ornament ornament-bottom">
+ <span class="ornament-star">✦</span>
+ <svg class="burger-art"
+      viewBox="0 0 100 90"
+      role="img"
+      aria-label="Burger illustré ancien">
+  <use href="#burger-ancien"
+       xlink:href="#burger-ancien"></use>
+ </svg>
+ <span class="ornament-star">✦</span>
+</div>
 
 <p class="end">
 Car à MiniDisneyland Réunion,
@@ -668,7 +643,7 @@ histoires de cœur.
 </p>
 
 <div class="page-footer">
-✦ FIN DU PREMIER CONTE ✦
+ ✦ FIN DU PREMIER CONTE ✦
 </div>
 
 </div>
@@ -676,7 +651,6 @@ histoires de cœur.
 </div>
 
 <script>
-
 const scene=document.querySelector("a-scene");
 const target=document.querySelector("#lumega");
 const intro=document.querySelector("#intro");
@@ -690,7 +664,6 @@ let cameraStarted=false;
 
 function showBubble(){
  if(!cameraStarted||!detected||storyOpen)return;
-
  found.classList.remove("visible");
  void found.offsetWidth;
  found.classList.add("visible");
@@ -701,7 +674,6 @@ function hideBubble(){
 }
 
 document.querySelector("#start").onclick=async()=>{
-
  const btn=document.querySelector("#start");
  btn.disabled=true;
  status.textContent="Ouverture de la caméra...";
@@ -710,17 +682,12 @@ document.querySelector("#start").onclick=async()=>{
   await scene.systems["mindar-image-system"].start();
   cameraStarted=true;
   intro.style.display="none";
-
-  if(detected){
-   showBubble();
-  }
-
+  if(detected)showBubble();
  }catch(e){
   status.textContent=
-  "Impossible d'ouvrir la caméra. Vérifiez les autorisations Safari.";
+   "Impossible d'ouvrir la caméra. Vérifiez les autorisations Safari.";
   btn.disabled=false;
  }
-
 };
 
 target.addEventListener("targetFound",()=>{
@@ -743,12 +710,8 @@ document.querySelector("#discover").onclick=()=>{
 document.querySelector("#close").onclick=()=>{
  story.classList.remove("open");
  storyOpen=false;
-
- if(detected){
-  showBubble();
- }
+ if(detected)showBubble();
 };
-
 </script>
 
 </body>
