@@ -17,6 +17,8 @@ overflow:hidden;background:#101b38;
 color:#fff0d0;font-family:Georgia,serif
 }
 button{font-family:inherit;cursor:pointer}
+
+/* CAMERA PLEIN ECRAN */
 #camera-container{
 position:fixed;inset:0;width:100%;
 height:100%;height:100dvh;
@@ -35,20 +37,38 @@ min-width:100%!important;min-height:100%!important;
 object-fit:cover!important;
 transform:translate(-50%,-50%)!important
 }
+
+/* PAGE D'ACCUEIL : IMAGE PLEIN ECRAN */
 #intro{
-position:fixed;inset:0;z-index:20;
-background:#071332 url("./Bazaart_2026-11-20_101224.JPEG") center/contain no-repeat
+position:fixed;
+inset:0;
+width:100%;
+height:100%;
+height:100dvh;
+z-index:20;
+background:#071332
+url("./Bazaart_2026-11-20_101224.JPEG")
+center center / cover no-repeat;
 }
 #intro:before{
 content:"";position:absolute;inset:0;
-background:linear-gradient(to bottom,transparent 55%,#06112a22 75%,#06112a99);
+background:linear-gradient(
+to bottom,
+transparent 55%,
+#06112a22 75%,
+#06112a99
+);
 pointer-events:none
 }
 #start{
-position:absolute;bottom:13%;left:50%;
+position:absolute;
+bottom:13%;
+left:50%;
 transform:translateX(-50%);
-width:80%;max-width:350px;padding:16px 12px;
-border:2px solid #f1d28c;border-radius:40px;
+width:80%;max-width:350px;
+padding:16px 12px;
+border:2px solid #f1d28c;
+border-radius:40px;
 color:#fff4d8;
 background:linear-gradient(135deg,#74233e,#a23b53);
 font-size:17px;
@@ -60,8 +80,11 @@ to{box-shadow:0 0 25px #e4b75dcc}
 }
 #status{
 position:absolute;bottom:5%;width:100%;
-text-align:center;font-size:13px;color:white;padding:0 20px
+text-align:center;font-size:13px;
+color:white;padding:0 20px
 }
+
+/* BULLE MAGIQUE */
 #found{
 position:fixed;z-index:15;
 bottom:calc(8% + env(safe-area-inset-bottom));
@@ -93,8 +116,14 @@ animation:magicGlow 3s ease-in-out infinite
 50%{box-shadow:0 0 23px #f1d28cbb,0 0 45px #d5a95155}
 }
 #discover strong{display:block;font-size:17px}
-#discover small{display:block;color:#fff1d3;font-size:12px;margin-top:4px}
-.magic-icon{font-size:23px;animation:twinkle 2s ease-in-out infinite}
+#discover small{
+display:block;color:#fff1d3;
+font-size:12px;margin-top:4px
+}
+.magic-icon{
+font-size:23px;
+animation:twinkle 2s ease-in-out infinite
+}
 @keyframes twinkle{
 0%,100%{opacity:.65;transform:scale(.85) rotate(-12deg)}
 50%{opacity:1;transform:scale(1.2) rotate(12deg)}
@@ -113,6 +142,8 @@ animation:sparkleFloat 2.8s ease-in-out infinite
 0%,100%{opacity:0;transform:translateY(5px) scale(.5)}
 50%{opacity:1;transform:translateY(-7px) scale(1.2)}
 }
+
+/* LIVRES ANCIENS */
 #story{
 display:none;position:fixed;inset:0;z-index:30;
 overflow-y:auto;-webkit-overflow-scrolling:touch;
@@ -134,8 +165,14 @@ border:1px solid #d8b76e;border-radius:30px;
 padding:13px 20px;font-size:14px;
 position:relative;z-index:2
 }
-.book{display:none;max-width:570px;margin:auto;transform-origin:center left}
-.book.active{display:block;animation:openBook 1.5s ease-out both}
+.book{
+display:none;max-width:570px;margin:auto;
+transform-origin:center left
+}
+.book.active{
+display:block;
+animation:openBook 1.5s ease-out both
+}
 @keyframes openBook{
 0%{opacity:0;transform:rotateY(-75deg) scale(.8)}
 60%{opacity:1;transform:rotateY(8deg) scale(1.02)}
@@ -143,25 +180,33 @@ position:relative;z-index:2
 }
 .page{
 position:relative;
-background:linear-gradient(90deg,#d5bc86 0%,#f6e9c9 8%,#fff4d9 50%,#e7d2a6 100%);
+background:linear-gradient(
+90deg,#d5bc86 0%,#f6e9c9 8%,
+#fff4d9 50%,#e7d2a6 100%
+);
 border:5px double #c49a4b;
 border-radius:8px 18px 18px 8px;
 padding:35px 24px;
-box-shadow:7px 9px 0 #b18c53,12px 16px 30px #0009,inset 0 0 25px #ae813b44;
+box-shadow:7px 9px 0 #b18c53,
+12px 16px 30px #0009,
+inset 0 0 25px #ae813b44;
 text-align:center
 }
 .page:before{
 content:"";position:absolute;inset:9px;
 border:1px solid #b88e47;
-border-radius:3px 12px 12px 3px;pointer-events:none
+border-radius:3px 12px 12px 3px;
+pointer-events:none
 }
 .ornament{
-display:flex;justify-content:center;align-items:center;
-gap:18px;margin:12px 0;color:#9b702e
+display:flex;justify-content:center;
+align-items:center;gap:18px;
+margin:12px 0;color:#9b702e
 }
 .ornament-star{font-size:25px;line-height:1}
 .ornament-art{
-display:block;width:70px;height:65px;flex-shrink:0;
+display:block;width:70px;height:65px;
+flex-shrink:0;
 filter:drop-shadow(0 2px 2px #956b3233)
 }
 .ornament-art.angels{width:115px;height:80px}
@@ -175,46 +220,72 @@ filter:drop-shadow(0 2px 2px #956b3233)
 font-size:12px;letter-spacing:3px;
 color:#865f34;text-transform:uppercase
 }
-.page h1{color:#7f2938;font-size:34px;letter-spacing:1px;margin:15px 0 5px}
-.page h2{color:#6e3d2e;font-size:21px;margin:32px 0 14px}
-.page h3{color:#8c6833;font-size:16px;letter-spacing:2px;margin:6px 0 25px}
-.page p{text-align:left;font-size:17px;line-height:1.8;margin:16px 0}
-.chapter{border-top:1px solid #c9a76c;padding-top:12px;margin-top:30px}
-.chapter p:first-letter{font-size:28px;color:#8d3540;font-weight:bold}
-.quote{text-align:center!important;font-style:italic;color:#7b3540;font-size:19px!important}
-.end{text-align:center!important;color:#7f2938;font-weight:bold}
-.page-footer{text-align:center;color:#9b702e;font-size:13px;margin-top:35px;letter-spacing:2px}
+.page h1{
+color:#7f2938;font-size:34px;
+letter-spacing:1px;margin:15px 0 5px
+}
+.page h2{
+color:#6e3d2e;font-size:21px;
+margin:32px 0 14px
+}
+.page h3{
+color:#8c6833;font-size:16px;
+letter-spacing:2px;margin:6px 0 25px
+}
+.page p{
+text-align:left;font-size:17px;
+line-height:1.8;margin:16px 0
+}
+.chapter{
+border-top:1px solid #c9a76c;
+padding-top:12px;margin-top:30px
+}
+.chapter p:first-letter{
+font-size:28px;color:#8d3540;font-weight:bold
+}
+.quote{
+text-align:center!important;
+font-style:italic;color:#7b3540;
+font-size:19px!important
+}
+.end{
+text-align:center!important;
+color:#7f2938;font-weight:bold
+}
+.page-footer{
+text-align:center;color:#9b702e;
+font-size:13px;margin-top:35px;
+letter-spacing:2px
+}
 
-/* BOUTON AU BAS DE CHAQUE LIVRE */
+/* BOUTON EN BAS DE CHAQUE HISTOIRE */
 .continue-exploration{
-display:block;
-width:100%;
+display:block;width:100%;
 margin:28px auto 5px;
 padding:17px 15px;
 border:2px solid #d7ae61;
 border-radius:30px;
 background:linear-gradient(135deg,#70273d,#a43c53);
 color:#fff3d6;
-font-size:17px;
-font-weight:bold;
+font-size:17px;font-weight:bold;
 box-shadow:0 4px 15px #70432955;
-position:relative;
-z-index:2;
-transition:transform .2s,box-shadow .2s
+position:relative;z-index:2
 }
 .continue-exploration:active{
-transform:scale(.96);
-box-shadow:0 2px 8px #70432955
+transform:scale(.96)
 }
-
 @media(prefers-reduced-motion:reduce){
-*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important}
+*,*:before,*:after{
+animation-duration:.01ms!important;
+animation-iteration-count:1!important
+}
 }
 </style>
 </head>
+
 <body>
 
-<!-- ILLUSTRATIONS DES LIVRES -->
+<!-- ILLUSTRATIONS ANCIENNES -->
 <svg xmlns="http://www.w3.org/2000/svg"
 style="position:absolute;width:0;height:0;overflow:hidden"
 aria-hidden="true">
@@ -265,7 +336,7 @@ aria-hidden="true">
 <g fill="#A97B3E">
 <circle cx="56" cy="31" r="1.3"/>
 <circle cx="78" cy="31" r="1.3"/>
-<path d="M70 7l2 5 5 2-5 2-2 5-5-2 5-2z"/>
+<path d="M70 7l2 5 5 2-5 2-2 5-5-2-5-2 5-2z"/>
 </g>
 </symbol>
 
@@ -388,7 +459,6 @@ fill="none" stroke="#B99462" stroke-width="2" stroke-linecap="round"/>
 <path d="M25 124 H155" stroke="#C49A4B" stroke-width="2"/>
 </symbol>
 
-<!-- CANON COLUMBIAD ET LUNE -->
 <symbol id="space-ancien" viewBox="0 0 180 140">
 <g fill="#C69B50">
 <path d="M20 16l3 7 7 3-7 3-3 7-3-7-7-3 7-3z"/>
@@ -397,19 +467,13 @@ fill="none" stroke="#B99462" stroke-width="2" stroke-linecap="round"/>
 <circle cx="48" cy="9" r="2"/>
 <circle cx="166" cy="79" r="2"/>
 </g>
-
-<!-- LUNE -->
 <circle cx="136" cy="47" r="27" fill="#E8D3A2" stroke="#956B32" stroke-width="2.5"/>
 <circle cx="127" cy="39" r="7" fill="#C5A36E" opacity=".65"/>
 <circle cx="145" cy="54" r="9" fill="#C5A36E" opacity=".65"/>
 <circle cx="146" cy="33" r="4" fill="#C5A36E" opacity=".65"/>
-
-<!-- TRAJECTOIRE -->
 <path d="M49 104 Q76 33 111 39"
 fill="none" stroke="#C49A4B" stroke-width="2"
 stroke-dasharray="4 5"/>
-
-<!-- PROJECTILE -->
 <g transform="translate(96 51) rotate(40)">
 <path d="M0 -19 Q13 -6 11 7 L-11 7 Q-13 -6 0 -19Z"
 fill="#E4BD79" stroke="#956B32" stroke-width="2"/>
@@ -417,8 +481,6 @@ fill="#E4BD79" stroke="#956B32" stroke-width="2"/>
 fill="#B17B48" stroke="#956B32" stroke-width="2"/>
 <circle cx="0" cy="0" r="4" fill="#F7EAC8" stroke="#956B32" stroke-width="1.5"/>
 </g>
-
-<!-- CANON -->
 <g stroke="#956B32" stroke-width="2.5" stroke-linejoin="round">
 <path d="M26 112 L60 56 L78 66 L46 121 Z" fill="#A66A43"/>
 <ellipse cx="69" cy="61" rx="12" ry="7" transform="rotate(28 69 61)"
@@ -427,13 +489,10 @@ fill="#DAB77B"/>
 <path d="M35 91 L57 104" stroke="#F4D99F" stroke-width="3"/>
 <path d="M43 78 L65 90" stroke="#F4D99F" stroke-width="3"/>
 </g>
-
-<!-- MONTAGNE -->
 <path d="M4 129 L33 112 L48 119 L66 103 L89 128 L112 116 L145 129 Z"
 fill="#D8B780" stroke="#956B32" stroke-width="2"/>
 <path d="M5 132 H175" stroke="#956B32" stroke-width="2"/>
 </symbol>
-
 </svg>
 
 <!-- CAMERA ET NEUF CIBLES -->
@@ -483,11 +542,11 @@ device-orientation-permission-ui="enabled: false">
 </button>
 </div>
 
-<!-- BIBLIOTHEQUE DES NEUF LIVRES -->
+<!-- LES NEUF LIVRES -->
 <div id="story">
 <button id="close">✕ Retour à l'exploration</button>
 
-<!-- LIVRE 1 : LE LUMEGA -->
+<!-- 1 : LE LUMEGA -->
 <article class="book" id="book-lumega">
 <div class="page">
 <div class="ornament">
@@ -544,7 +603,7 @@ device-orientation-permission-ui="enabled: false">
 </div>
 </article>
 
-<!-- LIVRE 2 : CHECKPOINT CHARLY -->
+<!-- 2 : CHECKPOINT CHARLY -->
 <article class="book" id="book-charly">
 <div class="page">
 <div class="ornament">
@@ -614,7 +673,7 @@ device-orientation-permission-ui="enabled: false">
 </div>
 </article>
 
-<!-- LIVRE 3 : GUARDIAN ANGELS -->
+<!-- 3 : GUARDIAN ANGELS -->
 <article class="book" id="book-anges">
 <div class="page">
 <div class="ornament">
@@ -680,7 +739,7 @@ device-orientation-permission-ui="enabled: false">
 </div>
 </article>
 
-<!-- LIVRE 4 : DENTISTE -->
+<!-- 4 : DENTISTE -->
 <article class="book" id="book-dentiste">
 <div class="page">
 <div class="ornament">
@@ -729,7 +788,7 @@ device-orientation-permission-ui="enabled: false">
 </div>
 </article>
 
-<!-- LIVRE 5 : MAIN STREET BAKERY -->
+<!-- 5 : MAIN STREET BAKERY -->
 <article class="book" id="book-bakery">
 <div class="page">
 <div class="ornament">
@@ -776,7 +835,7 @@ device-orientation-permission-ui="enabled: false">
 </div>
 </article>
 
-<!-- LIVRE 6 : MAGIC MAKERS -->
+<!-- 6 : MAGIC MAKERS -->
 <article class="book" id="book-makers">
 <div class="page">
 <div class="ornament">
@@ -821,7 +880,7 @@ device-orientation-permission-ui="enabled: false">
 </div>
 </article>
 
-<!-- LIVRE 7 : VOEGTLING HARDWARE -->
+<!-- 7 : VOEGTLING HARDWARE -->
 <article class="book" id="book-hardware">
 <div class="page">
 <div class="ornament">
@@ -875,7 +934,7 @@ device-orientation-permission-ui="enabled: false">
 </div>
 </article>
 
-<!-- LIVRE 8 : MAIN STREET STATION -->
+<!-- 8 : MAIN STREET STATION -->
 <article class="book" id="book-station">
 <div class="page">
 <div class="ornament">
@@ -921,7 +980,7 @@ device-orientation-permission-ui="enabled: false">
 </div>
 </article>
 
-<!-- LIVRE 9 : SPACE MOUNTAIN VR -->
+<!-- 9 : SPACE MOUNTAIN VR -->
 <article class="book" id="book-space">
 <div class="page">
 <div class="ornament">
@@ -967,7 +1026,7 @@ device-orientation-permission-ui="enabled: false">
 
 </div>
 
-<!-- RECONNAISSANCE DES FACADES -->
+<!-- FONCTIONNEMENT DE LA REALITE AUGMENTEE -->
 <script>
 const scene=document.querySelector('a-scene');
 const intro=document.querySelector('#intro');
@@ -975,18 +1034,6 @@ const found=document.querySelector('#found');
 const story=document.querySelector('#story');
 const status=document.querySelector('#status');
 const bubbleTitle=document.querySelector('#bubble-title');
-
-/*
-0 = Le Lumega
-1 = Checkpoint Charly
-2 = Guardian Angels
-3 = Le Dentiste
-4 = Main Street Bakery
-5 = The Magic Makers
-6 = Voegtling Hardware
-7 = Main Street Station
-8 = Space Mountain VR
-*/
 
 const books=[
 {title:'Le Lumega · 1924',id:'book-lumega'},
@@ -1005,7 +1052,9 @@ index,
 target:document.querySelector('#target-'+index),
 detected:false,
 title:books[index]?.title||null,
-book:books[index]?document.querySelector('#'+books[index].id):null
+book:books[index]
+?document.querySelector('#'+books[index].id)
+:null
 }));
 
 let activePlace=null;
@@ -1017,7 +1066,11 @@ found.classList.remove('visible');
 }
 
 function visiblePlace(){
-if(activePlace!==null&&places[activePlace].detected&&places[activePlace].book){
+if(
+activePlace!==null&&
+places[activePlace].detected&&
+places[activePlace].book
+){
 return activePlace;
 }
 const place=places.find(p=>p.detected&&p.book);
@@ -1026,7 +1079,14 @@ return place?place.index:null;
 
 function showBubble(index){
 const place=places[index];
-if(!cameraStarted||storyOpen||!place||!place.detected||!place.book)return;
+if(
+!cameraStarted||
+storyOpen||
+!place||
+!place.detected||
+!place.book
+)return;
+
 activePlace=index;
 bubbleTitle.textContent=place.title;
 hideBubble();
@@ -1039,6 +1099,7 @@ place.target.addEventListener('targetFound',()=>{
 place.detected=true;
 if(place.book)showBubble(place.index);
 });
+
 place.target.addEventListener('targetLost',()=>{
 place.detected=false;
 if(activePlace===place.index){
@@ -1054,14 +1115,18 @@ document.querySelector('#start').onclick=async()=>{
 const btn=document.querySelector('#start');
 btn.disabled=true;
 status.textContent='Ouverture de la caméra...';
+
 try{
 await scene.systems['mindar-image-system'].start();
 cameraStarted=true;
 intro.style.display='none';
+
 const next=visiblePlace();
 if(next!==null)showBubble(next);
+
 }catch(e){
-status.textContent='Impossible d’ouvrir la caméra. Vérifiez les autorisations Safari.';
+status.textContent=
+'Impossible d’ouvrir la caméra. Vérifiez les autorisations Safari.';
 btn.disabled=false;
 console.error(e);
 }
@@ -1069,13 +1134,17 @@ console.error(e);
 
 document.querySelector('#discover').onclick=()=>{
 if(activePlace===null||!places[activePlace].book)return;
+
 storyOpen=true;
 hideBubble();
+
 places.forEach(p=>{
 if(p.book)p.book.classList.remove('active');
 });
+
 story.classList.add('open');
 story.scrollTop=0;
+
 const book=places[activePlace].book;
 void book.offsetWidth;
 book.classList.add('active');
@@ -1084,9 +1153,11 @@ book.classList.add('active');
 function closeStory(){
 story.classList.remove('open');
 storyOpen=false;
+
 places.forEach(p=>{
 if(p.book)p.book.classList.remove('active');
 });
+
 const next=visiblePlace();
 if(next!==null)showBubble(next);
 else hideBubble();
@@ -1094,9 +1165,11 @@ else hideBubble();
 
 document.querySelector('#close').onclick=closeStory;
 
-document.querySelectorAll('.continue-exploration').forEach(button=>{
+document.querySelectorAll('.continue-exploration')
+.forEach(button=>{
 button.addEventListener('click',closeStory);
 });
 </script>
+
 </body>
 </html>
