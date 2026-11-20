@@ -9,7 +9,7 @@
 <meta name="apple-mobile-web-app-title" content="MiniDisneyReunion">
 <meta name="application-name" content="MiniDisneyReunion">
 <link rel="manifest" href="./manifest.webmanifest">
-<link rel="apple-touch-icon" href="./apple-touch-icon.png">
+<link rel="apple-touch-icon" href="./apple-touch-icon.PNG">
 <title>Compagnon Magique — MiniDisneyland Réunion</title>
 <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
@@ -64,8 +64,6 @@ body.ar-mode #background{display:none}
 .event strong{display:block;font-size:15px;font-weight:normal}
 .event small{display:block;font-size:12px;line-height:1.5;margin-top:5px}
 .footer{text-align:center;font-size:12px;padding:24px 0 35px}
-
-/* CORRECTION DU SCANNER */
 #camera-container{display:none;position:fixed;inset:0;z-index:1;overflow:hidden;background:#101b38}
 body.ar-mode #camera-container{display:block}
 #camera-container a-scene,#camera-container .a-canvas{position:absolute!important;inset:0!important;width:100%!important;height:100%!important}
@@ -800,8 +798,6 @@ if(cameraStarting)return;
 cameraStarting=true;
 
 const cameraContainer=$("#camera-container");
-
-// Réafficher le scanner avant de lancer la caméra
 cameraContainer.style.display="block";
 app.classList.add("hidden");
 document.body.classList.add("ar-mode");
@@ -814,8 +810,6 @@ cameraStarted=true;
 }
 }catch(error){
 console.error(error);
-
-// En cas d'erreur, restaurer le menu
 cameraContainer.style.display="none";
 document.body.classList.remove("ar-mode");
 $("#camera-menu").classList.add("hidden");
@@ -829,18 +823,12 @@ cameraStarting=false;
 async function leaveCamera(){
 if(cameraStarting)return;
 
-// Masquer immédiatement le scanner et ses commandes
 hideBubble();
 $("#camera-container").style.display="none";
 $("#camera-menu").classList.add("hidden");
-
-// Restaurer le fond d'accueil
 document.body.classList.remove("ar-mode");
-
-// Afficher le menu avant l'arrêt de la caméra
 showSection("home");
 
-// Arrêter complètement la réalité augmentée
 if(cameraStarted){
 try{
 await scene.systems["mindar-image-system"].stop();
@@ -850,11 +838,8 @@ console.warn("Erreur pendant l'arrêt du scanner :",error);
 cameraStarted=false;
 }
 
-// Réinitialiser les cibles détectées
 places.forEach(p=>p.detected=false);
 activePlace=null;
-
-// Vérifier que le scanner reste masqué
 $("#camera-container").style.display="none";
 }
 
