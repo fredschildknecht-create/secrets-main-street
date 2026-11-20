@@ -3,39 +3,179 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Les Secrets de Main Street</title>
+
+<script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+
 <style>
 body {
-  margin: 0;
-  background: #101d3b;
-  color: #fff1cf;
-  font-family: Georgia, serif;
-  text-align: center;
+  margin:0;
+  font-family:Georgia,serif;
+  background:#111b39;
+  color:#ffe6a5;
 }
-main { padding: 55px 24px; }
-h1 { color: #f5cb77; }
+#intro,#found {
+  position:fixed;
+  z-index:10;
+  left:5%;
+  width:90%;
+  box-sizing:border-box;
+  text-align:center;
+  background:#111b39ee;
+  border:2px solid #d8ae5c;
+  border-radius:18px;
+  padding:18px;
+}
+#intro {top:5%}
+#found {bottom:8%;display:none}
+h1 {font-size:23px;margin:8px}
+p {line-height:1.5}
 button {
-  padding: 16px 22px;
-  background: #8d2534;
-  color: white;
-  border: 2px solid #e9c477;
-  border-radius: 12px;
-  font-size: 18px;
+  background:#8b293b;
+  color:#fff4d5;
+  border:2px solid #d8ae5c;
+  border-radius:12px;
+  padding:14px;
+  font-size:17px;
+  font-family:Georgia,serif;
 }
+#story {
+  display:none;
+  position:fixed;
+  z-index:30;
+  inset:0;
+  overflow-y:auto;
+  background:#f5e8c9;
+  color:#4c2924;
+  padding:25px 22px 60px;
+  box-sizing:border-box;
+  text-align:center;
+}
+#story h1 {color:#812d35}
+#story p {text-align:left}
+#story button {margin:15px}
 </style>
 </head>
+
 <body>
-<main>
-  <h2>MiniDisneyland Réunion</h2>
-  <h1>Les Secrets de Main Street</h1>
-  <p>Chaque façade cache une histoire...</p>
-  <p>Découvrez les souvenirs et les secrets
-  de notre petite Main Street.</p>
-  <button onclick="alert('La reconnaissance des façades sera bientôt disponible !')">
-    ✨ Explorer Main Street
-  </button>
-</main>
+
+<div id="intro">
+<h1>✨ Les Secrets de Main Street</h1>
+<p>MiniDisneyland Réunion</p>
+<p>Dirigez votre caméra vers une façade
+pour découvrir son histoire.</p>
+<button id="start">Commencer l'exploration</button>
+<p id="status" style="font-size:13px"></p>
+</div>
+
+<div id="found">
+<h2>🍔 Le Lumega</h2>
+<p>Une histoire de burgers, de danse
+et d'amitié...</p>
+<button id="discover">
+✨ Découvrir son histoire
+</button>
+</div>
+
+<div id="story">
+<button id="close">✕ Retour à l'exploration</button>
+<h2>Les Secrets de Main Street</h2>
+<h1>LE LUMEGA</h1>
+<h3>Depuis 1924</h3>
+<p><em>Une histoire de burgers, de danse
+et d'amitié.</em></p>
+
+<p>En 2024, Ludovic et Mégane arrivèrent
+à La Réunion avec leurs enfants, Emy et
+Ambre, pour commencer une nouvelle aventure.</p>
+
+<p>Ils ouvrirent au rez-de-chaussée de la
+résidence un snack, Le Lumega, où ils
+préparaient de délicieux burgers entièrement
+faits maison.</p>
+
+<p>Une belle amitié naquit avec le créateur
+de MiniDisneyland Réunion. Lorsque les parents
+travaillaient et que les enfants n'avaient
+pas école, Emy et Ambre venaient régulièrement
+passer leurs journées chez lui.</p>
+
+<h3>🩰 L'école de danse d'Emy</h3>
+<p>Passionnée de danse, Emy reçut sa propre
+école imaginaire, fondée en 1917, où règnent
+grâce et élégance.</p>
+
+<h3>🌭 Les knacks d'Ambre</h3>
+<p>Ambre, qui adore les knacks, reçut
+quant à elle le titre de spécialiste
+des meilleures knacks de la ville !</p>
+
+<h3>Pourquoi 1924 ?</h3>
+<p>Comme dans les parcs Disney, certaines
+dates ont été reculées de cent ans pour
+donner aux façades le charme d'autrefois.
+2024 est ainsi devenue 1924.</p>
+
+<h3>❤️ Une façade pour se souvenir</h3>
+<p>Aujourd'hui, la famille est retournée
+vivre en métropole. Mais cette façade
+perpétue le souvenir des burgers faits
+maison, des journées partagées, des rires
+des enfants et surtout d'une belle amitié.</p>
+
+<p><strong>Car derrière certaines façades
+se cachent de véritables histoires de cœur.</strong></p>
+</div>
+
+<a-scene
+ mindar-image="imageTargetSrc: ./targets.mind; autoStart: false; uiScanning: yes;"
+ embedded
+ color-space="sRGB"
+ renderer="colorManagement: true"
+ vr-mode-ui="enabled: false"
+ device-orientation-permission-ui="enabled: false">
+
+<a-camera position="0 0 0"
+ look-controls="enabled: false">
+</a-camera>
+
+<a-entity mindar-image-target="targetIndex: 0"
+ id="lumega"></a-entity>
+
+</a-scene>
+
+<script>
+const scene=document.querySelector("a-scene");
+const target=document.querySelector("#lumega");
+const intro=document.querySelector("#intro");
+const found=document.querySelector("#found");
+const story=document.querySelector("#story");
+const status=document.querySelector("#status");
+
+document.querySelector("#start").onclick=async()=>{
+ status.textContent="Ouverture de la caméra...";
+ try {
+  await scene.systems["mindar-image-system"].start();
+  intro.style.display="none";
+ } catch(e) {
+  status.textContent="Impossible d'ouvrir la caméra. Vérifiez les autorisations Safari.";
+ }
+};
+
+target.addEventListener("targetFound",()=>{
+ found.style.display="block";
+});
+target.addEventListener("targetLost",()=>{
+ found.style.display="none";
+});
+document.querySelector("#discover").onclick=()=>{
+ story.style.display="block";
+};
+document.querySelector("#close").onclick=()=>{
+ story.style.display="none";
+};
+</script>
 </body>
 </html>
-  
