@@ -169,6 +169,7 @@ filter:drop-shadow(0 2px 2px #956b3233)
 .ornament-art.makers{width:115px;height:100px}
 .ornament-art.hardware{width:125px;height:100px}
 .ornament-art.station{width:145px;height:110px}
+.ornament-art.space{width:145px;height:110px}
 .ornament-bottom{margin-top:35px}
 .kicker{
 font-size:12px;letter-spacing:3px;
@@ -183,6 +184,29 @@ color:#865f34;text-transform:uppercase
 .quote{text-align:center!important;font-style:italic;color:#7b3540;font-size:19px!important}
 .end{text-align:center!important;color:#7f2938;font-weight:bold}
 .page-footer{text-align:center;color:#9b702e;font-size:13px;margin-top:35px;letter-spacing:2px}
+
+/* BOUTON AU BAS DE CHAQUE LIVRE */
+.continue-exploration{
+display:block;
+width:100%;
+margin:28px auto 5px;
+padding:17px 15px;
+border:2px solid #d7ae61;
+border-radius:30px;
+background:linear-gradient(135deg,#70273d,#a43c53);
+color:#fff3d6;
+font-size:17px;
+font-weight:bold;
+box-shadow:0 4px 15px #70432955;
+position:relative;
+z-index:2;
+transition:transform .2s,box-shadow .2s
+}
+.continue-exploration:active{
+transform:scale(.96);
+box-shadow:0 2px 8px #70432955
+}
+
 @media(prefers-reduced-motion:reduce){
 *,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important}
 }
@@ -333,30 +357,21 @@ aria-hidden="true">
 <path d="M21 105 Q80 112 139 105" fill="none" stroke="#956B32" stroke-width="2"/>
 </symbol>
 
-<!-- LOCOMOTIVE ET ARCHE DE GARE -->
 <symbol id="station-ancienne" viewBox="0 0 180 130">
 <g fill="#C69B50">
 <path d="M23 12l3 7 7 3-7 3-3 7-3-7-7-3 7-3z"/>
 <path d="M150 10l3 7 7 3-7 3-3 7-3-7-7-3 7-3z"/>
 <circle cx="91" cy="9" r="2.5"/>
 </g>
-
-<!-- ARCHE -->
 <path d="M15 112 V55 Q15 17 90 17 Q165 17 165 55 V112 H151 V56 Q151 31 90 31 Q29 31 29 56 V112 Z"
 fill="#D3AD70" stroke="#956B32" stroke-width="3"/>
 <path d="M22 112 V55 Q22 24 90 24 Q158 24 158 55 V112"
 fill="none" stroke="#F8E8C4" stroke-width="2"/>
-
-<!-- HORLOGE -->
 <circle cx="90" cy="41" r="11" fill="#F5E4C0" stroke="#956B32" stroke-width="2"/>
 <path d="M90 34 V41 L96 45" fill="none" stroke="#956B32" stroke-width="2" stroke-linecap="round"/>
-
-<!-- CHEMINEE ET FUMEE -->
 <path d="M76 65 V50 H90 V65" fill="#B77C45" stroke="#956B32" stroke-width="2"/>
 <path d="M80 48 Q71 40 79 34 M87 47 Q95 39 88 32"
 fill="none" stroke="#B99462" stroke-width="2" stroke-linecap="round"/>
-
-<!-- LOCOMOTIVE -->
 <g stroke="#956B32" stroke-width="2.5" stroke-linejoin="round">
 <path d="M42 91 L42 74 Q42 66 50 66 H107 Q116 66 116 74 V91 Z" fill="#A64A47"/>
 <path d="M111 78 H132 L144 91 H111 Z" fill="#C99A5B"/>
@@ -371,6 +386,52 @@ fill="none" stroke="#B99462" stroke-width="2" stroke-linecap="round"/>
 <circle cx="105" cy="102" r="4" fill="#F8E8C4"/>
 <path d="M10 118 H170" stroke="#956B32" stroke-width="3"/>
 <path d="M25 124 H155" stroke="#C49A4B" stroke-width="2"/>
+</symbol>
+
+<!-- CANON COLUMBIAD ET LUNE -->
+<symbol id="space-ancien" viewBox="0 0 180 140">
+<g fill="#C69B50">
+<path d="M20 16l3 7 7 3-7 3-3 7-3-7-7-3 7-3z"/>
+<path d="M155 22l3 7 7 3-7 3-3 7-3-7-7-3 7-3z"/>
+<path d="M112 9l2 5 5 2-5 2-2 5-5-2-5-2 5-2z"/>
+<circle cx="48" cy="9" r="2"/>
+<circle cx="166" cy="79" r="2"/>
+</g>
+
+<!-- LUNE -->
+<circle cx="136" cy="47" r="27" fill="#E8D3A2" stroke="#956B32" stroke-width="2.5"/>
+<circle cx="127" cy="39" r="7" fill="#C5A36E" opacity=".65"/>
+<circle cx="145" cy="54" r="9" fill="#C5A36E" opacity=".65"/>
+<circle cx="146" cy="33" r="4" fill="#C5A36E" opacity=".65"/>
+
+<!-- TRAJECTOIRE -->
+<path d="M49 104 Q76 33 111 39"
+fill="none" stroke="#C49A4B" stroke-width="2"
+stroke-dasharray="4 5"/>
+
+<!-- PROJECTILE -->
+<g transform="translate(96 51) rotate(40)">
+<path d="M0 -19 Q13 -6 11 7 L-11 7 Q-13 -6 0 -19Z"
+fill="#E4BD79" stroke="#956B32" stroke-width="2"/>
+<path d="M-11 7 L11 7 L8 16 L-8 16 Z"
+fill="#B17B48" stroke="#956B32" stroke-width="2"/>
+<circle cx="0" cy="0" r="4" fill="#F7EAC8" stroke="#956B32" stroke-width="1.5"/>
+</g>
+
+<!-- CANON -->
+<g stroke="#956B32" stroke-width="2.5" stroke-linejoin="round">
+<path d="M26 112 L60 56 L78 66 L46 121 Z" fill="#A66A43"/>
+<ellipse cx="69" cy="61" rx="12" ry="7" transform="rotate(28 69 61)"
+fill="#DAB77B"/>
+<path d="M24 115 L48 115 L61 127 L12 127 Z" fill="#D6B06F"/>
+<path d="M35 91 L57 104" stroke="#F4D99F" stroke-width="3"/>
+<path d="M43 78 L65 90" stroke="#F4D99F" stroke-width="3"/>
+</g>
+
+<!-- MONTAGNE -->
+<path d="M4 129 L33 112 L48 119 L66 103 L89 128 L112 116 L145 129 Z"
+fill="#D8B780" stroke="#956B32" stroke-width="2"/>
+<path d="M5 132 H175" stroke="#956B32" stroke-width="2"/>
 </symbol>
 
 </svg>
@@ -422,7 +483,7 @@ device-orientation-permission-ui="enabled: false">
 </button>
 </div>
 
-<!-- BIBLIOTHEQUE DES HUIT LIVRES -->
+<!-- BIBLIOTHEQUE DES NEUF LIVRES -->
 <div id="story">
 <button id="close">✕ Retour à l'exploration</button>
 
@@ -479,6 +540,7 @@ device-orientation-permission-ui="enabled: false">
 </div>
 <p class="end">Car à MiniDisneyland Réunion, derrière certaines façades se cachent de véritables histoires de cœur.</p>
 <div class="page-footer">✦ FIN DU PREMIER CONTE ✦</div>
+<button class="continue-exploration">✨ Continuer l'exploration</button>
 </div>
 </article>
 
@@ -548,6 +610,7 @@ device-orientation-permission-ui="enabled: false">
 </div>
 <p class="end">Car à MiniDisneyland Réunion, certaines façades sont construites avec des souvenirs et beaucoup d'amour.</p>
 <div class="page-footer">✦ FIN DU DEUXIÈME CONTE ✦</div>
+<button class="continue-exploration">✨ Continuer l'exploration</button>
 </div>
 </article>
 
@@ -613,6 +676,7 @@ device-orientation-permission-ui="enabled: false">
 </div>
 <p class="end">Monette &amp; Maëlle. Pour toujours, les gardiennes de Main Street.</p>
 <div class="page-footer">✦ FIN DU TROISIÈME CONTE ✦</div>
+<button class="continue-exploration">✨ Continuer l'exploration</button>
 </div>
 </article>
 
@@ -661,6 +725,7 @@ device-orientation-permission-ui="enabled: false">
 </div>
 <p class="end">Car à MiniDisneyland Réunion, notre plus belle récompense est le nombre de sourires que nous réussissons à créer.</p>
 <div class="page-footer">✦ FIN DU QUATRIÈME CONTE ✦</div>
+<button class="continue-exploration">✨ Continuer l'exploration</button>
 </div>
 </article>
 
@@ -707,6 +772,7 @@ device-orientation-permission-ui="enabled: false">
 <span class="ornament-star">✦</span>
 </div>
 <div class="page-footer">✦ FIN DU CINQUIÈME CONTE ✦</div>
+<button class="continue-exploration">✨ Continuer l'exploration</button>
 </div>
 </article>
 
@@ -751,6 +817,7 @@ device-orientation-permission-ui="enabled: false">
 <span class="ornament-star">✦</span>
 </div>
 <div class="page-footer">✦ FIN DU SIXIÈME CONTE ✦</div>
+<button class="continue-exploration">✨ Continuer l'exploration</button>
 </div>
 </article>
 
@@ -804,134 +871,97 @@ device-orientation-permission-ui="enabled: false">
 <span class="ornament-star">✦</span>
 </div>
 <div class="page-footer">✦ FIN DU SEPTIÈME CONTE ✦</div>
+<button class="continue-exploration">✨ Continuer l'exploration</button>
 </div>
 </article>
 
 <!-- LIVRE 8 : MAIN STREET STATION -->
 <article class="book" id="book-station">
 <div class="page">
-
 <div class="ornament">
 <span class="ornament-star">✦</span>
-<svg class="ornament-art station" viewBox="0 0 180 130">
-<use href="#station-ancienne"></use>
-</svg>
+<svg class="ornament-art station" viewBox="0 0 180 130"><use href="#station-ancienne"></use></svg>
 <span class="ornament-star">✦</span>
 </div>
-
 <div class="kicker">Les Secrets de Main Street</div>
 <h1>Main Street Station</h1>
 <h3>LE TEMPS PASSE, LES SOUVENIRS RESTENT</h3>
-
-<p class="quote">
-La gare où commence la magie.
-</p>
+<p class="quote">La gare où commence la magie.</p>
 
 <section class="chapter">
 <h2>✦ Il était une fois… une gare enchantée</h2>
-
-<p>
-À Disneyland Paris, il existe un passage
-que des millions de visiteurs ont emprunté :
-celui qui passe sous la gare de
-Main Street, U.S.A., avant de découvrir
-la magie du parc.
-</p>
-
-<p>
-C'est de ce lieu emblématique
-qu'est née cette façade
-de MiniDisneyland Réunion.
-</p>
-
-<p>
-Une gare sans train ni quai,
-mais avec une destination
-bien particulière :
-<strong>le monde des souvenirs
-et des rêves.</strong>
-</p>
+<p>À Disneyland Paris, il existe un passage que des millions de visiteurs ont emprunté : celui qui passe sous la gare de Main Street, U.S.A., avant de découvrir la magie du parc.</p>
+<p>C'est de ce lieu emblématique qu'est née cette façade de MiniDisneyland Réunion.</p>
+<p>Une gare sans train ni quai, mais avec une destination bien particulière : <strong>le monde des souvenirs et des rêves.</strong></p>
 </section>
 
 <section class="chapter">
 <h2>✦ Quatre fenêtres, mille souvenirs</h2>
-
-<p>
-Regardez attentivement les vitraux
-qui entourent la gare.
-</p>
-
-<p>
-Ils racontent les quatre grands
-univers de notre petit monde enchanté :
-<strong>Main Street</strong>,
-avec ses façades miniatures,
-<strong>le château de la Belle au bois dormant</strong>,
-<strong>Space Mountain – De la Terre à la Lune</strong>,
-et enfin <strong>le spectacle final</strong>,
-lorsque le château s'illumine
-et que la magie atteint son apogée.
-</p>
-
-<p>
-Chaque vitrail est comme une petite
-fenêtre ouverte sur un souvenir
-que les visiteurs pourront
-emporter avec eux.
-</p>
+<p>Regardez attentivement les vitraux qui entourent la gare.</p>
+<p>Ils racontent les quatre grands univers de notre petit monde enchanté : <strong>Main Street</strong>, avec ses façades miniatures, <strong>le château de la Belle au bois dormant</strong>, <strong>Space Mountain – De la Terre à la Lune</strong>, et enfin <strong>le spectacle final</strong>, lorsque le château s'illumine et que la magie atteint son apogée.</p>
+<p>Chaque vitrail est comme une petite fenêtre ouverte sur un souvenir que les visiteurs pourront emporter avec eux.</p>
 </section>
 
 <section class="chapter">
 <h2>❤️ Le temps passe, les souvenirs restent</h2>
-
-<p>
-Au-dessus du passage,
-une phrase résume à elle seule
-toute la philosophie
-de MiniDisneyland Réunion :
-</p>
-
-<p class="quote">
-<strong>
-« Le temps passe,
-les souvenirs restent. »
-</strong>
-</p>
-
-<p>
-Car les lumières finissent par s'éteindre,
-les spectacles se terminent
-et les visiteurs reprennent
-le chemin de leur maison.
-</p>
-
-<p>
-Mais les sourires, les émotions
-et les étoiles dans les yeux,
-eux, continuent de vivre
-bien après la soirée.
-</p>
-
-<p class="end">
-Et si cette gare n'a pas de train,
-elle possède quelque chose
-de bien plus précieux :
-le pouvoir de faire voyager les cœurs.
-</p>
+<p>Au-dessus du passage, une phrase résume à elle seule toute la philosophie de MiniDisneyland Réunion :</p>
+<p class="quote"><strong>« Le temps passe, les souvenirs restent. »</strong></p>
+<p>Car les lumières finissent par s'éteindre, les spectacles se terminent et les visiteurs reprennent le chemin de leur maison.</p>
+<p>Mais les sourires, les émotions et les étoiles dans les yeux, eux, continuent de vivre bien après la soirée.</p>
+<p class="end">Et si cette gare n'a pas de train, elle possède quelque chose de bien plus précieux : le pouvoir de faire voyager les cœurs.</p>
 </section>
 
 <div class="ornament ornament-bottom">
 <span class="ornament-star">✦</span>
-<svg class="ornament-art station" viewBox="0 0 180 130">
-<use href="#station-ancienne"></use>
-</svg>
+<svg class="ornament-art station" viewBox="0 0 180 130"><use href="#station-ancienne"></use></svg>
 <span class="ornament-star">✦</span>
 </div>
-
-<div class="page-footer">
-✦ FIN DU HUITIÈME CONTE ✦
+<div class="page-footer">✦ FIN DU HUITIÈME CONTE ✦</div>
+<button class="continue-exploration">✨ Continuer l'exploration</button>
 </div>
+</article>
 
+<!-- LIVRE 9 : SPACE MOUNTAIN VR -->
+<article class="book" id="book-space">
+<div class="page">
+<div class="ornament">
+<span class="ornament-star">✦</span>
+<svg class="ornament-art space" viewBox="0 0 180 140"><use href="#space-ancien"></use></svg>
+<span class="ornament-star">✦</span>
+</div>
+<div class="kicker">Les Secrets de Main Street</div>
+<h1>Space Mountain VR</h1>
+<h3>DE LA TERRE À LA LUNE</h3>
+<p class="quote">La plus grande aventure dans le plus petit des espaces.</p>
+
+<section class="chapter">
+<h2>✦ Un anniversaire exceptionnel</h2>
+<p>En 2025, <strong>Space Mountain – De la Terre à la Lune</strong> célèbre les 30 ans de son ouverture à Disneyland Paris.</p>
+<p>Pour rendre hommage à cette attraction mythique, MiniDisneyland Réunion décide de lui offrir une place toute particulière.</p>
+<p>Mais comment faire entrer une montagne russe aussi spectaculaire dans un tout petit appartement ?</p>
+</section>
+
+<section class="chapter">
+<h2>✦ Un voyage sans limites</h2>
+<p>La réponse se trouve derrière cette porte : <strong>la réalité virtuelle !</strong></p>
+<p>Grâce à un casque VR, les visiteurs peuvent embarquer pour une aventure inspirée de l'univers de Space Mountain, comme s'ils quittaient réellement la Terre pour rejoindre la Lune.</p>
+<p>Pas besoin d'un immense bâtiment ni de kilomètres de rails : ici, l'imagination fait le reste !</p>
+</section>
+
+<section class="chapter">
+<h2>❤️ Le secret de Space Mountain</h2>
+<p>Cette attraction représente à elle seule toute la philosophie de MiniDisneyland Réunion.</p>
+<p><strong>Prouver que même dans le plus petit des endroits, on peut faire vivre la plus grande des aventures.</strong></p>
+<p class="end">Car la magie ne se mesure pas en mètres carrés… mais en émotions !</p>
+</section>
+
+<div class="ornament ornament-bottom">
+<span class="ornament-star">✦</span>
+<svg class="ornament-art space" viewBox="0 0 180 140"><use href="#space-ancien"></use></svg>
+<span class="ornament-star">✦</span>
+</div>
+<div class="page-footer">✦ FIN DU NEUVIÈME CONTE ✦</div>
+<button class="continue-exploration">✨ Continuer l'exploration</button>
 </div>
 </article>
 
@@ -955,7 +985,7 @@ const bubbleTitle=document.querySelector('#bubble-title');
 5 = The Magic Makers
 6 = Voegtling Hardware
 7 = Main Street Station
-8 = Futur livre
+8 = Space Mountain VR
 */
 
 const books=[
@@ -966,7 +996,8 @@ const books=[
 {title:'Main Street Bakery · La recette du bonheur',id:'book-bakery'},
 {title:'The Magic Makers · Le passage secret',id:'book-makers'},
 {title:'Vœgtling Hardware · Les trésors de la famille',id:'book-hardware'},
-{title:'Main Street Station · Le temps passe, les souvenirs restent',id:'book-station'}
+{title:'Main Street Station · Le temps passe, les souvenirs restent',id:'book-station'},
+{title:'Space Mountain VR · De la Terre à la Lune',id:'book-space'}
 ];
 
 const places=Array.from({length:9},(_,index)=>({
@@ -1050,7 +1081,7 @@ void book.offsetWidth;
 book.classList.add('active');
 };
 
-document.querySelector('#close').onclick=()=>{
+function closeStory(){
 story.classList.remove('open');
 storyOpen=false;
 places.forEach(p=>{
@@ -1059,7 +1090,13 @@ if(p.book)p.book.classList.remove('active');
 const next=visiblePlace();
 if(next!==null)showBubble(next);
 else hideBubble();
-};
+}
+
+document.querySelector('#close').onclick=closeStory;
+
+document.querySelectorAll('.continue-exploration').forEach(button=>{
+button.addEventListener('click',closeStory);
+});
 </script>
 </body>
 </html>
