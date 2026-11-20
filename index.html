@@ -10,123 +10,200 @@
 <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
 
 <style>
+* {box-sizing:border-box}
 body {
-  margin:0;
-  font-family:Georgia,serif;
-  background:#111b39;
-  color:#ffe6a5;
+ margin:0;
+ background:#101b38;
+ color:#fff0d0;
+ font-family:Georgia,serif;
 }
-#intro,#found {
-  position:fixed;
-  z-index:10;
-  left:5%;
-  width:90%;
-  box-sizing:border-box;
-  text-align:center;
-  background:#111b39ee;
-  border:2px solid #d8ae5c;
-  border-radius:18px;
-  padding:18px;
+button {font-family:inherit;cursor:pointer}
+
+/* ACCUEIL */
+#intro {
+ position:fixed;
+ inset:0;
+ z-index:20;
+ background:#071332 url("./Bazaart_2026-11-20_101224.JPEG")
+ center center/contain no-repeat;
 }
-#intro {top:5%}
-#found {bottom:8%;display:none}
-h1 {font-size:23px;margin:8px}
-p {line-height:1.5}
-button {
-  background:#8b293b;
-  color:#fff4d5;
-  border:2px solid #d8ae5c;
-  border-radius:12px;
-  padding:14px;
-  font-size:17px;
-  font-family:Georgia,serif;
+#intro:before {
+ content:"";
+ position:absolute;
+ inset:0;
+ background:linear-gradient(
+ to bottom,
+ transparent 55%,
+ #06112a33 75%,
+ #06112a99 100%);
+ pointer-events:none;
 }
+#start {
+ position:absolute;
+ bottom:13%;
+ left:50%;
+ transform:translateX(-50%);
+ width:80%;
+ max-width:350px;
+ padding:16px 12px;
+ border:2px solid #f1d28c;
+ border-radius:40px;
+ color:#fff4d8;
+ background:linear-gradient(135deg,#74233e,#a23b53);
+ box-shadow:0 0 20px #e4b75d88;
+ font-size:17px;
+ animation:glow 2.5s infinite alternate;
+}
+@keyframes glow {
+ from {box-shadow:0 0 8px #e4b75d55}
+ to {box-shadow:0 0 25px #e4b75dcc}
+}
+#status {
+ position:absolute;
+ bottom:5%;
+ width:100%;
+ text-align:center;
+ font-size:13px;
+ color:#fff;
+ padding:0 20px;
+}
+
+/* PETITE BULLE DE RECONNAISSANCE */
+#found {
+ position:fixed;
+ z-index:15;
+ bottom:7%;
+ left:50%;
+ transform:translateX(-50%);
+ width:max-content;
+ max-width:92%;
+ display:none;
+ animation:appear .5s ease-out;
+}
+@keyframes appear {
+ from {opacity:0;transform:translate(-50%,20px)}
+ to {opacity:1;transform:translate(-50%,0)}
+}
+#discover {
+ display:flex;
+ align-items:center;
+ gap:12px;
+ padding:12px 18px;
+ border:1.5px solid #e9c780;
+ border-radius:40px;
+ background:#172849ee;
+ color:#f7dc9d;
+ box-shadow:0 0 18px #d5a95177;
+ text-align:left;
+ backdrop-filter:blur(10px);
+}
+#discover strong {font-size:16px}
+#discover small {
+ display:block;
+ color:#fff1d3;
+ font-size:12px;
+ margin-top:3px;
+}
+
+/* FICHE HISTORIQUE */
 #story {
-  display:none;
-  position:fixed;
-  z-index:30;
-  inset:0;
-  overflow-y:auto;
-  background:#f5e8c9;
-  color:#4c2924;
-  padding:25px 22px 60px;
-  box-sizing:border-box;
-  text-align:center;
+ display:none;
+ position:fixed;
+ z-index:30;
+ inset:0;
+ overflow-y:auto;
+ background:#f5e8c9;
+ color:#4c2924;
+ padding:28px 23px 65px;
+ text-align:center;
 }
 #story h1 {color:#812d35}
-#story p {text-align:left}
-#story button {margin:15px}
+#story h2 {font-size:21px}
+#story h3 {margin-top:30px}
+#story p {
+ text-align:left;
+ line-height:1.65;
+ font-size:17px;
+}
+#close {
+ background:#862d41;
+ color:#fff2d6;
+ border:2px solid #d8b76e;
+ border-radius:30px;
+ padding:13px 18px;
+ margin-bottom:20px;
+}
 </style>
 </head>
-
 <body>
 
 <div id="intro">
-<h1>✨ Les Secrets de Main Street</h1>
-<p>MiniDisneyland Réunion</p>
-<p>Dirigez votre caméra vers une façade
-pour découvrir son histoire.</p>
-<button id="start">Commencer l'exploration</button>
-<p id="status" style="font-size:13px"></p>
+ <button id="start">
+ ✨ Commencer l'exploration
+ </button>
+ <div id="status"></div>
 </div>
 
 <div id="found">
-<h2>🍔 Le Lumega</h2>
-<p>Une histoire de burgers, de danse
-et d'amitié...</p>
-<button id="discover">
-✨ Découvrir son histoire
-</button>
+ <button id="discover">
+  <span>✨</span>
+  <span>
+   <strong>Le Lumega · 1924</strong>
+   <small>Découvrir son histoire</small>
+  </span>
+  <span>❯</span>
+ </button>
 </div>
 
 <div id="story">
-<button id="close">✕ Retour à l'exploration</button>
-<h2>Les Secrets de Main Street</h2>
-<h1>LE LUMEGA</h1>
-<h3>Depuis 1924</h3>
-<p><em>Une histoire de burgers, de danse
-et d'amitié.</em></p>
+ <button id="close">✕ Retour à l'exploration</button>
+ <h2>✦ Les Secrets de Main Street ✦</h2>
+ <h1>LE LUMEGA</h1>
+ <h3>Depuis 1924</h3>
+ <p><em>Une histoire de burgers, de danse
+ et d'amitié.</em></p>
 
-<p>En 2024, Ludovic et Mégane arrivèrent
-à La Réunion avec leurs enfants, Emy et
-Ambre, pour commencer une nouvelle aventure.</p>
+ <p>En 2024, Ludovic et Mégane arrivèrent
+ à La Réunion avec leurs enfants, Emy et
+ Ambre, pour commencer une nouvelle aventure.</p>
 
-<p>Ils ouvrirent au rez-de-chaussée de la
-résidence un snack, Le Lumega, où ils
-préparaient de délicieux burgers entièrement
-faits maison.</p>
+ <p>Ils ouvrirent au rez-de-chaussée de la
+ résidence un snack, Le Lumega, où ils
+ préparaient de délicieux burgers entièrement
+ faits maison.</p>
 
-<p>Une belle amitié naquit avec le créateur
-de MiniDisneyland Réunion. Lorsque les parents
-travaillaient et que les enfants n'avaient
-pas école, Emy et Ambre venaient régulièrement
-passer leurs journées chez lui.</p>
+ <p>Une belle amitié naquit avec le créateur
+ de MiniDisneyland Réunion. Lorsque les parents
+ travaillaient et que les enfants n'avaient
+ pas école, Emy et Ambre venaient régulièrement
+ passer leurs journées chez lui.</p>
 
-<h3>🩰 L'école de danse d'Emy</h3>
-<p>Passionnée de danse, Emy reçut sa propre
-école imaginaire, fondée en 1917, où règnent
-grâce et élégance.</p>
+ <h3>🩰 L'école de danse d'Emy</h3>
+ <p>Passionnée de danse, Emy reçut sa propre
+ école imaginaire, fondée en 1917, où règnent
+ grâce et élégance.</p>
 
-<h3>🌭 Les knacks d'Ambre</h3>
-<p>Ambre, qui adore les knacks, reçut
-quant à elle le titre de spécialiste
-des meilleures knacks de la ville !</p>
+ <h3>🌭 Les knacks d'Ambre</h3>
+ <p>Ambre, qui adore les knacks, reçut
+ quant à elle le titre de spécialiste
+ des meilleures knacks de la ville !</p>
 
-<h3>Pourquoi 1924 ?</h3>
-<p>Comme dans les parcs Disney, certaines
-dates ont été reculées de cent ans pour
-donner aux façades le charme d'autrefois.
-2024 est ainsi devenue 1924.</p>
+ <h3>✨ Pourquoi 1924 ?</h3>
+ <p>Comme dans les parcs Disney, certaines
+ dates ont été reculées de cent ans pour
+ donner aux façades le charme d'autrefois.
+ 2024 est ainsi devenue 1924.</p>
 
-<h3>❤️ Une façade pour se souvenir</h3>
-<p>Aujourd'hui, la famille est retournée
-vivre en métropole. Mais cette façade
-perpétue le souvenir des burgers faits
-maison, des journées partagées, des rires
-des enfants et surtout d'une belle amitié.</p>
+ <h3>❤️ Une façade pour se souvenir</h3>
+ <p>Aujourd'hui, la famille est retournée
+ vivre en métropole. Mais cette façade
+ perpétue le souvenir des burgers faits
+ maison, des journées partagées, des rires
+ des enfants et surtout d'une belle amitié.</p>
 
-<p><strong>Car derrière certaines façades
-se cachent de véritables histoires de cœur.</strong></p>
+ <p><strong>Car derrière certaines façades
+ se cachent de véritables histoires de cœur.
+ </strong></p>
 </div>
 
 <a-scene
@@ -137,13 +214,12 @@ se cachent de véritables histoires de cœur.</strong></p>
  vr-mode-ui="enabled: false"
  device-orientation-permission-ui="enabled: false">
 
-<a-camera position="0 0 0"
- look-controls="enabled: false">
-</a-camera>
+ <a-camera position="0 0 0"
+ look-controls="enabled: false"></a-camera>
 
-<a-entity mindar-image-target="targetIndex: 0"
+ <a-entity
+ mindar-image-target="targetIndex: 0"
  id="lumega"></a-entity>
-
 </a-scene>
 
 <script>
@@ -154,27 +230,38 @@ const found=document.querySelector("#found");
 const story=document.querySelector("#story");
 const status=document.querySelector("#status");
 
+let detected=false;
+
 document.querySelector("#start").onclick=async()=>{
  status.textContent="Ouverture de la caméra...";
  try {
   await scene.systems["mindar-image-system"].start();
   intro.style.display="none";
  } catch(e) {
-  status.textContent="Impossible d'ouvrir la caméra. Vérifiez les autorisations Safari.";
+  status.textContent=
+  "Impossible d'ouvrir la caméra. Vérifiez les autorisations Safari.";
  }
 };
 
 target.addEventListener("targetFound",()=>{
- found.style.display="block";
+ detected=true;
+ if(story.style.display!=="block")
+  found.style.display="block";
 });
+
 target.addEventListener("targetLost",()=>{
+ detected=false;
  found.style.display="none";
 });
+
 document.querySelector("#discover").onclick=()=>{
  story.style.display="block";
+ found.style.display="none";
 };
+
 document.querySelector("#close").onclick=()=>{
  story.style.display="none";
+ if(detected) found.style.display="block";
 };
 </script>
 </body>
