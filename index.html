@@ -3,16 +3,16 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Les Secrets de Main Street</title>
 
 <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
 
 <style>
-* { box-sizing:border-box; }
+*{box-sizing:border-box}
 
-html,body {
+html,body{
  margin:0;
  width:100%;
  height:100%;
@@ -22,14 +22,14 @@ html,body {
  font-family:Georgia,serif;
 }
 
-button {
+button{
  font-family:inherit;
  cursor:pointer;
 }
 
-/* CAMÉRA — ON CONSERVE LE RÉGLAGE QUI FONCTIONNE */
+/* CAMERA PLEIN ECRAN */
 
-#camera-container {
+#camera-container{
  position:fixed;
  inset:0;
  width:100%;
@@ -41,52 +41,50 @@ button {
 }
 
 #camera-container a-scene,
-#camera-container .a-canvas {
- position:absolute !important;
- inset:0 !important;
- width:100% !important;
- height:100% !important;
+#camera-container .a-canvas{
+ position:absolute!important;
+ inset:0!important;
+ width:100%!important;
+ height:100%!important;
 }
 
-#camera-container video {
- position:absolute !important;
- top:50% !important;
- left:50% !important;
- width:100% !important;
- height:100% !important;
- min-width:100% !important;
- min-height:100% !important;
- object-fit:cover !important;
- transform:translate(-50%,-50%) !important;
+#camera-container video{
+ position:absolute!important;
+ top:50%!important;
+ left:50%!important;
+ width:100%!important;
+ height:100%!important;
+ min-width:100%!important;
+ min-height:100%!important;
+ object-fit:cover!important;
+ transform:translate(-50%,-50%)!important;
 }
 
-/* ACCUEIL */
+/* PAGE D'ACCUEIL */
 
-#intro {
+#intro{
  position:fixed;
  inset:0;
  z-index:20;
- background-color:#071332;
- background-image:url("./Bazaart_2026-11-20_101224.JPEG");
- background-position:center;
- background-size:contain;
- background-repeat:no-repeat;
+ background:#071332
+ url("./Bazaart_2026-11-20_101224.JPEG")
+ center/contain no-repeat;
 }
 
-#intro:before {
+#intro:before{
  content:"";
  position:absolute;
  inset:0;
  background:linear-gradient(
-  to bottom,
-  transparent 55%,
-  #06112a22 75%,
-  #06112a99 100%
+ to bottom,
+ transparent 55%,
+ #06112a22 75%,
+ #06112a99
  );
  pointer-events:none;
 }
 
-#start {
+#start{
  position:absolute;
  bottom:13%;
  left:50%;
@@ -97,18 +95,23 @@ button {
  border:2px solid #f1d28c;
  border-radius:40px;
  color:#fff4d8;
- background:linear-gradient(135deg,#74233e,#a23b53);
- box-shadow:0 0 20px #e4b75d88;
+ background:linear-gradient(
+ 135deg,#74233e,#a23b53
+ );
  font-size:17px;
  animation:glow 2.5s infinite alternate;
 }
 
-@keyframes glow {
- from { box-shadow:0 0 8px #e4b75d55; }
- to { box-shadow:0 0 25px #e4b75dcc; }
+@keyframes glow{
+ from{
+  box-shadow:0 0 8px #e4b75d55;
+ }
+ to{
+  box-shadow:0 0 25px #e4b75dcc;
+ }
 }
 
-#status {
+#status{
  position:absolute;
  bottom:5%;
  width:100%;
@@ -120,7 +123,7 @@ button {
 
 /* BULLE MAGIQUE */
 
-#found {
+#found{
  position:fixed;
  z-index:15;
  bottom:calc(8% + env(safe-area-inset-bottom));
@@ -131,215 +134,327 @@ button {
  transform:translateX(-50%);
 }
 
-#found.visible {
+#found.visible{
  display:block;
- animation:magicAppear .85s cubic-bezier(.2,.8,.2,1) both;
+ animation:magicAppear .85s
+ cubic-bezier(.2,.8,.2,1) both;
 }
 
-@keyframes magicAppear {
- 0% {
+@keyframes magicAppear{
+ 0%{
   opacity:0;
   transform:translate(-50%,30px) scale(.75);
   filter:brightness(1.8) blur(5px);
  }
- 65% {
+ 65%{
   opacity:1;
   transform:translate(-50%,-5px) scale(1.05);
-  filter:brightness(1.3) blur(0);
+  filter:brightness(1.3);
  }
- 100% {
+ 100%{
   opacity:1;
   transform:translate(-50%,0) scale(1);
   filter:brightness(1);
  }
 }
 
-#discover {
- position:relative;
+#discover{
  display:flex;
  align-items:center;
- justify-content:center;
  gap:13px;
  padding:14px 21px;
  border:1.5px solid #f1d28c;
  border-radius:45px;
  background:linear-gradient(
-  135deg,
-  rgba(15,29,57,.96),
-  rgba(35,55,91,.96),
-  rgba(15,29,57,.96)
+ 135deg,
+ #0f1d39f5,
+ #23375bf5,
+ #0f1d39f5
  );
  color:#f7dc9d;
- box-shadow:
-  0 0 15px #d5a95166,
-  0 0 35px #d5a95133,
-  inset 0 0 12px #e9c78022;
  text-align:left;
  backdrop-filter:blur(12px);
  -webkit-backdrop-filter:blur(12px);
  animation:magicGlow 3s ease-in-out infinite;
- transition:transform .2s ease;
- isolation:isolate;
+ transition:transform .2s;
 }
 
-#discover:active {
+#discover:active{
  transform:scale(.94);
 }
 
-@keyframes magicGlow {
- 0%,100% {
+@keyframes magicGlow{
+ 0%,100%{
   box-shadow:
-   0 0 12px #d5a95155,
-   0 0 25px #d5a95122,
-   inset 0 0 10px #e9c78022;
+  0 0 12px #d5a95155,
+  0 0 25px #d5a95122;
  }
- 50% {
+ 50%{
   box-shadow:
-   0 0 23px #f1d28cbb,
-   0 0 45px #d5a95155,
-   inset 0 0 18px #e9c78033;
+  0 0 23px #f1d28cbb,
+  0 0 45px #d5a95155;
  }
 }
 
-#discover strong {
+#discover strong{
  display:block;
  font-size:17px;
- letter-spacing:.3px;
 }
 
-#discover small {
+#discover small{
  display:block;
  color:#fff1d3;
  font-size:12px;
  margin-top:4px;
 }
 
-.magic-icon {
+.magic-icon{
  font-size:23px;
  animation:twinkle 2s ease-in-out infinite;
 }
 
-@keyframes twinkle {
- 0%,100% {
+@keyframes twinkle{
+ 0%,100%{
   opacity:.65;
   transform:scale(.85) rotate(-12deg);
  }
- 50% {
+ 50%{
   opacity:1;
   transform:scale(1.2) rotate(12deg);
  }
 }
 
-.arrow {
+.arrow{
  font-size:21px;
  color:#f1d28c;
- animation:arrowMove 2s ease-in-out infinite;
 }
 
-@keyframes arrowMove {
- 0%,100% { transform:translateX(0); }
- 50% { transform:translateX(4px); }
-}
-
-/* PETITES ÉTOILES AUTOUR DE LA BULLE */
-
-.sparkle {
+.sparkle{
  position:absolute;
- z-index:2;
  pointer-events:none;
+ z-index:2;
  color:#ffe5a0;
  text-shadow:0 0 8px #ffd36b;
  animation:sparkleFloat 2.8s ease-in-out infinite;
 }
 
-.sparkle.one {
+.sparkle.one{
  top:-15px;
  left:12%;
  font-size:18px;
 }
 
-.sparkle.two {
+.sparkle.two{
  top:-22px;
  right:15%;
  font-size:12px;
  animation-delay:.8s;
 }
 
-.sparkle.three {
+.sparkle.three{
  bottom:-17px;
  left:30%;
  font-size:13px;
  animation-delay:1.5s;
 }
 
-.sparkle.four {
+.sparkle.four{
  bottom:-12px;
  right:12%;
  font-size:17px;
  animation-delay:.4s;
 }
 
-@keyframes sparkleFloat {
- 0%,100% {
+@keyframes sparkleFloat{
+ 0%,100%{
   opacity:0;
-  transform:translateY(5px) scale(.5) rotate(0deg);
+  transform:translateY(5px) scale(.5);
  }
- 50% {
+ 50%{
   opacity:1;
-  transform:translateY(-7px) scale(1.2) rotate(25deg);
+  transform:translateY(-7px) scale(1.2);
  }
 }
 
-/* FICHE HISTORIQUE */
+/* LIVRE DE CONTES MAGIQUE */
 
-#story {
+#story{
  display:none;
  position:fixed;
- z-index:30;
  inset:0;
+ z-index:30;
  overflow-y:auto;
  -webkit-overflow-scrolling:touch;
- background:#f5e8c9;
+ background:
+ radial-gradient(
+ ellipse at 50% 10%,
+ #304773 0%,
+ transparent 60%
+ ),
+ #08152e;
  color:#4c2924;
- padding:28px 23px 65px;
+ padding:28px 13px 75px;
+ perspective:1200px;
+}
+
+#story.open{
+ display:block;
+}
+
+#story:before{
+ content:"✦       ✧       ✦       ✧       ✦";
+ position:fixed;
+ top:8%;
+ left:0;
+ width:100%;
+ color:#d9b76c;
+ text-align:center;
+ opacity:.3;
+ letter-spacing:12px;
+ pointer-events:none;
+}
+
+#close{
+ display:block;
+ margin:0 auto 25px;
+ background:#17294a;
+ color:#f5d68f;
+ border:1px solid #d8b76e;
+ border-radius:30px;
+ padding:13px 20px;
+ font-size:14px;
+ position:relative;
+ z-index:2;
+}
+
+.book{
+ max-width:570px;
+ margin:auto;
+ transform-origin:center left;
+ animation:openBook 1.5s ease-out both;
+}
+
+@keyframes openBook{
+ 0%{
+  opacity:0;
+  transform:rotateY(-75deg) scale(.8);
+ }
+ 60%{
+  opacity:1;
+  transform:rotateY(8deg) scale(1.02);
+ }
+ 100%{
+  opacity:1;
+  transform:rotateY(0) scale(1);
+ }
+}
+
+.page{
+ position:relative;
+ background:linear-gradient(
+ 90deg,
+ #d5bc86 0%,
+ #f6e9c9 8%,
+ #fff4d9 50%,
+ #e7d2a6 100%
+ );
+ border:5px double #c49a4b;
+ border-radius:8px 18px 18px 8px;
+ padding:35px 24px;
+ box-shadow:
+ 7px 9px 0 #b18c53,
+ 12px 16px 30px #0009,
+ inset 0 0 25px #ae813b44;
  text-align:center;
 }
 
-#story h1 {
- color:#812d35;
+.page:before{
+ content:"";
+ position:absolute;
+ inset:9px;
+ border:1px solid #b88e47;
+ border-radius:3px 12px 12px 3px;
+ pointer-events:none;
 }
 
-#story h2 {
+.ornament{
+ color:#9b702e;
+ font-size:25px;
+ letter-spacing:7px;
+ margin:12px 0;
+}
+
+.kicker{
+ font-size:12px;
+ letter-spacing:3px;
+ color:#865f34;
+ text-transform:uppercase;
+}
+
+.page h1{
+ color:#7f2938;
+ font-size:38px;
+ letter-spacing:2px;
+ margin:15px 0 5px;
+}
+
+.page h2{
+ color:#6e3d2e;
  font-size:21px;
+ margin:32px 0 14px;
 }
 
-#story h3 {
+.page h3{
+ color:#8c6833;
+ font-size:16px;
+ letter-spacing:2px;
+ margin:6px 0 25px;
+}
+
+.page p{
+ text-align:left;
+ font-size:17px;
+ line-height:1.8;
+ margin:16px 0;
+}
+
+.chapter{
+ border-top:1px solid #c9a76c;
+ padding-top:12px;
  margin-top:30px;
 }
 
-#story p {
- text-align:left;
- line-height:1.65;
- font-size:17px;
+.chapter p:first-letter{
+ font-size:28px;
+ color:#8d3540;
+ font-weight:bold;
 }
 
-#close {
- background:#862d41;
- color:#fff2d6;
- border:2px solid #d8b76e;
- border-radius:30px;
- padding:13px 18px;
- margin-bottom:20px;
+.quote{
+ text-align:center!important;
+ font-style:italic;
+ color:#7b3540;
+ font-size:19px!important;
 }
 
-@media (prefers-reduced-motion:reduce) {
- #found.visible,
- #discover,
- .magic-icon,
- .arrow,
- .sparkle,
- #start {
-  animation:none;
+.end{
+ text-align:center!important;
+ color:#7f2938;
+ font-weight:bold;
+}
+
+.page-footer{
+ text-align:center;
+ color:#9b702e;
+ font-size:13px;
+ margin-top:35px;
+ letter-spacing:2px;
+}
+
+@media(prefers-reduced-motion:reduce){
+ *,*:before,*:after{
+  animation-duration:.01ms!important;
+  animation-iteration-count:1!important;
  }
 }
 </style>
@@ -347,146 +462,221 @@ button {
 
 <body>
 
-<!-- CAMÉRA -->
+<!-- CAMERA -->
 
 <div id="camera-container">
- <a-scene
-  mindar-image="imageTargetSrc: ./targets.mind; autoStart: false; uiScanning: yes;"
-  embedded
-  color-space="sRGB"
-  renderer="colorManagement: true"
-  vr-mode-ui="enabled: false"
-  device-orientation-permission-ui="enabled: false">
 
-  <a-camera
-   position="0 0 0"
-   look-controls="enabled: false">
-  </a-camera>
+<a-scene
+ mindar-image="imageTargetSrc: ./targets.mind; autoStart: false; uiScanning: yes;"
+ embedded
+ color-space="sRGB"
+ renderer="colorManagement: true"
+ vr-mode-ui="enabled: false"
+ device-orientation-permission-ui="enabled: false">
 
-  <a-entity
-   mindar-image-target="targetIndex: 0"
-   id="lumega">
-  </a-entity>
+<a-camera
+ position="0 0 0"
+ look-controls="enabled: false">
+</a-camera>
 
- </a-scene>
+<a-entity
+ mindar-image-target="targetIndex: 0"
+ id="lumega">
+</a-entity>
+
+</a-scene>
 </div>
 
 <!-- ACCUEIL -->
 
 <div id="intro">
- <button id="start">
-  ✨ Commencer l'exploration
- </button>
- <div id="status"></div>
+<button id="start">
+✨ Commencer l'exploration
+</button>
+<div id="status"></div>
 </div>
 
 <!-- BULLE MAGIQUE DU LUMEGA -->
 
 <div id="found">
- <span class="sparkle one">✦</span>
- <span class="sparkle two">✧</span>
- <span class="sparkle three">✦</span>
- <span class="sparkle four">✧</span>
 
- <button id="discover">
-  <span class="magic-icon">✨</span>
-  <span>
-   <strong>Le Lumega · 1924</strong>
-   <small>Découvrir son histoire</small>
-  </span>
-  <span class="arrow">❯</span>
- </button>
+<span class="sparkle one">✦</span>
+<span class="sparkle two">✧</span>
+<span class="sparkle three">✦</span>
+<span class="sparkle four">✧</span>
+
+<button id="discover">
+<span class="magic-icon">✨</span>
+<span>
+<strong>Le Lumega · 1924</strong>
+<small>Découvrir son histoire</small>
+</span>
+<span class="arrow">❯</span>
+</button>
+
 </div>
 
-<!-- HISTOIRE -->
+<!-- LIVRE MAGIQUE -->
 
 <div id="story">
 
- <button id="close">
-  ✕ Retour à l'exploration
- </button>
+<button id="close">
+✕ Retour à l'exploration
+</button>
 
- <h2>✦ Les Secrets de Main Street ✦</h2>
- <h1>LE LUMEGA</h1>
- <h3>Depuis 1924</h3>
+<article class="book">
+<div class="page">
 
- <p><em>
- Une histoire de burgers, de danse
- et d'amitié.
- </em></p>
+<div class="ornament">✦ ❧ ✦</div>
 
- <p>
- En 2024, Ludovic et Mégane arrivèrent
- à La Réunion avec leurs enfants,
- Emy et Ambre, pour commencer
- une nouvelle aventure.
- </p>
+<div class="kicker">
+Les Secrets de Main Street
+</div>
 
- <p>
- Ils ouvrirent au rez-de-chaussée
- de la résidence un snack,
- Le Lumega, où ils préparaient
- de délicieux burgers entièrement
- faits maison.
- </p>
+<h1>Le Lumega</h1>
+<h3>DEPUIS 1924</h3>
 
- <p>
- Une belle amitié naquit avec
- le créateur de MiniDisneyland Réunion.
- Lorsque les parents travaillaient
- et que les enfants n'avaient pas école,
- Emy et Ambre venaient régulièrement
- passer leurs journées chez lui.
- </p>
+<div class="ornament">✧ ✦ ✧</div>
 
- <h3>🩰 L'école de danse d'Emy</h3>
+<p class="quote">
+Une histoire de burgers, de danse
+et surtout d'amitié.
+</p>
 
- <p>
- Passionnée de danse, Emy reçut
- sa propre école imaginaire,
- fondée en 1917, où règnent
- grâce et élégance.
- </p>
+<section class="chapter">
 
- <h3>🌭 Les knacks d'Ambre</h3>
+<h2>✦ Il était une fois...</h2>
 
- <p>
- Ambre, qui adore les knacks,
- reçut quant à elle le titre
- de spécialiste des meilleures
- knacks de la ville !
- </p>
+<p>
+En 2024, Ludovic et Meghane arrivèrent
+à La Réunion avec leurs enfants,
+Emy et Ambre, pour commencer
+une nouvelle aventure.
+</p>
 
- <h3>✨ Pourquoi 1924 ?</h3>
+<p>
+Au rez-de-chaussée de la résidence,
+ils ouvrirent un snack baptisé
+<strong>Le Lumega</strong>,
+où ils préparaient de délicieux burgers
+entièrement faits maison.
+</p>
 
- <p>
- Comme dans les parcs Disney,
- certaines dates ont été reculées
- de cent ans pour donner aux façades
- le charme d'autrefois.
- 2024 est ainsi devenue 1924.
- </p>
+</section>
 
- <h3>❤️ Une façade pour se souvenir</h3>
+<section class="chapter">
 
- <p>
- Aujourd'hui, la famille est retournée
- vivre en métropole. Mais cette façade
- perpétue le souvenir des burgers
- faits maison, des journées partagées,
- des rires des enfants et surtout
- d'une belle amitié.
- </p>
+<h2>✦ Une amitié inattendue</h2>
 
- <p><strong>
- Car derrière certaines façades
- se cachent de véritables
- histoires de cœur.
- </strong></p>
+<p>
+Au fil des jours, une belle amitié
+naquit entre cette famille et le créateur
+de MiniDisneyland Réunion.
+</p>
 
+<p>
+Lorsque les parents travaillaient
+et que les enfants n'avaient pas école,
+Emy et Ambre venaient régulièrement
+passer leurs journées chez lui.
+</p>
+
+</section>
+
+<section class="chapter">
+
+<h2>🩰 L'école de danse d'Emy</h2>
+
+<p>
+Passionnée de danse, Emy méritait bien
+sa propre école !
+</p>
+
+<p>
+Une enseigne lui fut dédiée,
+avec une promesse :
+grâce et élégance depuis 1917.
+</p>
+
+</section>
+
+<section class="chapter">
+
+<h2>🌭 Les meilleures knacks d'Ambre</h2>
+
+<p>
+Quant à Ambre, grande amatrice de knacks,
+elle reçut un titre tout particulier :
+celui de servir les meilleures knacks
+de toute la ville !
+</p>
+
+</section>
+
+<section class="chapter">
+
+<h2>✦ Le secret des dates</h2>
+
+<p>
+Comme Walt Disney aimait donner
+à ses parcs le charme d'une ville
+d'autrefois, certaines dates
+de Main Street ont été reculées
+de cent ans.
+</p>
+
+<p>
+Ainsi, 2024 est devenue 1924,
+et l'année de naissance d'Emy,
+2017, est devenue 1917.
+</p>
+
+</section>
+
+<section class="chapter">
+
+<h2>❤️ Une façade pour ne jamais oublier</h2>
+
+<p>
+Depuis, Ludovic, Meghane, Emy
+et Ambre sont retournés vivre
+en métropole.
+</p>
+
+<p>
+Mais leur histoire, elle,
+est restée ici.
+</p>
+
+<p>
+Cette façade leur est entièrement dédiée,
+en souvenir des burgers faits maison,
+des journées passées ensemble,
+des rires des enfants et surtout
+d'une belle amitié.
+</p>
+
+</section>
+
+<div class="ornament">✦ ❧ ✦</div>
+
+<p class="end">
+Car à MiniDisneyland Réunion,
+derrière certaines façades
+se cachent de véritables
+histoires de cœur.
+</p>
+
+<div class="page-footer">
+✦ FIN DU PREMIER CONTE ✦
+</div>
+
+</div>
+</article>
 </div>
 
 <script>
+
 const scene=document.querySelector("a-scene");
 const target=document.querySelector("#lumega");
 const intro=document.querySelector("#intro");
@@ -498,32 +688,39 @@ let detected=false;
 let storyOpen=false;
 let cameraStarted=false;
 
-function showBubble() {
- if(!cameraStarted || !detected || storyOpen) return;
+function showBubble(){
+ if(!cameraStarted||!detected||storyOpen)return;
+
  found.classList.remove("visible");
  void found.offsetWidth;
  found.classList.add("visible");
 }
 
-function hideBubble() {
+function hideBubble(){
  found.classList.remove("visible");
 }
 
 document.querySelector("#start").onclick=async()=>{
- const startButton=document.querySelector("#start");
- startButton.disabled=true;
+
+ const btn=document.querySelector("#start");
+ btn.disabled=true;
  status.textContent="Ouverture de la caméra...";
 
- try {
+ try{
   await scene.systems["mindar-image-system"].start();
   cameraStarted=true;
   intro.style.display="none";
-  if(detected) showBubble();
- } catch(e) {
+
+  if(detected){
+   showBubble();
+  }
+
+ }catch(e){
   status.textContent=
-   "Impossible d'ouvrir la caméra. Vérifiez les autorisations Safari.";
-  startButton.disabled=false;
+  "Impossible d'ouvrir la caméra. Vérifiez les autorisations Safari.";
+  btn.disabled=false;
  }
+
 };
 
 target.addEventListener("targetFound",()=>{
@@ -538,16 +735,20 @@ target.addEventListener("targetLost",()=>{
 
 document.querySelector("#discover").onclick=()=>{
  storyOpen=true;
- story.style.display="block";
+ story.classList.add("open");
  story.scrollTop=0;
  hideBubble();
 };
 
 document.querySelector("#close").onclick=()=>{
- story.style.display="none";
+ story.classList.remove("open");
  storyOpen=false;
- if(detected) showBubble();
+
+ if(detected){
+  showBubble();
+ }
 };
+
 </script>
 
 </body>
