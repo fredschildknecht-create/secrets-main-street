@@ -168,6 +168,7 @@ filter:drop-shadow(0 2px 2px #956b3233)
 .ornament-art.bakery{width:115px;height:85px}
 .ornament-art.makers{width:115px;height:100px}
 .ornament-art.hardware{width:125px;height:100px}
+.ornament-art.station{width:145px;height:110px}
 .ornament-bottom{margin-top:35px}
 .kicker{
 font-size:12px;letter-spacing:3px;
@@ -282,7 +283,7 @@ aria-hidden="true">
 </g>
 <g fill="#D2A653">
 <path d="M30 15l3 7 7 3-7 3-3 7-3-7-7-3 7-3z"/>
-<path d="M73 13l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/>
+<path d="M73 13l2 5 5 2-5 2-2 5-5-2-5-2 5-2z"/>
 <circle cx="47" cy="12" r="2"/>
 </g>
 </symbol>
@@ -312,7 +313,6 @@ aria-hidden="true">
 <path d="M14 95 Q75 107 137 95" fill="none" stroke="#C49A4B" stroke-width="2"/>
 </symbol>
 
-<!-- FER A REPASSER ET OUTILS -->
 <symbol id="hardware-ancien" viewBox="0 0 160 120">
 <g fill="#C69B50">
 <path d="M24 9l3 7 7 3-7 3-3 7-3-7-7-3 7-3z"/>
@@ -330,13 +330,52 @@ aria-hidden="true">
 <rect x="-5" y="8" width="10" height="57" rx="3" fill="#D6B57B"/>
 <circle cx="0" cy="56" r="3" fill="#F4E4BF"/>
 </g>
-<g stroke="#956B32" stroke-width="2" stroke-linecap="round">
-<path d="M21 105 Q80 112 139 105" fill="none"/>
-</g>
+<path d="M21 105 Q80 112 139 105" fill="none" stroke="#956B32" stroke-width="2"/>
 </symbol>
+
+<!-- LOCOMOTIVE ET ARCHE DE GARE -->
+<symbol id="station-ancienne" viewBox="0 0 180 130">
+<g fill="#C69B50">
+<path d="M23 12l3 7 7 3-7 3-3 7-3-7-7-3 7-3z"/>
+<path d="M150 10l3 7 7 3-7 3-3 7-3-7-7-3 7-3z"/>
+<circle cx="91" cy="9" r="2.5"/>
+</g>
+
+<!-- ARCHE -->
+<path d="M15 112 V55 Q15 17 90 17 Q165 17 165 55 V112 H151 V56 Q151 31 90 31 Q29 31 29 56 V112 Z"
+fill="#D3AD70" stroke="#956B32" stroke-width="3"/>
+<path d="M22 112 V55 Q22 24 90 24 Q158 24 158 55 V112"
+fill="none" stroke="#F8E8C4" stroke-width="2"/>
+
+<!-- HORLOGE -->
+<circle cx="90" cy="41" r="11" fill="#F5E4C0" stroke="#956B32" stroke-width="2"/>
+<path d="M90 34 V41 L96 45" fill="none" stroke="#956B32" stroke-width="2" stroke-linecap="round"/>
+
+<!-- CHEMINEE ET FUMEE -->
+<path d="M76 65 V50 H90 V65" fill="#B77C45" stroke="#956B32" stroke-width="2"/>
+<path d="M80 48 Q71 40 79 34 M87 47 Q95 39 88 32"
+fill="none" stroke="#B99462" stroke-width="2" stroke-linecap="round"/>
+
+<!-- LOCOMOTIVE -->
+<g stroke="#956B32" stroke-width="2.5" stroke-linejoin="round">
+<path d="M42 91 L42 74 Q42 66 50 66 H107 Q116 66 116 74 V91 Z" fill="#A64A47"/>
+<path d="M111 78 H132 L144 91 H111 Z" fill="#C99A5B"/>
+<path d="M47 65 V56 H67 V65" fill="#D5B16D"/>
+<path d="M97 65 V54 H109 V65" fill="#D5B16D"/>
+<path d="M42 91 H145 V101 H42 Z" fill="#86553A"/>
+<path d="M36 98 L30 106 H150 L144 98" fill="#D7B777"/>
+</g>
+<circle cx="57" cy="102" r="11" fill="#D6AE67" stroke="#956B32" stroke-width="3"/>
+<circle cx="105" cy="102" r="11" fill="#D6AE67" stroke="#956B32" stroke-width="3"/>
+<circle cx="57" cy="102" r="4" fill="#F8E8C4"/>
+<circle cx="105" cy="102" r="4" fill="#F8E8C4"/>
+<path d="M10 118 H170" stroke="#956B32" stroke-width="3"/>
+<path d="M25 124 H155" stroke="#C49A4B" stroke-width="2"/>
+</symbol>
+
 </svg>
 
-<!-- CAMERA ET CIBLES -->
+<!-- CAMERA ET NEUF CIBLES -->
 <div id="camera-container">
 <a-scene
 mindar-image="imageTargetSrc: ./targets.mind; autoStart: false; uiScanning: yes;"
@@ -383,11 +422,11 @@ device-orientation-permission-ui="enabled: false">
 </button>
 </div>
 
-<!-- LIVRES -->
+<!-- BIBLIOTHEQUE DES HUIT LIVRES -->
 <div id="story">
 <button id="close">✕ Retour à l'exploration</button>
 
-<!-- LIVRE 1 -->
+<!-- LIVRE 1 : LE LUMEGA -->
 <article class="book" id="book-lumega">
 <div class="page">
 <div class="ornament">
@@ -443,7 +482,7 @@ device-orientation-permission-ui="enabled: false">
 </div>
 </article>
 
-<!-- LIVRE 2 -->
+<!-- LIVRE 2 : CHECKPOINT CHARLY -->
 <article class="book" id="book-charly">
 <div class="page">
 <div class="ornament">
@@ -512,7 +551,7 @@ device-orientation-permission-ui="enabled: false">
 </div>
 </article>
 
-<!-- LIVRE 3 -->
+<!-- LIVRE 3 : GUARDIAN ANGELS -->
 <article class="book" id="book-anges">
 <div class="page">
 <div class="ornament">
@@ -577,7 +616,7 @@ device-orientation-permission-ui="enabled: false">
 </div>
 </article>
 
-<!-- LIVRE 4 -->
+<!-- LIVRE 4 : DENTISTE -->
 <article class="book" id="book-dentiste">
 <div class="page">
 <div class="ornament">
@@ -625,7 +664,7 @@ device-orientation-permission-ui="enabled: false">
 </div>
 </article>
 
-<!-- LIVRE 5 -->
+<!-- LIVRE 5 : MAIN STREET BAKERY -->
 <article class="book" id="book-bakery">
 <div class="page">
 <div class="ornament">
@@ -671,7 +710,7 @@ device-orientation-permission-ui="enabled: false">
 </div>
 </article>
 
-<!-- LIVRE 6 -->
+<!-- LIVRE 6 : MAGIC MAKERS -->
 <article class="book" id="book-makers">
 <div class="page">
 <div class="ornament">
@@ -768,6 +807,134 @@ device-orientation-permission-ui="enabled: false">
 </div>
 </article>
 
+<!-- LIVRE 8 : MAIN STREET STATION -->
+<article class="book" id="book-station">
+<div class="page">
+
+<div class="ornament">
+<span class="ornament-star">✦</span>
+<svg class="ornament-art station" viewBox="0 0 180 130">
+<use href="#station-ancienne"></use>
+</svg>
+<span class="ornament-star">✦</span>
+</div>
+
+<div class="kicker">Les Secrets de Main Street</div>
+<h1>Main Street Station</h1>
+<h3>LE TEMPS PASSE, LES SOUVENIRS RESTENT</h3>
+
+<p class="quote">
+La gare où commence la magie.
+</p>
+
+<section class="chapter">
+<h2>✦ Il était une fois… une gare enchantée</h2>
+
+<p>
+À Disneyland Paris, il existe un passage
+que des millions de visiteurs ont emprunté :
+celui qui passe sous la gare de
+Main Street, U.S.A., avant de découvrir
+la magie du parc.
+</p>
+
+<p>
+C'est de ce lieu emblématique
+qu'est née cette façade
+de MiniDisneyland Réunion.
+</p>
+
+<p>
+Une gare sans train ni quai,
+mais avec une destination
+bien particulière :
+<strong>le monde des souvenirs
+et des rêves.</strong>
+</p>
+</section>
+
+<section class="chapter">
+<h2>✦ Quatre fenêtres, mille souvenirs</h2>
+
+<p>
+Regardez attentivement les vitraux
+qui entourent la gare.
+</p>
+
+<p>
+Ils racontent les quatre grands
+univers de notre petit monde enchanté :
+<strong>Main Street</strong>,
+avec ses façades miniatures,
+<strong>le château de la Belle au bois dormant</strong>,
+<strong>Space Mountain – De la Terre à la Lune</strong>,
+et enfin <strong>le spectacle final</strong>,
+lorsque le château s'illumine
+et que la magie atteint son apogée.
+</p>
+
+<p>
+Chaque vitrail est comme une petite
+fenêtre ouverte sur un souvenir
+que les visiteurs pourront
+emporter avec eux.
+</p>
+</section>
+
+<section class="chapter">
+<h2>❤️ Le temps passe, les souvenirs restent</h2>
+
+<p>
+Au-dessus du passage,
+une phrase résume à elle seule
+toute la philosophie
+de MiniDisneyland Réunion :
+</p>
+
+<p class="quote">
+<strong>
+« Le temps passe,
+les souvenirs restent. »
+</strong>
+</p>
+
+<p>
+Car les lumières finissent par s'éteindre,
+les spectacles se terminent
+et les visiteurs reprennent
+le chemin de leur maison.
+</p>
+
+<p>
+Mais les sourires, les émotions
+et les étoiles dans les yeux,
+eux, continuent de vivre
+bien après la soirée.
+</p>
+
+<p class="end">
+Et si cette gare n'a pas de train,
+elle possède quelque chose
+de bien plus précieux :
+le pouvoir de faire voyager les cœurs.
+</p>
+</section>
+
+<div class="ornament ornament-bottom">
+<span class="ornament-star">✦</span>
+<svg class="ornament-art station" viewBox="0 0 180 130">
+<use href="#station-ancienne"></use>
+</svg>
+<span class="ornament-star">✦</span>
+</div>
+
+<div class="page-footer">
+✦ FIN DU HUITIÈME CONTE ✦
+</div>
+
+</div>
+</article>
+
 </div>
 
 <!-- RECONNAISSANCE DES FACADES -->
@@ -787,7 +954,8 @@ const bubbleTitle=document.querySelector('#bubble-title');
 4 = Main Street Bakery
 5 = The Magic Makers
 6 = Voegtling Hardware
-7 et 8 = futurs livres
+7 = Main Street Station
+8 = Futur livre
 */
 
 const books=[
@@ -797,7 +965,8 @@ const books=[
 {title:'Le Dentiste · Le sourire',id:'book-dentiste'},
 {title:'Main Street Bakery · La recette du bonheur',id:'book-bakery'},
 {title:'The Magic Makers · Le passage secret',id:'book-makers'},
-{title:'Vœgtling Hardware · Les trésors de la famille',id:'book-hardware'}
+{title:'Vœgtling Hardware · Les trésors de la famille',id:'book-hardware'},
+{title:'Main Street Station · Le temps passe, les souvenirs restent',id:'book-station'}
 ];
 
 const places=Array.from({length:9},(_,index)=>({
