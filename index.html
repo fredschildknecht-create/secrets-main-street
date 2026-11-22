@@ -3,49 +3,76 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#071631">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="MiniDisneyReunion">
-<link rel="apple-touch-icon" href="./apple-touch-icon.PNG">
-<link rel="manifest" href="./manifest.webmanifest">
-<title>Votre Compagnon Magique</title>
+<meta name="apple-mobile-web-app-title" content="Compagnon Magique">
+
+<title>Votre Compagnon Magique | MiniDisneyland Réunion</title>
 
 <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
 
 <style>
-:root{
-  --gold:#f0d48e;
-  --green:#a3ffd0;
-  --red:#ff9ca4;
-  --orange:#ffd39a;
-  --glass:rgba(7,22,49,.77);
+:root {
+  --white:#ffffff;
+  --soft:#e4ebf5;
+  --glass:rgba(5,18,43,.72);
+  --line:rgba(255,255,255,.55);
 }
-*{box-sizing:border-box}
-html,body{margin:0;width:100%;height:100%}
-body{
+
+* {
+  box-sizing:border-box;
+}
+
+html,body {
+  margin:0;
+  width:100%;
+  height:100%;
+}
+
+body {
   background:#071631;
-  color:white;
+  color:var(--white);
   font-family:Georgia,"Times New Roman",serif;
   overflow:hidden;
 }
-button{font:inherit;cursor:pointer}
-a{color:inherit}
-.hidden{display:none!important}
 
-#background{
+button,input {
+  font:inherit;
+}
+
+button {
+  cursor:pointer;
+}
+
+a {
+  color:inherit;
+}
+
+.hidden {
+  display:none!important;
+}
+
+/* FOND ORIGINAL */
+
+#background {
   position:fixed;
   inset:0;
-  z-index:2;
-  background:#071631 url("./Bazaart_2026-11-20_132143.jpeg") center center/cover no-repeat;
+  z-index:1;
+  background:
+    #071631
+    url("./Bazaart_2026-11-20_132143.jpeg")
+    center center / cover no-repeat;
   pointer-events:none;
 }
 
-#app{
+/* APPLICATION */
+
+#app {
   position:fixed;
   inset:0;
-  z-index:20;
+  z-index:10;
   overflow-y:auto;
   -webkit-overflow-scrolling:touch;
   padding:
@@ -53,343 +80,430 @@ a{color:inherit}
     15px
     calc(105px + env(safe-area-inset-bottom));
 }
-.wrap{
+
+.wrap {
   max-width:600px;
   min-height:100%;
   margin:auto;
 }
-.section{display:none}
-.section.active{display:block}
 
-.glass{
-  background:var(--glass);
-  border:1px solid rgba(255,255,255,.5);
-  border-radius:19px;
-  backdrop-filter:blur(10px);
-  -webkit-backdrop-filter:blur(10px);
-  box-shadow:0 7px 25px #0003;
+.section {
+  display:none;
 }
-.panel{padding:18px;margin:14px 0}
-.panel h2{
+
+.section.active {
+  display:block;
+}
+
+.glass {
+  background:var(--glass);
+  border:1px solid var(--line);
+  border-radius:19px;
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  box-shadow:0 8px 28px rgba(0,0,0,.25);
+}
+
+.panel {
+  padding:18px;
+  margin:14px 0;
+}
+
+.panel h2 {
+  margin:0 0 12px;
   font-size:18px;
   font-weight:normal;
-  margin:0 0 12px;
 }
-.panel p{
-  font-size:14px;
-  line-height:1.7;
-  margin:10px 0;
-}
-.gold{color:var(--gold)}
-.green{color:var(--green)}
-.small{font-size:12px!important;opacity:.9}
 
-.page-head{
+.panel p {
+  font-size:14px;
+  line-height:1.65;
+}
+
+.small {
+  font-size:12px!important;
+  color:var(--soft);
+}
+
+.muted {
+  color:var(--soft);
+}
+
+.page-head {
+  padding:22px 0 12px;
   text-align:center;
-  padding:20px 0 12px;
   text-shadow:0 2px 10px #0009;
 }
-.page-head h1{
-  font-size:27px;
+
+.page-head h1 {
+  font-size:26px;
   font-weight:normal;
-  margin:5px 0 7px;
+  margin:6px 0;
 }
-.page-head p{
-  color:var(--gold);
+
+.page-head p {
   font-size:11px;
-  letter-spacing:1.5px;
+  letter-spacing:2px;
+  color:var(--soft);
 }
 
-/* =====================================
-   ACCUEIL : DEUX BULLES CENTRÉES
-===================================== */
+/* ICÔNES BLANCHES */
 
-#home.active{
+.icon {
+  width:22px;
+  height:22px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.65;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  flex-shrink:0;
+}
+
+.icon-lg {
+  width:29px;
+  height:29px;
+}
+
+.icon-xl {
+  width:37px;
+  height:37px;
+}
+
+.heading-row {
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.heading-row h2 {
+  margin:0;
+}
+
+/* ACCUEIL */
+
+#home.active {
   display:flex;
   flex-direction:column;
   justify-content:center;
+
   min-height:calc(
-    100dvh - 108px
+    100dvh
+    - 108px
     - env(safe-area-inset-top)
     - env(safe-area-inset-bottom)
   );
+
   padding-top:clamp(35px,7vh,90px);
 }
 
-.home-bubbles{
+.home-bubbles {
   width:100%;
   display:flex;
   flex-direction:column;
   gap:12px;
-  margin:0;
 }
 
-.home-bubbles .panel{
+.home-bubbles .panel {
   margin:0;
-  padding:15px 17px;
+  padding:16px 18px;
 }
 
-.home-bubbles h2{
+.home-bubbles h2 {
   font-size:18px;
-  font-weight:normal;
-  color:var(--gold);
-  margin:0 0 10px;
 }
 
-.home-bubbles p{
-  margin:6px 0;
-  font-size:14px;
-  line-height:1.5;
-}
-
-.live-title{
+.live-title {
   font-size:19px;
-  line-height:1.35;
-  margin:7px 0;
+  line-height:1.4;
+  margin-top:12px;
 }
 
-.space-row{
+.home-bubbles p {
+  margin:8px 0 0;
+}
+
+.status {
+  display:inline-block;
+  padding:6px 10px;
+  border:1px solid rgba(255,255,255,.8);
+  border-radius:20px;
+  font:10px Arial,sans-serif;
+  letter-spacing:.6px;
+  white-space:nowrap;
+  color:white;
+  background:rgba(255,255,255,.1);
+}
+
+.space-row {
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap:10px;
 }
 
-.status{
-  display:inline-block;
-  padding:6px 10px;
-  border:1px solid currentColor;
-  border-radius:20px;
-  font:11px Arial,sans-serif;
-  white-space:nowrap;
-  background:#0003;
+.space-row .heading-row {
+  min-width:0;
 }
-.status.green{color:var(--green)}
-.status.orange{color:var(--orange)}
-.status.red{color:var(--red)}
 
-/* =====================================
-   NAVIGATION
-===================================== */
+.space-row h2 {
+  font-size:17px;
+}
 
-#bottom-nav{
+.closed-card {
+  text-align:center;
+  padding:26px 19px!important;
+}
+
+.closed-card .icon {
+  margin:0 auto 12px;
+}
+
+.closed-card h2 {
+  font-size:20px;
+  line-height:1.4;
+  margin-bottom:12px;
+}
+
+.closed-card p {
+  margin:10px 0;
+}
+
+.next-opening {
+  padding-top:12px;
+  margin-top:16px;
+  border-top:1px solid rgba(255,255,255,.35);
+  font-size:14px;
+  line-height:1.6;
+}
+
+.next-opening strong {
+  display:block;
+  margin-top:6px;
+  font-size:16px;
+  font-weight:normal;
+}
+
+/* NAVIGATION */
+
+#bottom-nav {
   position:fixed;
   bottom:0;
   left:0;
   right:0;
   z-index:40;
+
   display:grid;
   grid-template-columns:repeat(5,minmax(0,1fr));
+
   padding:9px 6px calc(9px + env(safe-area-inset-bottom));
-  background:rgba(6,19,45,.96);
-  border-top:1px solid rgba(240,212,142,.5);
+
+  background:rgba(6,19,45,.95);
+  border-top:1px solid rgba(255,255,255,.5);
+
   backdrop-filter:blur(20px);
   -webkit-backdrop-filter:blur(20px);
 }
 
-.nav-item{
+.nav-item {
   border:0;
   background:transparent;
-  color:#c1d0e7;
+  color:rgba(255,255,255,.7);
+
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
   gap:5px;
+
   min-height:52px;
   padding:7px 1px;
   border-radius:13px;
 }
 
-.nav-item svg{
-  width:23px;
-  height:23px;
-  fill:none;
-  stroke:currentColor;
-  stroke-width:1.7;
-  stroke-linecap:round;
-  stroke-linejoin:round;
-}
-
-.nav-item span{
+.nav-item span {
   font:10px Arial,sans-serif;
 }
 
-.nav-item.active{
-  color:var(--gold);
-  background:#ffffff13;
+.nav-item.active {
+  color:white;
+  background:rgba(255,255,255,.16);
 }
 
-/* =====================================
-   SPECTACLES
-===================================== */
+.nav-item.active::after {
+  content:"";
+  width:4px;
+  height:4px;
+  border-radius:50%;
+  background:white;
+}
 
-.event{
+/* SPECTACLES */
+
+.event {
   display:flex;
   gap:15px;
   padding:16px 0;
-  border-bottom:1px solid #ffffff35;
+  border-bottom:1px solid rgba(255,255,255,.25);
 }
-.event:last-child{border-bottom:0}
-.event time{
-  width:57px;
+
+.event:last-child {
+  border-bottom:0;
+}
+
+.event time {
+  width:55px;
   flex-shrink:0;
   font-size:15px;
-  color:var(--gold);
   font-weight:bold;
 }
-.event strong{
+
+.event strong {
   font-size:15px;
   font-weight:normal;
 }
-.event small{
+
+.event small {
   display:block;
-  margin-top:5px;
   font-size:12px;
   line-height:1.5;
-  opacity:.86;
+  color:var(--soft);
+  margin-top:5px;
 }
 
-/* =====================================
-   BILLETS
-===================================== */
+.date-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:9px;
+  margin-top:15px;
+}
 
-.ticket-choice{
+.date-cell {
+  padding:12px 5px;
+  text-align:center;
+  border:1px solid rgba(255,255,255,.4);
+  border-radius:12px;
+  background:rgba(255,255,255,.08);
+}
+
+.date-cell span {
+  display:block;
+  font:10px Arial,sans-serif;
+  letter-spacing:1px;
+  color:var(--soft);
+}
+
+.date-cell strong {
+  display:block;
+  font-size:23px;
+  font-weight:normal;
+  margin:6px 0;
+}
+
+.date-cell.today {
+  background:rgba(255,255,255,.24);
+  border-color:white;
+}
+
+/* BILLETS */
+
+.ticket-choice {
   display:flex;
   flex-direction:column;
   gap:12px;
   margin:17px 0;
 }
+
 .ticket-choice a,
-.ticket-choice button{
+.ticket-choice button {
   display:flex;
   align-items:center;
   justify-content:center;
-  min-height:65px;
-  border-radius:16px;
+  gap:10px;
+  min-height:60px;
   padding:15px;
-  font-size:16px;
   text-decoration:none;
   text-align:center;
+  border:1px solid white;
+  border-radius:16px;
+  font-size:15px;
 }
-.ticket-reserve{
-  background:linear-gradient(135deg,#fff0bc,#dbb65c);
-  color:#17264b;
-  border:1px solid #fff3cc;
+
+.ticket-reserve {
+  background:white;
+  color:#071631;
 }
-.ticket-import{
-  background:linear-gradient(135deg,#244c86,#102d5a);
+
+.ticket-import {
+  background:rgba(255,255,255,.12);
   color:white;
-  border:1px solid #c6dcf5;
 }
-#ticket-file{display:none}
-.ticket-row{
+
+#ticket-file {
+  display:none;
+}
+
+.ticket-row {
   padding:14px 0;
-  border-bottom:1px solid #ffffff35;
+  border-bottom:1px solid rgba(255,255,255,.3);
 }
-.ticket-name{overflow-wrap:anywhere}
-.ticket-meta{
+
+.ticket-name {
+  overflow-wrap:anywhere;
+}
+
+.ticket-meta {
   font-size:11px;
-  opacity:.8;
+  color:var(--soft);
   margin-top:6px;
 }
-.ticket-buttons{
+
+.ticket-buttons {
   display:flex;
   gap:9px;
   margin-top:12px;
 }
-.ticket-buttons button{
-  border:1px solid #ffffff99;
-  border-radius:20px;
-  background:#ffffff18;
-  color:white;
-  padding:10px 12px;
-  font-size:12px;
-}
-.ticket-buttons .delete{color:var(--red)}
-#ticket-viewer{
-  position:fixed;
-  inset:0;
-  z-index:100;
-  background:#06142bf8;
-  padding:calc(12px + env(safe-area-inset-top))
-          12px
-          calc(12px + env(safe-area-inset-bottom));
-  display:flex;
-  flex-direction:column;
-}
-.viewer-head{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  margin-bottom:12px;
-}
-.viewer-head strong{
-  flex:1;
-  overflow-wrap:anywhere;
-  font-size:13px;
-}
-.viewer-head button{
-  padding:11px;
-  background:#ffffff22;
-  color:white;
+
+.ticket-buttons button {
   border:1px solid white;
   border-radius:20px;
+  background:rgba(255,255,255,.12);
+  color:white;
+  padding:10px 13px;
+  font-size:12px;
 }
-#viewer-content{
-  flex:1;
-  min-height:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  overflow:auto;
+
+/* EXPLORER */
+
+.explore-hero {
+  text-align:center;
+  padding:25px 18px;
 }
-#viewer-content img{
-  max-width:100%;
-  max-height:100%;
-  object-fit:contain;
+
+.explore-hero .icon-xl {
+  margin:0 auto 12px;
 }
-#viewer-content iframe{
+
+.explore-button {
   width:100%;
-  height:100%;
-  border:0;
   background:white;
-}
-#viewer-download{
-  padding:13px;
-  text-align:center;
-}
-
-/* =====================================
-   EXPLORATION
-===================================== */
-
-.explore-hero{
-  text-align:center;
-  padding:24px 15px;
-}
-.explore-hero .big-icon{font-size:55px}
-.explore-button{
-  background:linear-gradient(135deg,#f5df9e,#d4ac54);
-  color:#14234a;
-  border:1px solid #fff0bd;
+  color:#071631;
+  border:1px solid white;
   border-radius:30px;
   padding:17px;
-  width:100%;
-  font-size:16px;
-  margin-top:12px;
+  margin-top:15px;
+  font-size:15px;
 }
-.story-names{
+
+.story-names {
   padding-left:20px;
   font-size:13px;
   line-height:2;
 }
 
-/* =====================================
-   CAMÉRA
-===================================== */
+/* CAMÉRA */
 
-#camera-container{
+#camera-container {
   display:none;
   position:fixed;
   inset:0;
@@ -397,19 +511,28 @@ a{color:inherit}
   background:#101b38;
   overflow:hidden;
 }
-body.ar-mode #background{display:none}
-body.ar-mode #camera-container{display:block}
-body.ar-mode #bottom-nav{display:none}
+
+body.ar-mode #background {
+  display:none;
+}
+
+body.ar-mode #camera-container {
+  display:block;
+}
+
+body.ar-mode #bottom-nav {
+  display:none;
+}
 
 #camera-container a-scene,
-#camera-container .a-canvas{
+#camera-container .a-canvas {
   position:absolute!important;
   inset:0!important;
   width:100%!important;
   height:100%!important;
 }
 
-#camera-container video{
+#camera-container video {
   position:absolute!important;
   top:50%!important;
   left:50%!important;
@@ -419,7 +542,7 @@ body.ar-mode #bottom-nav{display:none}
   transform:translate(-50%,-50%)!important;
 }
 
-#camera-menu{
+#camera-menu {
   position:fixed;
   z-index:45;
   top:calc(15px + env(safe-area-inset-top));
@@ -427,11 +550,11 @@ body.ar-mode #bottom-nav{display:none}
   border:1px solid white;
   border-radius:30px;
   padding:12px 17px;
-  background:#071631d9;
+  background:#071631e8;
   color:white;
 }
 
-#found{
+#found {
   position:fixed;
   z-index:45;
   bottom:calc(9% + env(safe-area-inset-bottom));
@@ -441,9 +564,12 @@ body.ar-mode #bottom-nav{display:none}
   max-width:93%;
   display:none;
 }
-#found.visible{display:block}
 
-#discover{
+#found.visible {
+  display:block;
+}
+
+#discover {
   display:flex;
   gap:12px;
   align-items:center;
@@ -454,14 +580,21 @@ body.ar-mode #bottom-nav{display:none}
   padding:14px 17px;
   text-align:left;
 }
-#discover strong{display:block;font-size:14px}
-#discover small{display:block;font-size:12px;margin-top:5px}
 
-/* =====================================
-   LIVRES
-===================================== */
+#discover strong {
+  display:block;
+  font-size:14px;
+}
 
-#story{
+#discover small {
+  display:block;
+  font-size:12px;
+  margin-top:5px;
+}
+
+/* LIVRES */
+
+#story {
   display:none;
   position:fixed;
   inset:0;
@@ -471,34 +604,45 @@ body.ar-mode #bottom-nav{display:none}
   padding:25px 12px 70px;
   perspective:1200px;
 }
-#story.open{display:block}
 
-#close{
+#story.open {
+  display:block;
+}
+
+#close {
   display:block;
   margin:0 auto 22px;
   padding:12px 18px;
   color:white;
-  background:#ffffff20;
+  background:rgba(255,255,255,.12);
   border:1px solid white;
   border-radius:30px;
 }
 
-.book{
+.book {
   display:none;
   max-width:570px;
   margin:auto;
   transform-origin:left center;
 }
-.book.active{
+
+.book.active {
   display:block;
   animation:openBook .7s ease-out;
 }
-@keyframes openBook{
-  from{opacity:0;transform:rotateY(-45deg) scale(.9)}
-  to{opacity:1;transform:rotateY(0) scale(1)}
+
+@keyframes openBook {
+  from {
+    opacity:0;
+    transform:rotateY(-45deg) scale(.9);
+  }
+  to {
+    opacity:1;
+    transform:rotateY(0) scale(1);
+  }
 }
 
-.page{
+.page {
   position:relative;
   padding:33px 23px;
   color:#4c2924;
@@ -510,68 +654,143 @@ body.ar-mode #bottom-nav{display:none}
   border-radius:8px 18px 18px 8px;
   box-shadow:7px 9px 0 #b18c53,12px 16px 30px #0009;
 }
-.page:before{
+
+.page:before {
   content:"";
   position:absolute;
   inset:9px;
   border:1px solid #b88e47;
   pointer-events:none;
 }
-.ornament{font-size:35px;color:#9b702e}
-.kicker{
+
+.ornament {
+  font-size:35px;
+  color:#9b702e;
+}
+
+.kicker {
   font-size:11px;
   letter-spacing:2px;
   color:#865f34;
 }
-.page h1{
+
+.page h1 {
   color:#7f2938;
   font-size:28px;
 }
-.page h2{
+
+.page h2 {
   color:#6e3d2e;
   font-size:21px;
   margin:25px 0 12px;
 }
-.page h3{
+
+.page h3 {
   color:#8c6833;
   font-size:13px;
   letter-spacing:2px;
 }
-.page p{
+
+.page p {
   font-size:16px;
   line-height:1.8;
   text-align:left;
 }
-.chapter{
+
+.chapter {
   border-top:1px solid #c9a76c;
   margin-top:27px;
   padding-top:12px;
 }
-.quote{
+
+.quote {
   text-align:center!important;
   color:#7b3540;
   font-style:italic;
 }
-.end{
+
+.end {
   text-align:center!important;
   color:#7f2938;
   font-weight:bold;
 }
-.continue-exploration{
+
+.continue-exploration {
   width:100%;
   padding:15px;
   margin-top:20px;
-  color:#fff4d8;
+  color:white;
   background:#82334b;
   border:2px solid #d7ae61;
   border-radius:30px;
 }
 
-/* =====================================
-   RAPPELS
-===================================== */
+/* BILLETS EN PLEIN ÉCRAN */
 
-#alert{
+#ticket-viewer {
+  position:fixed;
+  inset:0;
+  z-index:100;
+  background:#06142bf8;
+  padding:
+    calc(12px + env(safe-area-inset-top))
+    12px
+    calc(12px + env(safe-area-inset-bottom));
+  display:flex;
+  flex-direction:column;
+}
+
+.viewer-head {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:12px;
+}
+
+.viewer-head strong {
+  flex:1;
+  overflow-wrap:anywhere;
+  font-size:13px;
+}
+
+.viewer-head button {
+  padding:11px;
+  background:#ffffff22;
+  color:white;
+  border:1px solid white;
+  border-radius:20px;
+}
+
+#viewer-content {
+  flex:1;
+  min-height:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:auto;
+}
+
+#viewer-content img {
+  max-width:100%;
+  max-height:100%;
+  object-fit:contain;
+}
+
+#viewer-content iframe {
+  width:100%;
+  height:100%;
+  border:0;
+  background:white;
+}
+
+#viewer-download {
+  padding:13px;
+  text-align:center;
+}
+
+/* RAPPELS */
+
+#alert {
   position:fixed;
   z-index:90;
   top:calc(15px + env(safe-area-inset-top));
@@ -583,7 +802,8 @@ body.ar-mode #bottom-nav{display:none}
   border:1px solid white;
   border-radius:18px;
 }
-#alert button{
+
+#alert button {
   color:white;
   background:#ffffff20;
   border:1px solid white;
@@ -591,32 +811,129 @@ body.ar-mode #bottom-nav{display:none}
   padding:11px 16px;
 }
 
-@media(max-height:670px){
-  #home.active{padding-top:0}
-  .home-bubbles .panel{padding:10px 14px}
-  .home-bubbles h2{font-size:16px}
-  .home-bubbles p{font-size:13px}
+/* PETITS ÉCRANS */
+
+@media(max-height:670px) {
+  #home.active {
+    padding-top:0;
+  }
+
+  .home-bubbles .panel {
+    padding:12px 14px;
+  }
+
+  .home-bubbles h2 {
+    font-size:16px;
+  }
+
+  .home-bubbles p {
+    font-size:13px;
+  }
 }
 
-@media(max-width:360px){
-  .nav-item span{font-size:9px}
-  .panel{padding:15px}
-  .page{padding:27px 15px}
+@media(max-width:360px) {
+  .nav-item span {
+    font-size:9px;
+  }
+
+  .panel {
+    padding:15px;
+  }
+
+  .page {
+    padding:27px 15px;
+  }
 }
 
-@media(prefers-reduced-motion:reduce){
-  *{animation-duration:.01ms!important}
+@media(prefers-reduced-motion:reduce) {
+  * {
+    animation-duration:.01ms!important;
+  }
 }
 </style>
 </head>
 
 <body>
 
+<!-- BIBLIOTHÈQUE D'ICÔNES -->
+
+<svg xmlns="http://www.w3.org/2000/svg"
+     style="display:none">
+
+<symbol id="i-home" viewBox="0 0 24 24">
+<path d="M3 10L12 3L21 10V21H3Z"/>
+<path d="M9 21V13H15V21"/>
+</symbol>
+
+<symbol id="i-ticket" viewBox="0 0 24 24">
+<path d="M3 6H21V10C18 10 18 14 21 14V18H3V14C6 14 6 10 3 10Z"/>
+<path d="M12 6V18" stroke-dasharray="2 2"/>
+</symbol>
+
+<symbol id="i-calendar" viewBox="0 0 24 24">
+<rect x="3" y="5" width="18" height="16" rx="2"/>
+<path d="M7 3V7M17 3V7M3 10H21M8 15H11M14 15H17"/>
+</symbol>
+
+<symbol id="i-scan" viewBox="0 0 24 24">
+<path d="M8 3H4V7M16 3H20V7M4 17V21H8M20 17V21H16"/>
+<circle cx="12" cy="12" r="4"/>
+<path d="M12 10V14M10 12H14"/>
+</symbol>
+
+<symbol id="i-info" viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="9"/>
+<path d="M12 11V17"/>
+<circle cx="12" cy="7.5" r=".8" fill="currentColor"/>
+</symbol>
+
+<symbol id="i-clock" viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="9"/>
+<path d="M12 7V12L16 14"/>
+</symbol>
+
+<symbol id="i-moon" viewBox="0 0 24 24">
+<path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5 8.5 8.5 0 1 0 20.5 14.2Z"/>
+</symbol>
+
+<symbol id="i-stars" viewBox="0 0 24 24">
+<path d="M12 2L14.2 9.8L22 12L14.2 14.2L12 22L9.8 14.2L2 12L9.8 9.8Z"/>
+</symbol>
+
+<symbol id="i-rocket" viewBox="0 0 24 24">
+<path d="M5 16C6 9 12 4 20 3C20 11 15 17 8 19Z"/>
+<path d="M9 15L5 19M8 10L3 9L5 5L10 8M14 16L15 21L19 19L16 14"/>
+<circle cx="15" cy="9" r="2"/>
+</symbol>
+
+<symbol id="i-camera" viewBox="0 0 24 24">
+<rect x="2" y="6" width="20" height="15" rx="2"/>
+<path d="M7 6L9 3H15L17 6"/>
+<circle cx="12" cy="13.5" r="4"/>
+</symbol>
+
+<symbol id="i-book" viewBox="0 0 24 24">
+<path d="M12 5C9 3 5 3 2 4V20C5 19 9 19 12 21C15 19 19 19 22 20V4C19 3 15 3 12 5Z"/>
+<path d="M12 5V21"/>
+</symbol>
+
+<symbol id="i-upload" viewBox="0 0 24 24">
+<path d="M12 16V3M7 8L12 3L17 8"/>
+<path d="M4 16V21H20V16"/>
+</symbol>
+
+<symbol id="i-arrow" viewBox="0 0 24 24">
+<path d="M5 12H19M13 6L19 12L13 18"/>
+</symbol>
+
+</svg>
+
 <div id="background"></div>
 
-<!-- SCANNER -->
+<!-- SCANNER MAIN STREET -->
 
 <div id="camera-container">
+
 <a-scene
   mindar-image="imageTargetSrc: ./targets.mind; autoStart: false; uiScanning: yes;"
   embedded
@@ -625,7 +942,10 @@ body.ar-mode #bottom-nav{display:none}
   vr-mode-ui="enabled: false"
   device-orientation-permission-ui="enabled: false">
 
-<a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+<a-camera
+  position="0 0 0"
+  look-controls="enabled: false">
+</a-camera>
 
 <a-entity mindar-image-target="targetIndex: 0" id="target-0"></a-entity>
 <a-entity mindar-image-target="targetIndex: 1" id="target-1"></a-entity>
@@ -643,30 +963,47 @@ body.ar-mode #bottom-nav{display:none}
 <main id="app">
 <div class="wrap">
 
-<!-- =====================================
-     ACCUEIL
-===================================== -->
+<!-- ACCUEIL -->
 
 <section id="home" class="section active">
 
 <div class="home-bubbles">
 
+<!-- VISIBLE LES JOURS D'OUVERTURE -->
+
+<div id="open-home" class="home-bubbles">
+
 <div class="panel glass">
-<h2>✨ Prochain spectacle</h2>
+
+<div class="heading-row">
+<svg class="icon">
+<use href="#i-stars"></use>
+</svg>
+<h2>Prochain spectacle</h2>
+</div>
 
 <div class="live-title" id="next-event">
 Chargement...
 </div>
 
 <p id="next-time"></p>
-<p class="green" id="countdown"></p>
+<p class="small" id="countdown"></p>
+
 </div>
 
 <div class="panel glass">
 
 <div class="space-row">
-<h2 style="margin:0">🚀 Space Mountain VR</h2>
+
+<div class="heading-row">
+<svg class="icon">
+<use href="#i-rocket"></use>
+</svg>
+<h2>Space Mountain VR</h2>
+</div>
+
 <span class="status" id="home-space-status">...</span>
+
 </div>
 
 <p id="home-space-detail"></p>
@@ -675,26 +1012,57 @@ Chargement...
 </div>
 
 </div>
+
+<!-- VISIBLE LES JOURS DE FERMETURE -->
+
+<div id="closed-home" class="panel glass closed-card hidden">
+
+<svg class="icon icon-xl">
+<use href="#i-moon"></use>
+</svg>
+
+<h2>MiniDisneyland est fermé aujourd'hui</h2>
+
+<p>
+La magie prend un peu de repos...
+</p>
+
+<p class="small">
+Mais les étoiles de Main Street
+brilleront bientôt à nouveau.
+</p>
+
+<div class="next-opening">
+
+Prochaine ouverture
+
+<strong id="next-opening-home">
+À venir
+</strong>
+
+</div>
+
+</div>
+
+</div>
 </section>
 
-<!-- =====================================
-     BILLETS
-===================================== -->
+<!-- BILLETS -->
 
 <section id="tickets" class="section">
 
 <header class="page-head">
-<h1>🎟️ Mes billets magiques</h1>
+<h1>Mes billets</h1>
 <p>VOTRE PASSEPORT POUR LA MAGIE</p>
 </header>
 
 <div class="panel glass">
 
-<h2>Votre aventure commence ici !</h2>
+<h2>Votre aventure commence ici</h2>
 
 <p>
-Réservez votre soirée ou retrouvez les billets
-de votre prochaine visite.
+Réservez votre soirée ou retrouvez
+les billets de votre prochaine visite.
 </p>
 
 <div class="ticket-choice">
@@ -703,20 +1071,32 @@ de votre prochaine visite.
 href="https://www.billetweb.fr/soiree-mini-disneyland-reunion"
 target="_blank"
 rel="noopener noreferrer">
-🎟️ Réserver mes billets
+
+<svg class="icon">
+<use href="#i-ticket"></use>
+</svg>
+
+Réserver mes billets
+
 </a>
 
 <button class="ticket-import" id="import-ticket">
-📥 Importer mes billets
+
+<svg class="icon">
+<use href="#i-upload"></use>
+</svg>
+
+Importer mes billets
+
 </button>
 
 </div>
 
 <input
-id="ticket-file"
-type="file"
-accept=".pdf,.jpg,.jpeg,.png,.webp,application/pdf,image/jpeg,image/png,image/webp"
-multiple>
+  id="ticket-file"
+  type="file"
+  accept=".pdf,.jpg,.jpeg,.png,.webp,application/pdf,image/jpeg,image/png,image/webp"
+  multiple>
 
 <p class="small">
 Après votre réservation sur Billetweb,
@@ -726,39 +1106,64 @@ téléchargez vos billets puis importez-les ici.
 </div>
 
 <div class="panel glass">
-<h2>🎫 Mes billets enregistrés</h2>
+<h2>Mes billets enregistrés</h2>
 <p id="ticket-count" class="small"></p>
 <div id="ticket-list"></div>
 </div>
 
 <div class="panel glass">
 <h2>Le soir de votre visite</h2>
+
 <p>
 Présentez vos billets à notre équipe à votre arrivée.
 </p>
+
 <p class="small">
 Les billets importés restent sur cet appareil.
-Conservez également les originaux.
+Conservez également vos originaux.
 </p>
 </div>
 
 </section>
 
-<!-- =====================================
-     SPECTACLES
-===================================== -->
+<!-- SPECTACLES -->
 
 <section id="schedule" class="section">
 
 <header class="page-head">
-<h1>✨ Les Spectacles</h1>
+<h1>Les spectacles</h1>
 <p>VOTRE PROGRAMME ENCHANTÉ</p>
 </header>
 
 <div class="panel glass">
+
+<div class="heading-row">
+<svg class="icon">
+<use href="#i-calendar"></use>
+</svg>
+<h2>Dates d'ouverture</h2>
+</div>
+
+<p>
+Les soirées sont programmées les vendredis,
+samedis et dimanches suivants :
+</p>
+
+<div class="date-grid" id="opening-dates"></div>
+
+<p class="small">
+Décembre 2026 · Ouverture des portes à 19h30.
+</p>
+
+</div>
+
+<div class="panel glass">
+
 <h2>Votre prochain rendez-vous</h2>
-<p id="schedule-next" class="gold"></p>
-<p id="schedule-countdown" class="green"></p>
+
+<p id="schedule-next"></p>
+<p id="schedule-countdown" class="small"></p>
+
 </div>
 
 <div class="panel glass">
@@ -801,7 +1206,7 @@ Conservez également les originaux.
 <time>22h00</time>
 <div>
 <strong>Fin de soirée</strong>
-<small>Merci d'avoir partagé cette aventure avec nous !</small>
+<small>Merci d'avoir partagé cette aventure avec nous.</small>
 </div>
 </div>
 
@@ -809,8 +1214,14 @@ Conservez également les originaux.
 
 <div class="panel glass">
 
-<h2>🚀 Space Mountain VR</h2>
-<p><strong>De la Terre à la Lune</strong></p>
+<div class="heading-row">
+<svg class="icon">
+<use href="#i-rocket"></use>
+</svg>
+<h2>Space Mountain VR</h2>
+</div>
+
+<p>De la Terre à la Lune</p>
 
 <p>
 Statut :
@@ -821,7 +1232,9 @@ Statut :
 
 <div class="event">
 <time>19h45</time>
-<div><strong>Ouverture de l'attraction</strong></div>
+<div>
+<strong>Ouverture de l'attraction</strong>
+</div>
 </div>
 
 <div class="event">
@@ -842,35 +1255,37 @@ Statut :
 
 <div class="event">
 <time>22h00</time>
-<div><strong>Fermeture de l'attraction</strong></div>
+<div>
+<strong>Fermeture de l'attraction</strong>
+</div>
 </div>
 
 </div>
 
 <div class="panel glass">
-<h2>🔔 Rappels magiques</h2>
+<h2>Rappels des spectacles</h2>
 <p>
-Un rappel apparaît cinq minutes avant les spectacles
+Un rappel apparaît cinq minutes avant chaque spectacle
 lorsque l'application est ouverte.
 </p>
 </div>
 
 </section>
 
-<!-- =====================================
-     EXPLORER
-===================================== -->
+<!-- EXPLORER -->
 
 <section id="explore" class="section">
 
 <header class="page-head">
-<h1>🔍 Explorer Main Street</h1>
+<h1>Explorer Main Street</h1>
 <p>LES SECRETS DE NOS FAÇADES</p>
 </header>
 
 <div class="panel glass explore-hero">
 
-<div class="big-icon">📖✨</div>
+<svg class="icon icon-xl">
+<use href="#i-book"></use>
+</svg>
 
 <h2>Chaque façade cache une histoire...</h2>
 
@@ -880,11 +1295,11 @@ des secrets de notre petit monde enchanté.
 </p>
 
 <button class="explore-button" id="start-explore">
-📷 Lancer l'exploration
+Lancer l'exploration
 </button>
 
 <p class="small">
-Autorisez l'accès à la caméra
+Autorisez l'accès à la caméra,
 puis dirigez-la vers les façades.
 </p>
 
@@ -897,31 +1312,38 @@ puis dirigez-la vers les façades.
 
 </section>
 
-<!-- =====================================
-     INFORMATIONS
-===================================== -->
+<!-- INFORMATIONS -->
 
 <section id="information" class="section">
 
 <header class="page-head">
-<h1>ℹ️ Informations pratiques</h1>
+<h1>Informations pratiques</h1>
 <p>PROFITEZ DE VOTRE VISITE</p>
 </header>
 
 <div class="panel glass">
-<h2>🏰 Bienvenue chez nous</h2>
+<h2>Bienvenue chez nous</h2>
+
 <p>
 MiniDisneyland Réunion est une expérience immersive
 imaginée avec passion dans un petit appartement
 à Saint-Pierre.
 </p>
+
 <p>L'entrée est gratuite.</p>
 </div>
 
 <div class="panel glass">
-<h2>🕰️ Horaires</h2>
-<p>Ouverture des portes : <strong>19h30</strong></p>
-<p>Fin de soirée : <strong>22h00</strong></p>
+<h2>Dates et horaires</h2>
+
+<p>
+Les 4, 5, 6, 11, 12, 13, 18, 19
+et 20 décembre 2026.
+</p>
+
+<p>Ouverture des portes : 19h30.</p>
+<p>Fin de soirée : 22h00.</p>
+
 <p>
 Les spectacles étant automatisés,
 merci de prévoir votre arrivée à l'heure.
@@ -929,7 +1351,8 @@ merci de prévoir votre arrivée à l'heure.
 </div>
 
 <div class="panel glass">
-<h2>📸 Photos et vidéos</h2>
+<h2>Photos et vidéos</h2>
+
 <p>
 Les photos et vidéos sont autorisées.
 Merci d'éviter les flashs pendant les spectacles.
@@ -937,7 +1360,8 @@ Merci d'éviter les flashs pendant les spectacles.
 </div>
 
 <div class="panel glass">
-<h2>✨ Nos précieux décors</h2>
+<h2>Nos précieux décors</h2>
+
 <p>
 Nos décors ont été réalisés avec beaucoup d'amour.
 Certains sont aussi fragiles que les ailes
@@ -947,7 +1371,8 @@ Merci de les admirer avec les yeux.
 </div>
 
 <div class="panel glass">
-<h2>🚪 Besoin de partir ?</h2>
+<h2>Besoin de partir ?</h2>
+
 <p>
 Si vous souhaitez quitter la soirée,
 prévenez simplement un Magic Maker.
@@ -957,7 +1382,8 @@ la sortie de la résidence.
 </div>
 
 <div class="panel glass">
-<h2>💫 Les Magic Makers</h2>
+<h2>Les Magic Makers</h2>
+
 <p>
 Derrière chaque spectacle se cache une équipe
 de passionnés qui rend cette aventure possible.
@@ -965,12 +1391,14 @@ de passionnés qui rend cette aventure possible.
 </div>
 
 <div class="panel glass">
-<h2>❤️ Un petit coup de pouce à la magie</h2>
+<h2>Un petit coup de pouce à la magie</h2>
+
 <p>
 L'entrée est entièrement gratuite.
 Une cagnotte est disponible sur place
 pour celles et ceux qui souhaitent nous soutenir.
 </p>
+
 <p>
 Aucune participation n'est obligatoire.
 Vos sourires sont déjà notre plus belle récompense !
@@ -982,65 +1410,48 @@ Vos sourires sont déjà notre plus belle récompense !
 </div>
 </main>
 
-<!-- =====================================
-     NAVIGATION
-===================================== -->
+<!-- NAVIGATION INFÉRIEURE -->
 
 <nav id="bottom-nav" aria-label="Navigation principale">
 
 <button class="nav-item active" data-tab="home">
-<svg viewBox="0 0 24 24">
-<path d="M3 10L12 3L21 10V21H3Z"/>
-<path d="M9 21V13H15V21"/>
-</svg>
+<svg class="icon"><use href="#i-home"></use></svg>
 <span>Accueil</span>
 </button>
 
 <button class="nav-item" data-tab="tickets">
-<svg viewBox="0 0 24 24">
-<path d="M3 6H21V10C18 10 18 14 21 14V18H3V14C6 14 6 10 3 10Z"/>
-<path d="M12 6V18" stroke-dasharray="2 2"/>
-</svg>
+<svg class="icon"><use href="#i-ticket"></use></svg>
 <span>Billets</span>
 </button>
 
 <button class="nav-item" data-tab="schedule">
-<svg viewBox="0 0 24 24">
-<rect x="3" y="5" width="18" height="16" rx="2"/>
-<path d="M7 3V7M17 3V7M3 10H21M8 15H11M14 15H17"/>
-</svg>
+<svg class="icon"><use href="#i-calendar"></use></svg>
 <span>Spectacles</span>
 </button>
 
 <button class="nav-item" data-tab="explore">
-<svg viewBox="0 0 24 24">
-<path d="M8 3H4V7M16 3H20V7M4 17V21H8M20 17V21H16"/>
-<circle cx="12" cy="12" r="4"/>
-<path d="M12 10V14M10 12H14"/>
-</svg>
+<svg class="icon"><use href="#i-scan"></use></svg>
 <span>Explorer</span>
 </button>
 
 <button class="nav-item" data-tab="information">
-<svg viewBox="0 0 24 24">
-<circle cx="12" cy="12" r="9"/>
-<path d="M12 11V17"/>
-<circle cx="12" cy="7.5" r=".8" fill="currentColor"/>
-</svg>
+<svg class="icon"><use href="#i-info"></use></svg>
 <span>Infos</span>
 </button>
 
 </nav>
 
-<!-- CAMÉRA -->
+<!-- COMMANDES CAMÉRA -->
 
 <button id="camera-menu" class="hidden">
-‹ Retour à l'application
+Retour à l'application
 </button>
 
 <div id="found">
 <button id="discover">
-<span style="font-size:25px">📖</span>
+<svg class="icon icon-lg">
+<use href="#i-book"></use>
+</svg>
 <span>
 <strong id="bubble-title">Un secret découvert</strong>
 <small>Toucher pour découvrir son histoire</small>
@@ -1051,27 +1462,31 @@ Vos sourires sont déjà notre plus belle récompense !
 <!-- LIVRES -->
 
 <div id="story">
-<button id="close">✕ Retour à l'exploration</button>
+<button id="close">Fermer le livre</button>
 <div id="books-container"></div>
 </div>
 
-<!-- BILLETS -->
+<!-- AFFICHAGE DES BILLETS -->
 
 <div id="ticket-viewer" class="hidden">
+
 <div class="viewer-head">
 <strong id="viewer-name"></strong>
-<button id="close-viewer">✕ Fermer</button>
+<button id="close-viewer">Fermer</button>
 </div>
+
 <div id="viewer-content"></div>
+
 <a id="viewer-download" href="#" download>
 Enregistrer mon billet
 </a>
+
 </div>
 
 <!-- RAPPELS -->
 
 <div id="alert" class="hidden">
-<h2>✨ Un spectacle approche !</h2>
+<h2>Un spectacle approche</h2>
 <p id="alert-message"></p>
 <button id="dismiss-alert">
 Merci, à tout de suite !
@@ -1082,14 +1497,22 @@ Merci, à tout de suite !
 "use strict";
 
 /* =====================================
-   PROGRAMMATION
+   DATES OFFICIELLES D'OUVERTURE
 ===================================== */
 
-const CALENDAR={
-  start:"2026-11-20",
-  end:"2026-12-31",
-  excludedDates:[]
-};
+const OPEN_DATES=[
+  "2026-12-04",
+  "2026-12-05",
+  "2026-12-06",
+  "2026-12-11",
+  "2026-12-12",
+  "2026-12-13",
+  "2026-12-18",
+  "2026-12-19",
+  "2026-12-20"
+];
+
+const OPEN_SET=new Set(OPEN_DATES);
 
 const SHOWS=[
   {
@@ -1110,6 +1533,7 @@ const SHOWS=[
 ];
 
 const $=s=>document.querySelector(s);
+
 const app=$("#app");
 const scene=$("a-scene");
 const found=$("#found");
@@ -1119,10 +1543,11 @@ let cameraStarted=false;
 let cameraStarting=false;
 let storyOpen=false;
 let activePlace=null;
+
 const alerted=new Set();
 
 /* =====================================
-   LES NEUF HISTOIRES
+   HISTOIRES MAIN STREET
 ===================================== */
 
 const stories=[
@@ -1275,7 +1700,7 @@ ending:"La magie ne se mesure pas en mètres carrés, mais en émotions !"
 ];
 
 /* =====================================
-   CRÉATION DES LIVRES
+   CONSTRUCTION DES LIVRES
 ===================================== */
 
 function createBooks(){
@@ -1359,14 +1784,20 @@ function showTab(name){
 
   document.querySelectorAll(".nav-item").forEach(button=>{
     const active=button.dataset.tab===name;
+
     button.classList.toggle("active",active);
-    button.setAttribute("aria-current",active?"page":"false");
+    button.setAttribute(
+      "aria-current",
+      active?"page":"false"
+    );
   });
 
   app.classList.remove("hidden");
   app.scrollTop=0;
 
-  if(name==="tickets")renderTickets();
+  if(name==="tickets"){
+    renderTickets();
+  }
 
   updateClock();
 }
@@ -1379,7 +1810,7 @@ document.querySelectorAll(".nav-item").forEach(button=>{
 });
 
 /* =====================================
-   HORLOGE RÉUNION
+   HORLOGE DE LA RÉUNION
 ===================================== */
 
 function reunionNow(){
@@ -1397,16 +1828,33 @@ function reunionNow(){
     parts.map(x=>[x.type,x.value])
   );
 
-  return{
+  return {
     date:v.year+"-"+v.month+"-"+v.day,
     minute:Number(v.hour)*60+Number(v.minute)
   };
 }
 
 function representation(date){
-  return date>=CALENDAR.start &&
-         date<=CALENDAR.end &&
-         !CALENDAR.excludedDates.includes(date);
+  return OPEN_SET.has(date);
+}
+
+function nextOpening(date){
+  return OPEN_DATES.find(d=>d>date)||null;
+}
+
+function formatOpening(date){
+  if(!date)return null;
+
+  const d=new Date(date+"T12:00:00Z");
+
+  const formatted=new Intl.DateTimeFormat("fr-FR",{
+    timeZone:"UTC",
+    weekday:"long",
+    day:"numeric",
+    month:"long"
+  }).format(d);
+
+  return formatted+" à 19h30";
 }
 
 function duration(minutes){
@@ -1418,79 +1866,147 @@ function duration(minutes){
     :m+" min";
 }
 
+/* =====================================
+   CALENDRIER VISUEL
+===================================== */
+
+function createCalendar(){
+  const container=$("#opening-dates");
+  const today=reunionNow().date;
+
+  const weekdays=["DIM","LUN","MAR","MER","JEU","VEN","SAM"];
+
+  OPEN_DATES.forEach(date=>{
+    const d=new Date(date+"T12:00:00Z");
+
+    const cell=document.createElement("div");
+    cell.className="date-cell";
+
+    if(date===today){
+      cell.classList.add("today");
+    }
+
+    const day=document.createElement("span");
+    day.textContent=weekdays[d.getUTCDay()];
+
+    const number=document.createElement("strong");
+    number.textContent=d.getUTCDate();
+
+    const month=document.createElement("span");
+    month.textContent="DÉCEMBRE";
+
+    cell.append(day,number,month);
+    container.appendChild(cell);
+  });
+}
+
+createCalendar();
+
+/* =====================================
+   SPACE MOUNTAIN VR
+===================================== */
+
 function spaceStatus(t){
   if(t<1185){
-    return{
+    return {
       name:"FERMÉ",
       detail:"Ouverture prévue à 19h45.",
-      color:"red",
       next:"Prochaine ouverture : 19h45"
     };
   }
 
   if(t<1245){
-    return{
+    return {
       name:"OUVERT",
       detail:"Attraction accessible jusqu'à 20h45.",
-      color:"green",
       next:"Pause prévue à 20h45"
     };
   }
 
   if(t<1290){
-    return{
+    return {
       name:"PAUSE",
       detail:"Fermeture temporaire pendant le spectacle.",
-      color:"orange",
       next:"Réouverture prévue vers 21h30"
     };
   }
 
   if(t<1320){
-    return{
+    return {
       name:"À CONFIRMER",
       detail:"Réouverture prévue, à confirmer auprès de l'équipe.",
-      color:"orange",
       next:"Fermeture prévue à 22h00"
     };
   }
 
-  return{
+  return {
     name:"FERMÉ",
     detail:"L'attraction est fermée pour ce soir.",
-    color:"red",
-    next:"À bientôt pour un nouveau voyage !"
+    next:"À bientôt pour un nouveau voyage."
   };
 }
 
-function setStatus(element,s){
-  element.textContent=s.name;
-  element.className="status "+s.color;
+function setStatus(element,status){
+  element.textContent=status.name;
+  element.className="status";
 }
+
+/* =====================================
+   MISE À JOUR DE L'ACCUEIL
+===================================== */
 
 function updateClock(){
   const now=reunionNow();
   const t=now.minute;
+
   const active=representation(now.date);
-  const next=active?SHOWS.find(e=>e.time>t):null;
+
+  $("#open-home").classList.toggle("hidden",!active);
+  $("#closed-home").classList.toggle("hidden",active);
+
+  if(!active){
+    const next=nextOpening(now.date);
+
+    $("#next-opening-home").textContent=
+      next
+        ?formatOpening(next)
+        :"La prochaine saison sera annoncée bientôt.";
+
+    $("#schedule-next").textContent=
+      "MiniDisneyland est fermé aujourd'hui.";
+
+    $("#schedule-countdown").textContent=
+      next
+        ?"Prochaine ouverture : "+formatOpening(next)
+        :"Aucune autre ouverture annoncée.";
+
+    setStatus($("#space-status"),{name:"FERMÉ"});
+
+    $("#space-detail").textContent=
+      "L'attraction est fermée aujourd'hui.";
+
+    return;
+  }
+
+  const next=SHOWS.find(e=>e.time>t);
 
   let title="";
   let time="";
   let countdown="";
 
-  if(!active){
-    title="À bientôt pour une soirée magique !";
-    time="Aucune représentation programmée ce soir";
-  }else if(t<1170){
+  if(t<1170){
     title="Ouverture des portes";
     time="19h30 · Bienvenue à MiniDisneyland Réunion";
     countdown="La magie commence bientôt !";
   }else if(next){
     title=next.name;
 
-    time=String(Math.floor(next.time/60)).padStart(2,"0")
-      +"h"+String(next.time%60).padStart(2,"0")
-      +" · "+next.place;
+    time=
+      String(Math.floor(next.time/60)).padStart(2,"0")
+      +"h"
+      +String(next.time%60).padStart(2,"0")
+      +" · "
+      +next.place;
 
     countdown="Dans "+duration(next.time-t);
   }else{
@@ -1505,12 +2021,7 @@ function updateClock(){
   $("#schedule-next").textContent=title;
   $("#schedule-countdown").textContent=countdown;
 
-  const s=active?spaceStatus(t):{
-    name:"FERMÉ",
-    detail:"Pas de représentation programmée ce soir.",
-    color:"red",
-    next:"Consultez les prochaines séances."
-  };
+  const s=spaceStatus(t);
 
   setStatus($("#home-space-status"),s);
   setStatus($("#space-status"),s);
@@ -1519,7 +2030,7 @@ function updateClock(){
   $("#space-detail").textContent=s.detail;
   $("#space-next").textContent=s.next;
 
-  if(active&&!document.hidden){
+  if(!document.hidden){
     for(const e of SHOWS){
       const key=now.date+"-"+e.time;
 
@@ -1527,7 +2038,9 @@ function updateClock(){
         alerted.add(key);
 
         $("#alert-message").textContent=
-          e.name+" commence dans 5 minutes ! Rendez-vous à "+e.place+".";
+          e.name+
+          " commence dans 5 minutes ! Rendez-vous à "+
+          e.place+".";
 
         $("#alert").classList.remove("hidden");
         break;
@@ -1537,7 +2050,7 @@ function updateClock(){
 }
 
 /* =====================================
-   SCANNER
+   SCANNER MAIN STREET
 ===================================== */
 
 const places=stories.map((s,index)=>({
@@ -1563,8 +2076,15 @@ function visiblePlace(){
 function showBubble(index){
   const p=places[index];
 
-  if(!cameraStarted||storyOpen||!p||!p.detected||
-     !app.classList.contains("hidden"))return;
+  if(
+    !cameraStarted||
+    storyOpen||
+    !p||
+    !p.detected||
+    !app.classList.contains("hidden")
+  ){
+    return;
+  }
 
   activePlace=index;
   $("#bubble-title").textContent=p.title;
@@ -1585,7 +2105,10 @@ places.forEach(p=>{
       hideBubble();
 
       const next=visiblePlace();
-      if(next!==null)showBubble(next);
+
+      if(next!==null){
+        showBubble(next);
+      }
     }
   });
 });
@@ -1615,7 +2138,10 @@ function closeStory(){
   });
 
   const next=visiblePlace();
-  if(next!==null)showBubble(next);
+
+  if(next!==null){
+    showBubble(next);
+  }
 }
 
 async function enterCamera(){
@@ -1623,11 +2149,11 @@ async function enterCamera(){
 
   cameraStarting=true;
 
-  const container=$("#camera-container");
-  container.style.display="block";
+  $("#camera-container").style.display="block";
 
   app.classList.add("hidden");
   document.body.classList.add("ar-mode");
+
   $("#camera-menu").classList.remove("hidden");
 
   try{
@@ -1638,13 +2164,16 @@ async function enterCamera(){
   }catch(error){
     console.error(error);
 
-    container.style.display="none";
+    $("#camera-container").style.display="none";
     document.body.classList.remove("ar-mode");
+
     $("#camera-menu").classList.add("hidden");
 
     showTab("explore");
 
-    alert("Impossible d'ouvrir la caméra. Vérifiez les autorisations du navigateur.");
+    alert(
+      "Impossible d'ouvrir la caméra. Vérifiez les autorisations du navigateur."
+    );
   }finally{
     cameraStarting=false;
   }
@@ -1657,6 +2186,7 @@ async function leaveCamera(){
 
   $("#camera-container").style.display="none";
   $("#camera-menu").classList.add("hidden");
+
   document.body.classList.remove("ar-mode");
 
   showTab("explore");
@@ -1667,6 +2197,7 @@ async function leaveCamera(){
     }catch(error){
       console.warn(error);
     }
+
     cameraStarted=false;
   }
 
@@ -1680,7 +2211,7 @@ $("#discover").onclick=openStory;
 $("#close").onclick=closeStory;
 
 /* =====================================
-   BILLETS : INDEXEDDB
+   BILLETS : STOCKAGE LOCAL
 ===================================== */
 
 const DB_NAME="CompagnonMagiqueBillets";
@@ -1863,8 +2394,10 @@ async function renderTickets(){
 
     const meta=document.createElement("div");
     meta.className="ticket-meta";
+
     meta.textContent=
-      (ticket.size/1024/1024).toFixed(2)+" Mo · "+
+      (ticket.size/1024/1024).toFixed(2)
+      +" Mo · "+
       new Date(ticket.date).toLocaleDateString("fr-FR");
 
     const buttons=document.createElement("div");
@@ -1875,7 +2408,6 @@ async function renderTickets(){
     open.onclick=()=>viewTicket(ticket.id);
 
     const del=document.createElement("button");
-    del.className="delete";
     del.textContent="Supprimer";
     del.onclick=()=>deleteSavedTicket(ticket.id,ticket.name);
 
@@ -1966,7 +2498,10 @@ $("#import-ticket").onclick=()=>{
   $("#ticket-file").click();
 };
 
-$("#ticket-file").addEventListener("change",importTickets);
+$("#ticket-file").addEventListener(
+  "change",
+  importTickets
+);
 
 $("#close-viewer").onclick=closeTicketViewer;
 
@@ -1975,9 +2510,13 @@ $("#dismiss-alert").onclick=()=>{
 };
 
 updateClock();
+
 setInterval(updateClock,15000);
 
-document.addEventListener("visibilitychange",updateClock);
+document.addEventListener(
+  "visibilitychange",
+  updateClock
+);
 
 initializeTickets();
 
