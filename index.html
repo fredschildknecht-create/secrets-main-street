@@ -3,73 +3,61 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#071631">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Compagnon Magique">
-
-<title>Votre Compagnon Magique | MiniDisneyland Réunion</title>
+<title>Votre Compagnon Magique</title>
 
 <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
 
 <style>
-:root {
-  --white:#ffffff;
+:root{
+  --white:#fff;
   --soft:#e4ebf5;
-  --glass:rgba(5,18,43,.72);
-  --line:rgba(255,255,255,.55);
+  --glass:rgba(5,18,43,.35);
+  --line:rgba(255,255,255,.45);
+  --green:#65f3a0;
+  --red:#ff737b;
+  --orange:#ffca7c;
 }
-
-* {
-  box-sizing:border-box;
-}
-
-html,body {
-  margin:0;
-  width:100%;
-  height:100%;
-}
-
-body {
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%}
+body{
   background:#071631;
-  color:var(--white);
+  color:white;
   font-family:Georgia,"Times New Roman",serif;
   overflow:hidden;
 }
-
-button,input {
-  font:inherit;
+button,input{font:inherit}
+button{cursor:pointer}
+a{color:inherit}
+.hidden{display:none!important}
+.icon{
+  width:22px;height:22px;
+  fill:none;stroke:currentColor;
+  stroke-width:1.7;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  flex-shrink:0;
 }
-
-button {
-  cursor:pointer;
-}
-
-a {
-  color:inherit;
-}
-
-.hidden {
-  display:none!important;
-}
+.icon-lg{width:31px;height:31px}
+.icon-xl{width:39px;height:39px}
 
 /* FOND ORIGINAL */
-
-#background {
+#background{
   position:fixed;
   inset:0;
   z-index:1;
-  background:
-    #071631
+  background:#071631
     url("./Bazaart_2026-11-20_132143.jpeg")
-    center center / cover no-repeat;
+    center center/cover no-repeat;
   pointer-events:none;
 }
 
 /* APPLICATION */
-
-#app {
+#app{
   position:fixed;
   inset:0;
   z-index:10;
@@ -80,290 +68,171 @@ a {
     15px
     calc(105px + env(safe-area-inset-bottom));
 }
+.wrap{max-width:600px;min-height:100%;margin:auto}
+.section{display:none}
+.section.active{display:block}
 
-.wrap {
-  max-width:600px;
-  min-height:100%;
-  margin:auto;
-}
-
-.section {
-  display:none;
-}
-
-.section.active {
-  display:block;
-}
-
-.glass {
+/* TOUTES LES BULLES TRANSPARENTES */
+.glass{
   background:var(--glass);
   border:1px solid var(--line);
   border-radius:19px;
-  backdrop-filter:blur(12px);
-  -webkit-backdrop-filter:blur(12px);
-  box-shadow:0 8px 28px rgba(0,0,0,.25);
+  backdrop-filter:blur(5px);
+  -webkit-backdrop-filter:blur(5px);
+  box-shadow:0 8px 25px rgba(0,0,0,.15);
 }
-
-.panel {
-  padding:18px;
-  margin:14px 0;
-}
-
-.panel h2 {
+.panel{padding:18px;margin:14px 0}
+.panel h2{
   margin:0 0 12px;
   font-size:18px;
   font-weight:normal;
 }
-
-.panel p {
-  font-size:14px;
-  line-height:1.65;
-}
-
-.small {
-  font-size:12px!important;
-  color:var(--soft);
-}
-
-.muted {
-  color:var(--soft);
-}
-
-.page-head {
+.panel p{font-size:14px;line-height:1.65}
+.small{font-size:12px!important;color:var(--soft)}
+.page-head{
   padding:22px 0 12px;
   text-align:center;
   text-shadow:0 2px 10px #0009;
 }
-
-.page-head h1 {
+.page-head h1{
   font-size:26px;
   font-weight:normal;
   margin:6px 0;
 }
-
-.page-head p {
+.page-head p{
   font-size:11px;
   letter-spacing:2px;
   color:var(--soft);
 }
-
-/* ICÔNES BLANCHES */
-
-.icon {
-  width:22px;
-  height:22px;
-  fill:none;
-  stroke:currentColor;
-  stroke-width:1.65;
-  stroke-linecap:round;
-  stroke-linejoin:round;
-  flex-shrink:0;
-}
-
-.icon-lg {
-  width:29px;
-  height:29px;
-}
-
-.icon-xl {
-  width:37px;
-  height:37px;
-}
-
-.heading-row {
+.heading-row{
   display:flex;
   align-items:center;
   gap:10px;
 }
-
-.heading-row h2 {
-  margin:0;
-}
+.heading-row h2{margin:0}
 
 /* ACCUEIL */
-
-#home.active {
+#home.active{
   display:flex;
   flex-direction:column;
   justify-content:center;
-
   min-height:calc(
-    100dvh
-    - 108px
+    100dvh - 108px
     - env(safe-area-inset-top)
     - env(safe-area-inset-bottom)
   );
-
   padding-top:clamp(35px,7vh,90px);
 }
-
-.home-bubbles {
+.home-bubbles{
   width:100%;
   display:flex;
   flex-direction:column;
   gap:12px;
 }
-
-.home-bubbles .panel {
+.home-bubbles .panel{
   margin:0;
   padding:16px 18px;
 }
-
-.home-bubbles h2 {
-  font-size:18px;
-}
-
-.live-title {
+.home-bubbles h2{font-size:18px}
+.home-bubbles p{margin:8px 0 0}
+.live-title{
   font-size:19px;
   line-height:1.4;
   margin-top:12px;
 }
-
-.home-bubbles p {
-  margin:8px 0 0;
-}
-
-.status {
-  display:inline-block;
-  padding:6px 10px;
-  border:1px solid rgba(255,255,255,.8);
-  border-radius:20px;
-  font:10px Arial,sans-serif;
-  letter-spacing:.6px;
-  white-space:nowrap;
-  color:white;
-  background:rgba(255,255,255,.1);
-}
-
-.space-row {
+.space-row{
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap:10px;
 }
+.space-row .heading-row{min-width:0}
+.space-row h2{font-size:17px}
 
-.space-row .heading-row {
-  min-width:0;
+/* STATUT SPACE MOUNTAIN */
+.status{
+  display:inline-block;
+  padding:6px 10px;
+  border:1px solid currentColor;
+  border-radius:20px;
+  font:10px Arial,sans-serif;
+  letter-spacing:.6px;
+  white-space:nowrap;
+  background:rgba(0,0,0,.16);
 }
+.status.open{color:var(--green)}
+.status.closed{color:var(--red)}
+.status.pause{color:var(--orange)}
 
-.space-row h2 {
-  font-size:17px;
-}
-
-.closed-card {
+.closed-card{
   text-align:center;
   padding:26px 19px!important;
 }
-
-.closed-card .icon {
+.closed-card .icon{
+  display:block;
   margin:0 auto 12px;
 }
-
-.closed-card h2 {
+.closed-card h2{
   font-size:20px;
   line-height:1.4;
   margin-bottom:12px;
 }
-
-.closed-card p {
-  margin:10px 0;
-}
-
-.next-opening {
-  padding-top:12px;
-  margin-top:16px;
-  border-top:1px solid rgba(255,255,255,.35);
-  font-size:14px;
-  line-height:1.6;
-}
-
-.next-opening strong {
-  display:block;
-  margin-top:6px;
-  font-size:16px;
-  font-weight:normal;
-}
+.closed-card p{margin:10px 0}
 
 /* NAVIGATION */
-
-#bottom-nav {
+#bottom-nav{
   position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
+  bottom:0;left:0;right:0;
   z-index:40;
-
   display:grid;
   grid-template-columns:repeat(5,minmax(0,1fr));
-
   padding:9px 6px calc(9px + env(safe-area-inset-bottom));
-
-  background:rgba(6,19,45,.95);
-  border-top:1px solid rgba(255,255,255,.5);
-
-  backdrop-filter:blur(20px);
-  -webkit-backdrop-filter:blur(20px);
+  background:rgba(6,19,45,.88);
+  border-top:1px solid var(--line);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
 }
-
-.nav-item {
+.nav-item{
   border:0;
   background:transparent;
-  color:rgba(255,255,255,.7);
-
+  color:rgba(255,255,255,.72);
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
   gap:5px;
-
   min-height:52px;
   padding:7px 1px;
   border-radius:13px;
 }
-
-.nav-item span {
-  font:10px Arial,sans-serif;
-}
-
-.nav-item.active {
+.nav-item span{font:10px Arial,sans-serif}
+.nav-item.active{
   color:white;
-  background:rgba(255,255,255,.16);
+  background:rgba(255,255,255,.14);
 }
-
-.nav-item.active::after {
+.nav-item.active::after{
   content:"";
-  width:4px;
-  height:4px;
+  width:4px;height:4px;
   border-radius:50%;
   background:white;
 }
 
 /* SPECTACLES */
-
-.event {
+.event{
   display:flex;
   gap:15px;
   padding:16px 0;
   border-bottom:1px solid rgba(255,255,255,.25);
 }
-
-.event:last-child {
-  border-bottom:0;
-}
-
-.event time {
+.event:last-child{border-bottom:0}
+.event time{
   width:55px;
   flex-shrink:0;
   font-size:15px;
   font-weight:bold;
 }
-
-.event strong {
-  font-size:15px;
-  font-weight:normal;
-}
-
-.event small {
+.event strong{font-size:15px;font-weight:normal}
+.event small{
   display:block;
   font-size:12px;
   line-height:1.5;
@@ -371,51 +240,15 @@ a {
   margin-top:5px;
 }
 
-.date-grid {
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:9px;
-  margin-top:15px;
-}
-
-.date-cell {
-  padding:12px 5px;
-  text-align:center;
-  border:1px solid rgba(255,255,255,.4);
-  border-radius:12px;
-  background:rgba(255,255,255,.08);
-}
-
-.date-cell span {
-  display:block;
-  font:10px Arial,sans-serif;
-  letter-spacing:1px;
-  color:var(--soft);
-}
-
-.date-cell strong {
-  display:block;
-  font-size:23px;
-  font-weight:normal;
-  margin:6px 0;
-}
-
-.date-cell.today {
-  background:rgba(255,255,255,.24);
-  border-color:white;
-}
-
 /* BILLETS */
-
-.ticket-choice {
+.ticket-choice{
   display:flex;
   flex-direction:column;
   gap:12px;
   margin:17px 0;
 }
-
 .ticket-choice a,
-.ticket-choice button {
+.ticket-choice button{
   display:flex;
   align-items:center;
   justify-content:center;
@@ -428,43 +261,28 @@ a {
   border-radius:16px;
   font-size:15px;
 }
-
-.ticket-reserve {
-  background:white;
-  color:#071631;
-}
-
-.ticket-import {
+.ticket-reserve{background:white;color:#071631}
+.ticket-import{
   background:rgba(255,255,255,.12);
   color:white;
 }
-
-#ticket-file {
-  display:none;
-}
-
-.ticket-row {
+#ticket-file{display:none}
+.ticket-row{
   padding:14px 0;
   border-bottom:1px solid rgba(255,255,255,.3);
 }
-
-.ticket-name {
-  overflow-wrap:anywhere;
-}
-
-.ticket-meta {
+.ticket-name{overflow-wrap:anywhere}
+.ticket-meta{
   font-size:11px;
   color:var(--soft);
   margin-top:6px;
 }
-
-.ticket-buttons {
+.ticket-buttons{
   display:flex;
   gap:9px;
   margin-top:12px;
 }
-
-.ticket-buttons button {
+.ticket-buttons button{
   border:1px solid white;
   border-radius:20px;
   background:rgba(255,255,255,.12);
@@ -474,17 +292,12 @@ a {
 }
 
 /* EXPLORER */
-
-.explore-hero {
+.explore-hero{
   text-align:center;
   padding:25px 18px;
 }
-
-.explore-hero .icon-xl {
-  margin:0 auto 12px;
-}
-
-.explore-button {
+.explore-hero .icon-xl{margin:0 auto 12px}
+.explore-button{
   width:100%;
   background:white;
   color:#071631;
@@ -494,16 +307,14 @@ a {
   margin-top:15px;
   font-size:15px;
 }
-
-.story-names {
+.story-names{
   padding-left:20px;
   font-size:13px;
   line-height:2;
 }
 
 /* CAMÉRA */
-
-#camera-container {
+#camera-container{
   display:none;
   position:fixed;
   inset:0;
@@ -511,28 +322,17 @@ a {
   background:#101b38;
   overflow:hidden;
 }
-
-body.ar-mode #background {
-  display:none;
-}
-
-body.ar-mode #camera-container {
-  display:block;
-}
-
-body.ar-mode #bottom-nav {
-  display:none;
-}
-
+body.ar-mode #background{display:none}
+body.ar-mode #camera-container{display:block}
+body.ar-mode #bottom-nav{display:none}
 #camera-container a-scene,
-#camera-container .a-canvas {
+#camera-container .a-canvas{
   position:absolute!important;
   inset:0!important;
   width:100%!important;
   height:100%!important;
 }
-
-#camera-container video {
+#camera-container video{
   position:absolute!important;
   top:50%!important;
   left:50%!important;
@@ -541,8 +341,7 @@ body.ar-mode #bottom-nav {
   object-fit:cover!important;
   transform:translate(-50%,-50%)!important;
 }
-
-#camera-menu {
+#camera-menu{
   position:fixed;
   z-index:45;
   top:calc(15px + env(safe-area-inset-top));
@@ -553,8 +352,7 @@ body.ar-mode #bottom-nav {
   background:#071631e8;
   color:white;
 }
-
-#found {
+#found{
   position:fixed;
   z-index:45;
   bottom:calc(9% + env(safe-area-inset-bottom));
@@ -564,12 +362,8 @@ body.ar-mode #bottom-nav {
   max-width:93%;
   display:none;
 }
-
-#found.visible {
-  display:block;
-}
-
-#discover {
+#found.visible{display:block}
+#discover{
   display:flex;
   gap:12px;
   align-items:center;
@@ -580,21 +374,15 @@ body.ar-mode #bottom-nav {
   padding:14px 17px;
   text-align:left;
 }
-
-#discover strong {
-  display:block;
-  font-size:14px;
-}
-
-#discover small {
+#discover strong{display:block;font-size:14px}
+#discover small{
   display:block;
   font-size:12px;
   margin-top:5px;
 }
 
-/* LIVRES */
-
-#story {
+/* LIVRES MAIN STREET */
+#story{
   display:none;
   position:fixed;
   inset:0;
@@ -604,45 +392,31 @@ body.ar-mode #bottom-nav {
   padding:25px 12px 70px;
   perspective:1200px;
 }
-
-#story.open {
-  display:block;
-}
-
-#close {
+#story.open{display:block}
+#close{
   display:block;
   margin:0 auto 22px;
   padding:12px 18px;
   color:white;
-  background:rgba(255,255,255,.12);
+  background:#ffffff20;
   border:1px solid white;
   border-radius:30px;
 }
-
-.book {
+.book{
   display:none;
   max-width:570px;
   margin:auto;
   transform-origin:left center;
 }
-
-.book.active {
+.book.active{
   display:block;
   animation:openBook .7s ease-out;
 }
-
-@keyframes openBook {
-  from {
-    opacity:0;
-    transform:rotateY(-45deg) scale(.9);
-  }
-  to {
-    opacity:1;
-    transform:rotateY(0) scale(1);
-  }
+@keyframes openBook{
+  from{opacity:0;transform:rotateY(-45deg) scale(.9)}
+  to{opacity:1;transform:rotateY(0) scale(1)}
 }
-
-.page {
+.page{
   position:relative;
   padding:33px 23px;
   color:#4c2924;
@@ -654,68 +428,51 @@ body.ar-mode #bottom-nav {
   border-radius:8px 18px 18px 8px;
   box-shadow:7px 9px 0 #b18c53,12px 16px 30px #0009;
 }
-
-.page:before {
+.page:before{
   content:"";
   position:absolute;
   inset:9px;
   border:1px solid #b88e47;
   pointer-events:none;
 }
-
-.ornament {
-  font-size:35px;
-  color:#9b702e;
-}
-
-.kicker {
+.ornament{font-size:35px;color:#9b702e}
+.kicker{
   font-size:11px;
   letter-spacing:2px;
   color:#865f34;
 }
-
-.page h1 {
-  color:#7f2938;
-  font-size:28px;
-}
-
-.page h2 {
+.page h1{color:#7f2938;font-size:28px}
+.page h2{
   color:#6e3d2e;
   font-size:21px;
   margin:25px 0 12px;
 }
-
-.page h3 {
+.page h3{
   color:#8c6833;
   font-size:13px;
   letter-spacing:2px;
 }
-
-.page p {
+.page p{
   font-size:16px;
   line-height:1.8;
   text-align:left;
 }
-
-.chapter {
+.chapter{
   border-top:1px solid #c9a76c;
   margin-top:27px;
   padding-top:12px;
 }
-
-.quote {
+.quote{
   text-align:center!important;
   color:#7b3540;
   font-style:italic;
 }
-
-.end {
+.end{
   text-align:center!important;
   color:#7f2938;
   font-weight:bold;
 }
-
-.continue-exploration {
+.continue-exploration{
   width:100%;
   padding:15px;
   margin-top:20px;
@@ -725,9 +482,8 @@ body.ar-mode #bottom-nav {
   border-radius:30px;
 }
 
-/* BILLETS EN PLEIN ÉCRAN */
-
-#ticket-viewer {
+/* VISIONNEUSE BILLETS */
+#ticket-viewer{
   position:fixed;
   inset:0;
   z-index:100;
@@ -739,29 +495,25 @@ body.ar-mode #bottom-nav {
   display:flex;
   flex-direction:column;
 }
-
-.viewer-head {
+.viewer-head{
   display:flex;
   align-items:center;
   gap:10px;
   margin-bottom:12px;
 }
-
-.viewer-head strong {
+.viewer-head strong{
   flex:1;
   overflow-wrap:anywhere;
   font-size:13px;
 }
-
-.viewer-head button {
+.viewer-head button{
   padding:11px;
   background:#ffffff22;
   color:white;
   border:1px solid white;
   border-radius:20px;
 }
-
-#viewer-content {
+#viewer-content{
   flex:1;
   min-height:0;
   display:flex;
@@ -769,28 +521,22 @@ body.ar-mode #bottom-nav {
   justify-content:center;
   overflow:auto;
 }
-
-#viewer-content img {
+#viewer-content img{
   max-width:100%;
   max-height:100%;
   object-fit:contain;
 }
-
-#viewer-content iframe {
-  width:100%;
-  height:100%;
-  border:0;
-  background:white;
+#viewer-content iframe{
+  width:100%;height:100%;
+  border:0;background:white;
 }
-
-#viewer-download {
+#viewer-download{
   padding:13px;
   text-align:center;
 }
 
 /* RAPPELS */
-
-#alert {
+#alert{
   position:fixed;
   z-index:90;
   top:calc(15px + env(safe-area-inset-top));
@@ -802,8 +548,7 @@ body.ar-mode #bottom-nav {
   border:1px solid white;
   border-radius:18px;
 }
-
-#alert button {
+#alert button{
   color:white;
   background:#ffffff20;
   border:1px solid white;
@@ -811,129 +556,83 @@ body.ar-mode #bottom-nav {
   padding:11px 16px;
 }
 
-/* PETITS ÉCRANS */
-
-@media(max-height:670px) {
-  #home.active {
-    padding-top:0;
-  }
-
-  .home-bubbles .panel {
-    padding:12px 14px;
-  }
-
-  .home-bubbles h2 {
-    font-size:16px;
-  }
-
-  .home-bubbles p {
-    font-size:13px;
-  }
+@media(max-height:670px){
+  #home.active{padding-top:0}
+  .home-bubbles .panel{padding:12px 14px}
+  .home-bubbles h2{font-size:16px}
+  .home-bubbles p{font-size:13px}
 }
-
-@media(max-width:360px) {
-  .nav-item span {
-    font-size:9px;
-  }
-
-  .panel {
-    padding:15px;
-  }
-
-  .page {
-    padding:27px 15px;
-  }
+@media(max-width:360px){
+  .nav-item span{font-size:9px}
+  .panel{padding:15px}
+  .page{padding:27px 15px}
 }
-
-@media(prefers-reduced-motion:reduce) {
-  * {
-    animation-duration:.01ms!important;
-  }
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms!important}
 }
 </style>
 </head>
 
 <body>
 
-<!-- BIBLIOTHÈQUE D'ICÔNES -->
-
-<svg xmlns="http://www.w3.org/2000/svg"
-     style="display:none">
-
+<!-- ICÔNES VECTORIELLES -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
 <symbol id="i-home" viewBox="0 0 24 24">
 <path d="M3 10L12 3L21 10V21H3Z"/>
 <path d="M9 21V13H15V21"/>
 </symbol>
-
 <symbol id="i-ticket" viewBox="0 0 24 24">
 <path d="M3 6H21V10C18 10 18 14 21 14V18H3V14C6 14 6 10 3 10Z"/>
 <path d="M12 6V18" stroke-dasharray="2 2"/>
 </symbol>
-
 <symbol id="i-calendar" viewBox="0 0 24 24">
 <rect x="3" y="5" width="18" height="16" rx="2"/>
 <path d="M7 3V7M17 3V7M3 10H21M8 15H11M14 15H17"/>
 </symbol>
-
 <symbol id="i-scan" viewBox="0 0 24 24">
 <path d="M8 3H4V7M16 3H20V7M4 17V21H8M20 17V21H16"/>
 <circle cx="12" cy="12" r="4"/>
 <path d="M12 10V14M10 12H14"/>
 </symbol>
-
 <symbol id="i-info" viewBox="0 0 24 24">
 <circle cx="12" cy="12" r="9"/>
 <path d="M12 11V17"/>
 <circle cx="12" cy="7.5" r=".8" fill="currentColor"/>
 </symbol>
-
 <symbol id="i-clock" viewBox="0 0 24 24">
 <circle cx="12" cy="12" r="9"/>
 <path d="M12 7V12L16 14"/>
 </symbol>
-
 <symbol id="i-moon" viewBox="0 0 24 24">
 <path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5 8.5 8.5 0 1 0 20.5 14.2Z"/>
 </symbol>
-
 <symbol id="i-stars" viewBox="0 0 24 24">
 <path d="M12 2L14.2 9.8L22 12L14.2 14.2L12 22L9.8 14.2L2 12L9.8 9.8Z"/>
 </symbol>
-
 <symbol id="i-rocket" viewBox="0 0 24 24">
 <path d="M5 16C6 9 12 4 20 3C20 11 15 17 8 19Z"/>
 <path d="M9 15L5 19M8 10L3 9L5 5L10 8M14 16L15 21L19 19L16 14"/>
 <circle cx="15" cy="9" r="2"/>
 </symbol>
-
 <symbol id="i-camera" viewBox="0 0 24 24">
 <rect x="2" y="6" width="20" height="15" rx="2"/>
 <path d="M7 6L9 3H15L17 6"/>
 <circle cx="12" cy="13.5" r="4"/>
 </symbol>
-
 <symbol id="i-book" viewBox="0 0 24 24">
 <path d="M12 5C9 3 5 3 2 4V20C5 19 9 19 12 21C15 19 19 19 22 20V4C19 3 15 3 12 5Z"/>
 <path d="M12 5V21"/>
 </symbol>
-
 <symbol id="i-upload" viewBox="0 0 24 24">
 <path d="M12 16V3M7 8L12 3L17 8"/>
 <path d="M4 16V21H20V16"/>
 </symbol>
-
-<symbol id="i-arrow" viewBox="0 0 24 24">
-<path d="M5 12H19M13 6L19 12L13 18"/>
-</symbol>
-
 </svg>
 
 <div id="background"></div>
 
-<!-- SCANNER MAIN STREET -->
-
+<!-- SCANNER -->
 <div id="camera-container">
-
 <a-scene
   mindar-image="imageTargetSrc: ./targets.mind; autoStart: false; uiScanning: yes;"
   embedded
@@ -941,12 +640,7 @@ body.ar-mode #bottom-nav {
   renderer="colorManagement: true"
   vr-mode-ui="enabled: false"
   device-orientation-permission-ui="enabled: false">
-
-<a-camera
-  position="0 0 0"
-  look-controls="enabled: false">
-</a-camera>
-
+<a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 <a-entity mindar-image-target="targetIndex: 0" id="target-0"></a-entity>
 <a-entity mindar-image-target="targetIndex: 1" id="target-1"></a-entity>
 <a-entity mindar-image-target="targetIndex: 2" id="target-2"></a-entity>
@@ -956,7 +650,6 @@ body.ar-mode #bottom-nav {
 <a-entity mindar-image-target="targetIndex: 6" id="target-6"></a-entity>
 <a-entity mindar-image-target="targetIndex: 7" id="target-7"></a-entity>
 <a-entity mindar-image-target="targetIndex: 8" id="target-8"></a-entity>
-
 </a-scene>
 </div>
 
@@ -964,145 +657,80 @@ body.ar-mode #bottom-nav {
 <div class="wrap">
 
 <!-- ACCUEIL -->
-
 <section id="home" class="section active">
-
 <div class="home-bubbles">
-
-<!-- VISIBLE LES JOURS D'OUVERTURE -->
 
 <div id="open-home" class="home-bubbles">
 
 <div class="panel glass">
-
 <div class="heading-row">
-<svg class="icon">
-<use href="#i-stars"></use>
-</svg>
+<svg class="icon"><use href="#i-stars"></use></svg>
 <h2>Prochain spectacle</h2>
 </div>
-
-<div class="live-title" id="next-event">
-Chargement...
-</div>
-
+<div class="live-title" id="next-event">Chargement...</div>
 <p id="next-time"></p>
 <p class="small" id="countdown"></p>
-
 </div>
 
 <div class="panel glass">
-
 <div class="space-row">
-
 <div class="heading-row">
-<svg class="icon">
-<use href="#i-rocket"></use>
-</svg>
+<svg class="icon"><use href="#i-rocket"></use></svg>
 <h2>Space Mountain VR</h2>
 </div>
-
 <span class="status" id="home-space-status">...</span>
-
 </div>
-
 <p id="home-space-detail"></p>
 <p class="small" id="space-next"></p>
-
 </div>
 
 </div>
-
-<!-- VISIBLE LES JOURS DE FERMETURE -->
 
 <div id="closed-home" class="panel glass closed-card hidden">
-
-<svg class="icon icon-xl">
-<use href="#i-moon"></use>
-</svg>
-
+<svg class="icon icon-xl"><use href="#i-moon"></use></svg>
 <h2>MiniDisneyland est fermé aujourd'hui</h2>
-
-<p>
-La magie prend un peu de repos...
-</p>
-
+<p>La magie prend un peu de repos...</p>
 <p class="small">
-Mais les étoiles de Main Street
-brilleront bientôt à nouveau.
+Mais les étoiles de Main Street brilleront bientôt à nouveau.
+Nous avons hâte de vous retrouver pour une prochaine soirée enchantée.
 </p>
-
-<div class="next-opening">
-
-Prochaine ouverture
-
-<strong id="next-opening-home">
-À venir
-</strong>
-
-</div>
-
 </div>
 
 </div>
 </section>
 
 <!-- BILLETS -->
-
 <section id="tickets" class="section">
-
 <header class="page-head">
 <h1>Mes billets</h1>
 <p>VOTRE PASSEPORT POUR LA MAGIE</p>
 </header>
 
 <div class="panel glass">
-
 <h2>Votre aventure commence ici</h2>
-
 <p>
-Réservez votre soirée ou retrouvez
-les billets de votre prochaine visite.
+Réservez votre soirée ou retrouvez les billets
+de votre prochaine visite.
 </p>
-
 <div class="ticket-choice">
-
 <a class="ticket-reserve"
 href="https://www.billetweb.fr/soiree-mini-disneyland-reunion"
-target="_blank"
-rel="noopener noreferrer">
-
-<svg class="icon">
-<use href="#i-ticket"></use>
-</svg>
-
+target="_blank" rel="noopener noreferrer">
+<svg class="icon"><use href="#i-ticket"></use></svg>
 Réserver mes billets
-
 </a>
-
 <button class="ticket-import" id="import-ticket">
-
-<svg class="icon">
-<use href="#i-upload"></use>
-</svg>
-
+<svg class="icon"><use href="#i-upload"></use></svg>
 Importer mes billets
-
 </button>
-
 </div>
-
-<input
-  id="ticket-file"
-  type="file"
-  accept=".pdf,.jpg,.jpeg,.png,.webp,application/pdf,image/jpeg,image/png,image/webp"
-  multiple>
-
+<input id="ticket-file" type="file"
+accept=".pdf,.jpg,.jpeg,.png,.webp,application/pdf,image/jpeg,image/png,image/webp"
+multiple>
 <p class="small">
 Après votre réservation sur Billetweb,
 téléchargez vos billets puis importez-les ici.
 </p>
-
 </div>
 
 <div class="panel glass">
@@ -1113,61 +741,28 @@ téléchargez vos billets puis importez-les ici.
 
 <div class="panel glass">
 <h2>Le soir de votre visite</h2>
-
-<p>
-Présentez vos billets à notre équipe à votre arrivée.
-</p>
-
+<p>Présentez vos billets à notre équipe à votre arrivée.</p>
 <p class="small">
 Les billets importés restent sur cet appareil.
 Conservez également vos originaux.
 </p>
 </div>
-
 </section>
 
 <!-- SPECTACLES -->
-
 <section id="schedule" class="section">
-
 <header class="page-head">
 <h1>Les spectacles</h1>
 <p>VOTRE PROGRAMME ENCHANTÉ</p>
 </header>
 
 <div class="panel glass">
-
-<div class="heading-row">
-<svg class="icon">
-<use href="#i-calendar"></use>
-</svg>
-<h2>Dates d'ouverture</h2>
-</div>
-
-<p>
-Les soirées sont programmées les vendredis,
-samedis et dimanches suivants :
-</p>
-
-<div class="date-grid" id="opening-dates"></div>
-
-<p class="small">
-Décembre 2026 · Ouverture des portes à 19h30.
-</p>
-
-</div>
-
-<div class="panel glass">
-
 <h2>Votre prochain rendez-vous</h2>
-
 <p id="schedule-next"></p>
 <p id="schedule-countdown" class="small"></p>
-
 </div>
 
 <div class="panel glass">
-
 <h2>Programme de la soirée</h2>
 
 <div class="event">
@@ -1209,34 +804,21 @@ Décembre 2026 · Ouverture des portes à 19h30.
 <small>Merci d'avoir partagé cette aventure avec nous.</small>
 </div>
 </div>
-
 </div>
 
 <div class="panel glass">
-
 <div class="heading-row">
-<svg class="icon">
-<use href="#i-rocket"></use>
-</svg>
+<svg class="icon"><use href="#i-rocket"></use></svg>
 <h2>Space Mountain VR</h2>
 </div>
-
 <p>De la Terre à la Lune</p>
-
-<p>
-Statut :
-<span class="status" id="space-status">...</span>
-</p>
-
+<p>Statut : <span class="status" id="space-status">...</span></p>
 <p id="space-detail"></p>
 
 <div class="event">
 <time>19h45</time>
-<div>
-<strong>Ouverture de l'attraction</strong>
+<div><strong>Ouverture de l'attraction</strong></div>
 </div>
-</div>
-
 <div class="event">
 <time>20h45</time>
 <div>
@@ -1244,7 +826,6 @@ Statut :
 <small>Pendant le spectacle du château.</small>
 </div>
 </div>
-
 <div class="event">
 <time>21h30</time>
 <div>
@@ -1252,14 +833,10 @@ Statut :
 <small>Sous réserve de confirmation.</small>
 </div>
 </div>
-
 <div class="event">
 <time>22h00</time>
-<div>
-<strong>Fermeture de l'attraction</strong>
+<div><strong>Fermeture de l'attraction</strong></div>
 </div>
-</div>
-
 </div>
 
 <div class="panel glass">
@@ -1269,53 +846,37 @@ Un rappel apparaît cinq minutes avant chaque spectacle
 lorsque l'application est ouverte.
 </p>
 </div>
-
 </section>
 
 <!-- EXPLORER -->
-
 <section id="explore" class="section">
-
 <header class="page-head">
 <h1>Explorer Main Street</h1>
 <p>LES SECRETS DE NOS FAÇADES</p>
 </header>
-
 <div class="panel glass explore-hero">
-
-<svg class="icon icon-xl">
-<use href="#i-book"></use>
-</svg>
-
+<svg class="icon icon-xl"><use href="#i-book"></use></svg>
 <h2>Chaque façade cache une histoire...</h2>
-
 <p>
 Grâce à votre caméra, partez à la découverte
 des secrets de notre petit monde enchanté.
 </p>
-
 <button class="explore-button" id="start-explore">
 Lancer l'exploration
 </button>
-
 <p class="small">
 Autorisez l'accès à la caméra,
 puis dirigez-la vers les façades.
 </p>
-
 </div>
-
 <div class="panel glass">
 <h2>Les neuf secrets à découvrir</h2>
 <ol class="story-names" id="story-list"></ol>
 </div>
-
 </section>
 
 <!-- INFORMATIONS -->
-
 <section id="information" class="section">
-
 <header class="page-head">
 <h1>Informations pratiques</h1>
 <p>PROFITEZ DE VOTRE VISITE</p>
@@ -1323,27 +884,18 @@ puis dirigez-la vers les façades.
 
 <div class="panel glass">
 <h2>Bienvenue chez nous</h2>
-
 <p>
 MiniDisneyland Réunion est une expérience immersive
 imaginée avec passion dans un petit appartement
 à Saint-Pierre.
 </p>
-
 <p>L'entrée est gratuite.</p>
 </div>
 
 <div class="panel glass">
-<h2>Dates et horaires</h2>
-
-<p>
-Les 4, 5, 6, 11, 12, 13, 18, 19
-et 20 décembre 2026.
-</p>
-
+<h2>Horaires de la soirée</h2>
 <p>Ouverture des portes : 19h30.</p>
 <p>Fin de soirée : 22h00.</p>
-
 <p>
 Les spectacles étant automatisés,
 merci de prévoir votre arrivée à l'heure.
@@ -1352,7 +904,6 @@ merci de prévoir votre arrivée à l'heure.
 
 <div class="panel glass">
 <h2>Photos et vidéos</h2>
-
 <p>
 Les photos et vidéos sont autorisées.
 Merci d'éviter les flashs pendant les spectacles.
@@ -1361,29 +912,24 @@ Merci d'éviter les flashs pendant les spectacles.
 
 <div class="panel glass">
 <h2>Nos précieux décors</h2>
-
 <p>
 Nos décors ont été réalisés avec beaucoup d'amour.
-Certains sont aussi fragiles que les ailes
-de la Fée Clochette !
+Certains sont aussi fragiles que les ailes de la Fée Clochette !
 Merci de les admirer avec les yeux.
 </p>
 </div>
 
 <div class="panel glass">
 <h2>Besoin de partir ?</h2>
-
 <p>
 Si vous souhaitez quitter la soirée,
 prévenez simplement un Magic Maker.
-Quelqu'un vous accompagnera jusqu'à
-la sortie de la résidence.
+Quelqu'un vous accompagnera jusqu'à la sortie de la résidence.
 </p>
 </div>
 
 <div class="panel glass">
 <h2>Les Magic Makers</h2>
-
 <p>
 Derrière chaque spectacle se cache une équipe
 de passionnés qui rend cette aventure possible.
@@ -1392,66 +938,52 @@ de passionnés qui rend cette aventure possible.
 
 <div class="panel glass">
 <h2>Un petit coup de pouce à la magie</h2>
-
 <p>
 L'entrée est entièrement gratuite.
 Une cagnotte est disponible sur place
 pour celles et ceux qui souhaitent nous soutenir.
 </p>
-
 <p>
 Aucune participation n'est obligatoire.
 Vos sourires sont déjà notre plus belle récompense !
 </p>
 </div>
-
 </section>
 
 </div>
 </main>
 
-<!-- NAVIGATION INFÉRIEURE -->
-
+<!-- NAVIGATION -->
 <nav id="bottom-nav" aria-label="Navigation principale">
-
 <button class="nav-item active" data-tab="home">
 <svg class="icon"><use href="#i-home"></use></svg>
 <span>Accueil</span>
 </button>
-
 <button class="nav-item" data-tab="tickets">
 <svg class="icon"><use href="#i-ticket"></use></svg>
 <span>Billets</span>
 </button>
-
 <button class="nav-item" data-tab="schedule">
 <svg class="icon"><use href="#i-calendar"></use></svg>
 <span>Spectacles</span>
 </button>
-
 <button class="nav-item" data-tab="explore">
 <svg class="icon"><use href="#i-scan"></use></svg>
 <span>Explorer</span>
 </button>
-
 <button class="nav-item" data-tab="information">
 <svg class="icon"><use href="#i-info"></use></svg>
 <span>Infos</span>
 </button>
-
 </nav>
 
-<!-- COMMANDES CAMÉRA -->
-
+<!-- CAMÉRA -->
 <button id="camera-menu" class="hidden">
 Retour à l'application
 </button>
-
 <div id="found">
 <button id="discover">
-<svg class="icon icon-lg">
-<use href="#i-book"></use>
-</svg>
+<svg class="icon icon-lg"><use href="#i-book"></use></svg>
 <span>
 <strong id="bubble-title">Un secret découvert</strong>
 <small>Toucher pour découvrir son histoire</small>
@@ -1460,31 +992,24 @@ Retour à l'application
 </div>
 
 <!-- LIVRES -->
-
 <div id="story">
 <button id="close">Fermer le livre</button>
 <div id="books-container"></div>
 </div>
 
-<!-- AFFICHAGE DES BILLETS -->
-
+<!-- BILLETS -->
 <div id="ticket-viewer" class="hidden">
-
 <div class="viewer-head">
 <strong id="viewer-name"></strong>
 <button id="close-viewer">Fermer</button>
 </div>
-
 <div id="viewer-content"></div>
-
 <a id="viewer-download" href="#" download>
 Enregistrer mon billet
 </a>
-
 </div>
 
 <!-- RAPPELS -->
-
 <div id="alert" class="hidden">
 <h2>Un spectacle approche</h2>
 <p id="alert-message"></p>
@@ -1497,13 +1022,16 @@ Merci, à tout de suite !
 "use strict";
 
 /* =====================================
-   DATES OFFICIELLES D'OUVERTURE
+   DATES D'OUVERTURE INTERNES
+   NON AFFICHÉES AUX VISITEURS
 ===================================== */
 
 const OPEN_DATES=[
   "2026-12-04",
   "2026-12-05",
   "2026-12-06",
+  "2026-12-07",
+  "2026-12-09",
   "2026-12-11",
   "2026-12-12",
   "2026-12-13",
@@ -1515,21 +1043,9 @@ const OPEN_DATES=[
 const OPEN_SET=new Set(OPEN_DATES);
 
 const SHOWS=[
-  {
-    time:1200,
-    name:"Les Vœux Magiques de Noël",
-    place:"la terrasse"
-  },
-  {
-    time:1215,
-    name:"Illumination du sapin de Noël",
-    place:"le sapin"
-  },
-  {
-    time:1245,
-    name:"Disney Illuminations",
-    place:"le château"
-  }
+  {time:1200,name:"Les Vœux Magiques de Noël",place:"la terrasse"},
+  {time:1215,name:"Illumination du sapin de Noël",place:"le sapin"},
+  {time:1245,name:"Disney Illuminations",place:"le château"}
 ];
 
 const $=s=>document.querySelector(s);
@@ -1547,7 +1063,7 @@ let activePlace=null;
 const alerted=new Set();
 
 /* =====================================
-   HISTOIRES MAIN STREET
+   LES NEUF HISTOIRES
 ===================================== */
 
 const stories=[
@@ -1700,7 +1216,7 @@ ending:"La magie ne se mesure pas en mètres carrés, mais en émotions !"
 ];
 
 /* =====================================
-   CONSTRUCTION DES LIVRES
+   CRÉATION DES LIVRES
 ===================================== */
 
 function createBooks(){
@@ -1763,7 +1279,6 @@ function createBooks(){
   });
 
   const list=$("#story-list");
-
   stories.forEach(s=>{
     const li=document.createElement("li");
     li.textContent=s.title;
@@ -1784,21 +1299,14 @@ function showTab(name){
 
   document.querySelectorAll(".nav-item").forEach(button=>{
     const active=button.dataset.tab===name;
-
     button.classList.toggle("active",active);
-    button.setAttribute(
-      "aria-current",
-      active?"page":"false"
-    );
+    button.setAttribute("aria-current",active?"page":"false");
   });
 
   app.classList.remove("hidden");
   app.scrollTop=0;
 
-  if(name==="tickets"){
-    renderTickets();
-  }
-
+  if(name==="tickets")renderTickets();
   updateClock();
 }
 
@@ -1810,7 +1318,7 @@ document.querySelectorAll(".nav-item").forEach(button=>{
 });
 
 /* =====================================
-   HORLOGE DE LA RÉUNION
+   HEURE LOCALE DE LA RÉUNION
 ===================================== */
 
 function reunionNow(){
@@ -1824,11 +1332,9 @@ function reunionNow(){
     hourCycle:"h23"
   }).formatToParts(new Date());
 
-  const v=Object.fromEntries(
-    parts.map(x=>[x.type,x.value])
-  );
+  const v=Object.fromEntries(parts.map(x=>[x.type,x.value]));
 
-  return {
+  return{
     date:v.year+"-"+v.month+"-"+v.day,
     minute:Number(v.hour)*60+Number(v.minute)
   };
@@ -1836,25 +1342,6 @@ function reunionNow(){
 
 function representation(date){
   return OPEN_SET.has(date);
-}
-
-function nextOpening(date){
-  return OPEN_DATES.find(d=>d>date)||null;
-}
-
-function formatOpening(date){
-  if(!date)return null;
-
-  const d=new Date(date+"T12:00:00Z");
-
-  const formatted=new Intl.DateTimeFormat("fr-FR",{
-    timeZone:"UTC",
-    weekday:"long",
-    day:"numeric",
-    month:"long"
-  }).format(d);
-
-  return formatted+" à 19h30";
 }
 
 function duration(minutes){
@@ -1867,120 +1354,82 @@ function duration(minutes){
 }
 
 /* =====================================
-   CALENDRIER VISUEL
-===================================== */
-
-function createCalendar(){
-  const container=$("#opening-dates");
-  const today=reunionNow().date;
-
-  const weekdays=["DIM","LUN","MAR","MER","JEU","VEN","SAM"];
-
-  OPEN_DATES.forEach(date=>{
-    const d=new Date(date+"T12:00:00Z");
-
-    const cell=document.createElement("div");
-    cell.className="date-cell";
-
-    if(date===today){
-      cell.classList.add("today");
-    }
-
-    const day=document.createElement("span");
-    day.textContent=weekdays[d.getUTCDay()];
-
-    const number=document.createElement("strong");
-    number.textContent=d.getUTCDate();
-
-    const month=document.createElement("span");
-    month.textContent="DÉCEMBRE";
-
-    cell.append(day,number,month);
-    container.appendChild(cell);
-  });
-}
-
-createCalendar();
-
-/* =====================================
-   SPACE MOUNTAIN VR
+   STATUT SPACE MOUNTAIN
 ===================================== */
 
 function spaceStatus(t){
   if(t<1185){
-    return {
+    return{
       name:"FERMÉ",
+      state:"closed",
       detail:"Ouverture prévue à 19h45.",
       next:"Prochaine ouverture : 19h45"
     };
   }
 
   if(t<1245){
-    return {
+    return{
       name:"OUVERT",
+      state:"open",
       detail:"Attraction accessible jusqu'à 20h45.",
       next:"Pause prévue à 20h45"
     };
   }
 
   if(t<1290){
-    return {
+    return{
       name:"PAUSE",
+      state:"pause",
       detail:"Fermeture temporaire pendant le spectacle.",
       next:"Réouverture prévue vers 21h30"
     };
   }
 
   if(t<1320){
-    return {
+    return{
       name:"À CONFIRMER",
+      state:"pause",
       detail:"Réouverture prévue, à confirmer auprès de l'équipe.",
       next:"Fermeture prévue à 22h00"
     };
   }
 
-  return {
+  return{
     name:"FERMÉ",
+    state:"closed",
     detail:"L'attraction est fermée pour ce soir.",
     next:"À bientôt pour un nouveau voyage."
   };
 }
 
-function setStatus(element,status){
-  element.textContent=status.name;
-  element.className="status";
+function setStatus(element,s){
+  element.textContent=s.name;
+  element.className="status "+s.state;
 }
 
 /* =====================================
-   MISE À JOUR DE L'ACCUEIL
+   MISE À JOUR AUTOMATIQUE
 ===================================== */
 
 function updateClock(){
   const now=reunionNow();
   const t=now.minute;
-
   const active=representation(now.date);
 
   $("#open-home").classList.toggle("hidden",!active);
   $("#closed-home").classList.toggle("hidden",active);
 
   if(!active){
-    const next=nextOpening(now.date);
-
-    $("#next-opening-home").textContent=
-      next
-        ?formatOpening(next)
-        :"La prochaine saison sera annoncée bientôt.";
-
     $("#schedule-next").textContent=
       "MiniDisneyland est fermé aujourd'hui.";
 
     $("#schedule-countdown").textContent=
-      next
-        ?"Prochaine ouverture : "+formatOpening(next)
-        :"Aucune autre ouverture annoncée.";
+      "Nous avons hâte de vous retrouver pour une prochaine soirée enchantée.";
 
-    setStatus($("#space-status"),{name:"FERMÉ"});
+    setStatus($("#space-status"),{
+      name:"FERMÉ",
+      state:"closed"
+    });
 
     $("#space-detail").textContent=
       "L'attraction est fermée aujourd'hui.";
@@ -2003,10 +1452,9 @@ function updateClock(){
 
     time=
       String(Math.floor(next.time/60)).padStart(2,"0")
-      +"h"
-      +String(next.time%60).padStart(2,"0")
-      +" · "
-      +next.place;
+      +"h"+
+      String(next.time%60).padStart(2,"0")
+      +" · "+next.place;
 
     countdown="Dans "+duration(next.time-t);
   }else{
@@ -2038,9 +1486,7 @@ function updateClock(){
         alerted.add(key);
 
         $("#alert-message").textContent=
-          e.name+
-          " commence dans 5 minutes ! Rendez-vous à "+
-          e.place+".";
+          e.name+" commence dans 5 minutes ! Rendez-vous à "+e.place+".";
 
         $("#alert").classList.remove("hidden");
         break;
@@ -2068,7 +1514,6 @@ function visiblePlace(){
   if(activePlace!==null&&places[activePlace].detected){
     return activePlace;
   }
-
   const p=places.find(x=>x.detected);
   return p?p.index:null;
 }
@@ -2082,9 +1527,7 @@ function showBubble(index){
     !p||
     !p.detected||
     !app.classList.contains("hidden")
-  ){
-    return;
-  }
+  )return;
 
   activePlace=index;
   $("#bubble-title").textContent=p.title;
@@ -2105,10 +1548,7 @@ places.forEach(p=>{
       hideBubble();
 
       const next=visiblePlace();
-
-      if(next!==null){
-        showBubble(next);
-      }
+      if(next!==null)showBubble(next);
     }
   });
 });
@@ -2125,7 +1565,6 @@ function openStory(){
 
   story.classList.add("open");
   story.scrollTop=0;
-
   $("#book-"+(activePlace+1)).classList.add("active");
 }
 
@@ -2138,10 +1577,7 @@ function closeStory(){
   });
 
   const next=visiblePlace();
-
-  if(next!==null){
-    showBubble(next);
-  }
+  if(next!==null)showBubble(next);
 }
 
 async function enterCamera(){
@@ -2150,10 +1586,8 @@ async function enterCamera(){
   cameraStarting=true;
 
   $("#camera-container").style.display="block";
-
   app.classList.add("hidden");
   document.body.classList.add("ar-mode");
-
   $("#camera-menu").classList.remove("hidden");
 
   try{
@@ -2166,14 +1600,11 @@ async function enterCamera(){
 
     $("#camera-container").style.display="none";
     document.body.classList.remove("ar-mode");
-
     $("#camera-menu").classList.add("hidden");
 
     showTab("explore");
 
-    alert(
-      "Impossible d'ouvrir la caméra. Vérifiez les autorisations du navigateur."
-    );
+    alert("Impossible d'ouvrir la caméra. Vérifiez les autorisations du navigateur.");
   }finally{
     cameraStarting=false;
   }
@@ -2186,7 +1617,6 @@ async function leaveCamera(){
 
   $("#camera-container").style.display="none";
   $("#camera-menu").classList.add("hidden");
-
   document.body.classList.remove("ar-mode");
 
   showTab("explore");
@@ -2197,7 +1627,6 @@ async function leaveCamera(){
     }catch(error){
       console.warn(error);
     }
-
     cameraStarted=false;
   }
 
@@ -2211,7 +1640,7 @@ $("#discover").onclick=openStory;
 $("#close").onclick=closeStory;
 
 /* =====================================
-   BILLETS : STOCKAGE LOCAL
+   BILLETS : INDEXEDDB
 ===================================== */
 
 const DB_NAME="CompagnonMagiqueBillets";
@@ -2232,7 +1661,6 @@ function openTicketDB(){
 
     request.onupgradeneeded=()=>{
       const db=request.result;
-
       if(!db.objectStoreNames.contains(DB_STORE)){
         db.createObjectStore(DB_STORE,{keyPath:"id"});
       }
@@ -2281,7 +1709,6 @@ function ticketMime(ticket){
   if(ext==="pdf")return"application/pdf";
   if(ext==="png")return"image/png";
   if(ext==="webp")return"image/webp";
-
   return"image/jpeg";
 }
 
@@ -2336,7 +1763,6 @@ async function importTickets(event){
         date:Date.now(),
         blob:file
       });
-
       success++;
     }catch(error){
       console.error(error);
@@ -2394,10 +1820,8 @@ async function renderTickets(){
 
     const meta=document.createElement("div");
     meta.className="ticket-meta";
-
     meta.textContent=
-      (ticket.size/1024/1024).toFixed(2)
-      +" Mo · "+
+      (ticket.size/1024/1024).toFixed(2)+" Mo · "+
       new Date(ticket.date).toLocaleDateString("fr-FR");
 
     const buttons=document.createElement("div");
@@ -2498,11 +1922,7 @@ $("#import-ticket").onclick=()=>{
   $("#ticket-file").click();
 };
 
-$("#ticket-file").addEventListener(
-  "change",
-  importTickets
-);
-
+$("#ticket-file").addEventListener("change",importTickets);
 $("#close-viewer").onclick=closeTicketViewer;
 
 $("#dismiss-alert").onclick=()=>{
@@ -2510,14 +1930,8 @@ $("#dismiss-alert").onclick=()=>{
 };
 
 updateClock();
-
 setInterval(updateClock,15000);
-
-document.addEventListener(
-  "visibilitychange",
-  updateClock
-);
-
+document.addEventListener("visibilitychange",updateClock);
 initializeTickets();
 
 </script>
