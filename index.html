@@ -7,7 +7,7 @@
 <meta name="theme-color" content="#071631">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Compagnon Magique">
-<title>Votre Compagnon Magique</title>
+<title>Votre Compagnon Magique | MiniDisneyland Réunion</title>
 
 <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
@@ -599,10 +599,6 @@ body.ar-mode #bottom-nav{display:none}
 <path d="M12 11V17"/>
 <circle cx="12" cy="7.5" r=".8" fill="currentColor"/>
 </symbol>
-<symbol id="i-clock" viewBox="0 0 24 24">
-<circle cx="12" cy="12" r="9"/>
-<path d="M12 7V12L16 14"/>
-</symbol>
 <symbol id="i-moon" viewBox="0 0 24 24">
 <path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5 8.5 8.5 0 1 0 20.5 14.2Z"/>
 </symbol>
@@ -613,11 +609,6 @@ body.ar-mode #bottom-nav{display:none}
 <path d="M5 16C6 9 12 4 20 3C20 11 15 17 8 19Z"/>
 <path d="M9 15L5 19M8 10L3 9L5 5L10 8M14 16L15 21L19 19L16 14"/>
 <circle cx="15" cy="9" r="2"/>
-</symbol>
-<symbol id="i-camera" viewBox="0 0 24 24">
-<rect x="2" y="6" width="20" height="15" rx="2"/>
-<path d="M7 6L9 3H15L17 6"/>
-<circle cx="12" cy="13.5" r="4"/>
 </symbol>
 <symbol id="i-book" viewBox="0 0 24 24">
 <path d="M12 5C9 3 5 3 2 4V20C5 19 9 19 12 21C15 19 19 19 22 20V4C19 3 15 3 12 5Z"/>
@@ -631,7 +622,7 @@ body.ar-mode #bottom-nav{display:none}
 
 <div id="background"></div>
 
-<!-- SCANNER -->
+<!-- SCANNER MAIN STREET -->
 <div id="camera-container">
 <a-scene
   mindar-image="imageTargetSrc: ./targets.mind; autoStart: false; uiScanning: yes;"
@@ -1024,9 +1015,12 @@ Merci, à tout de suite !
 /* =====================================
    DATES D'OUVERTURE INTERNES
    NON AFFICHÉES AUX VISITEURS
+
+   22 NOVEMBRE AJOUTÉ
 ===================================== */
 
 const OPEN_DATES=[
+  "2026-11-22",
   "2026-12-04",
   "2026-12-05",
   "2026-12-06",
@@ -1063,7 +1057,7 @@ let activePlace=null;
 const alerted=new Set();
 
 /* =====================================
-   LES NEUF HISTOIRES
+   LES NEUF HISTOIRES MAIN STREET
 ===================================== */
 
 const stories=[
