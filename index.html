@@ -9,25 +9,23 @@
 <meta name="apple-mobile-web-app-title" content="MiniDisneyReunion">
 <link rel="apple-touch-icon" href="./apple-touch-icon.PNG">
 <link rel="manifest" href="./manifest.webmanifest">
-<title>Votre Compagnon Magique — MiniDisneyland Réunion</title>
+<title>Votre Compagnon Magique</title>
 
 <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
 
 <style>
 :root{
-  --navy:#071631;
   --gold:#f0d48e;
   --green:#a3ffd0;
-  --orange:#ffd39a;
   --red:#ff9ca4;
-  --glass:rgba(7,22,49,.74);
-  --line:rgba(255,255,255,.36);
+  --orange:#ffd39a;
+  --glass:rgba(7,22,49,.77);
 }
 *{box-sizing:border-box}
 html,body{margin:0;width:100%;height:100%}
 body{
-  background:var(--navy);
+  background:#071631;
   color:white;
   font-family:Georgia,"Times New Roman",serif;
   overflow:hidden;
@@ -40,20 +38,10 @@ a{color:inherit}
   position:fixed;
   inset:0;
   z-index:2;
-  background:#071631 url("./Bazaart_2026-11-20_132143.jpeg") center/cover no-repeat;
+  background:#071631 url("./Bazaart_2026-11-20_132143.jpeg") center center/cover no-repeat;
   pointer-events:none;
 }
-#background:after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(
-    to bottom,
-    rgba(4,12,33,0) 0%,
-    rgba(4,12,33,.08) 45%,
-    rgba(4,12,33,.42) 100%
-  );
-}
+
 #app{
   position:fixed;
   inset:0;
@@ -63,7 +51,7 @@ a{color:inherit}
   padding:
     calc(12px + env(safe-area-inset-top))
     15px
-    calc(96px + env(safe-area-inset-bottom));
+    calc(105px + env(safe-area-inset-bottom));
 }
 .wrap{
   max-width:600px;
@@ -72,12 +60,13 @@ a{color:inherit}
 }
 .section{display:none}
 .section.active{display:block}
+
 .glass{
   background:var(--glass);
-  border:1px solid var(--line);
+  border:1px solid rgba(255,255,255,.5);
   border-radius:19px;
-  backdrop-filter:blur(12px);
-  -webkit-backdrop-filter:blur(12px);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
   box-shadow:0 7px 25px #0003;
 }
 .panel{padding:18px;margin:14px 0}
@@ -91,15 +80,14 @@ a{color:inherit}
   line-height:1.7;
   margin:10px 0;
 }
-.small{font-size:12px!important;opacity:.88}
 .gold{color:var(--gold)}
 .green{color:var(--green)}
-.orange{color:var(--orange)}
-.red{color:var(--red)}
+.small{font-size:12px!important;opacity:.9}
+
 .page-head{
   text-align:center;
   padding:20px 0 12px;
-  text-shadow:0 2px 12px #0008;
+  text-shadow:0 2px 10px #0009;
 }
 .page-head h1{
   font-size:27px;
@@ -107,66 +95,72 @@ a{color:inherit}
   margin:5px 0 7px;
 }
 .page-head p{
-  color:#e6d3a5;
+  color:var(--gold);
   font-size:11px;
   letter-spacing:1.5px;
 }
 
-/* ==================================
-   ACCUEIL : DEUX BULLES EN BAS
-================================== */
+/* =====================================
+   ACCUEIL : DEUX BULLES CENTRÉES
+===================================== */
 
 #home.active{
   display:flex;
   flex-direction:column;
-  justify-content:flex-end;
+  justify-content:center;
   min-height:calc(
-    100dvh
-    - 105px
+    100dvh - 108px
     - env(safe-area-inset-top)
     - env(safe-area-inset-bottom)
   );
+  padding-top:clamp(35px,7vh,90px);
 }
+
 .home-bubbles{
+  width:100%;
   display:flex;
   flex-direction:column;
-  gap:10px;
-  margin-top:auto;
-  padding-bottom:6px;
+  gap:12px;
+  margin:0;
 }
+
 .home-bubbles .panel{
   margin:0;
-  padding:14px 16px;
-  border-radius:17px;
+  padding:15px 17px;
 }
+
 .home-bubbles h2{
-  font-size:15px;
-  margin:0 0 7px;
+  font-size:18px;
   font-weight:normal;
+  color:var(--gold);
+  margin:0 0 10px;
 }
+
 .home-bubbles p{
-  font-size:13px;
-  margin:5px 0;
-  line-height:1.45;
+  margin:6px 0;
+  font-size:14px;
+  line-height:1.5;
 }
-.home-bubbles .live-title{
-  font-size:17px;
-  line-height:1.3;
-  margin:8px 0 5px;
+
+.live-title{
+  font-size:19px;
+  line-height:1.35;
+  margin:7px 0;
 }
-.home-bubbles .space-row{
+
+.space-row{
   display:flex;
-  justify-content:space-between;
   align-items:center;
+  justify-content:space-between;
   gap:10px;
 }
+
 .status{
   display:inline-block;
   padding:6px 10px;
   border:1px solid currentColor;
   border-radius:20px;
-  font-family:Arial,sans-serif;
-  font-size:10px;
+  font:11px Arial,sans-serif;
   white-space:nowrap;
   background:#0003;
 }
@@ -174,9 +168,9 @@ a{color:inherit}
 .status.orange{color:var(--orange)}
 .status.red{color:var(--red)}
 
-/* ==================================
-   NAVIGATION FIXE
-================================== */
+/* =====================================
+   NAVIGATION
+===================================== */
 
 #bottom-nav{
   position:fixed;
@@ -186,15 +180,13 @@ a{color:inherit}
   z-index:40;
   display:grid;
   grid-template-columns:repeat(5,minmax(0,1fr));
-  padding:
-    9px 6px
-    calc(9px + env(safe-area-inset-bottom));
-  background:rgba(6,19,45,.95);
-  border-top:1px solid rgba(240,212,142,.48);
+  padding:9px 6px calc(9px + env(safe-area-inset-bottom));
+  background:rgba(6,19,45,.96);
+  border-top:1px solid rgba(240,212,142,.5);
   backdrop-filter:blur(20px);
   -webkit-backdrop-filter:blur(20px);
-  box-shadow:0 -5px 25px #0005;
 }
+
 .nav-item{
   border:0;
   background:transparent;
@@ -208,6 +200,7 @@ a{color:inherit}
   padding:7px 1px;
   border-radius:13px;
 }
+
 .nav-item svg{
   width:23px;
   height:23px;
@@ -217,32 +210,20 @@ a{color:inherit}
   stroke-linecap:round;
   stroke-linejoin:round;
 }
+
 .nav-item span{
-  font-family:Arial,sans-serif;
-  font-size:10px;
+  font:10px Arial,sans-serif;
 }
+
 .nav-item.active{
   color:var(--gold);
   background:#ffffff13;
 }
 
-/* ==================================
-   AUTRES RUBRIQUES
-================================== */
+/* =====================================
+   SPECTACLES
+===================================== */
 
-.action{
-  display:block;
-  width:100%;
-  padding:14px;
-  margin-top:13px;
-  border:1px solid #ffffffa8;
-  border-radius:15px;
-  background:#ffffff17;
-  color:white;
-  text-align:center;
-  text-decoration:none;
-  font-size:14px;
-}
 .event{
   display:flex;
   gap:15px;
@@ -269,9 +250,9 @@ a{color:inherit}
   opacity:.86;
 }
 
-/* ==================================
+/* =====================================
    BILLETS
-================================== */
+===================================== */
 
 .ticket-choice{
   display:flex;
@@ -284,7 +265,6 @@ a{color:inherit}
   display:flex;
   align-items:center;
   justify-content:center;
-  gap:9px;
   min-height:65px;
   border-radius:16px;
   padding:15px;
@@ -302,14 +282,12 @@ a{color:inherit}
   color:white;
   border:1px solid #c6dcf5;
 }
+#ticket-file{display:none}
 .ticket-row{
   padding:14px 0;
   border-bottom:1px solid #ffffff35;
 }
-.ticket-name{
-  overflow-wrap:anywhere;
-  font-size:14px;
-}
+.ticket-name{overflow-wrap:anywhere}
 .ticket-meta{
   font-size:11px;
   opacity:.8;
@@ -328,20 +306,15 @@ a{color:inherit}
   padding:10px 12px;
   font-size:12px;
 }
-.ticket-buttons .delete{
-  border-color:var(--red);
-  color:var(--red);
-}
-#ticket-file{display:none}
+.ticket-buttons .delete{color:var(--red)}
 #ticket-viewer{
   position:fixed;
   inset:0;
   z-index:100;
   background:#06142bf8;
-  padding:
-    calc(12px + env(safe-area-inset-top))
-    12px
-    calc(12px + env(safe-area-inset-bottom));
+  padding:calc(12px + env(safe-area-inset-top))
+          12px
+          calc(12px + env(safe-area-inset-bottom));
   display:flex;
   flex-direction:column;
 }
@@ -353,8 +326,8 @@ a{color:inherit}
 }
 .viewer-head strong{
   flex:1;
-  font-size:13px;
   overflow-wrap:anywhere;
+  font-size:13px;
 }
 .viewer-head button{
   padding:11px;
@@ -385,29 +358,17 @@ a{color:inherit}
 #viewer-download{
   padding:13px;
   text-align:center;
-  color:white;
 }
 
-/* ==================================
+/* =====================================
    EXPLORATION
-================================== */
+===================================== */
 
 .explore-hero{
   text-align:center;
   padding:24px 15px;
 }
-.explore-hero .big-icon{
-  font-size:55px;
-  margin-bottom:10px;
-}
-.explore-hero h2{
-  font-size:22px;
-  font-weight:normal;
-}
-.explore-hero p{
-  font-size:14px;
-  line-height:1.7;
-}
+.explore-hero .big-icon{font-size:55px}
 .explore-button{
   background:linear-gradient(135deg,#f5df9e,#d4ac54);
   color:#14234a;
@@ -424,9 +385,9 @@ a{color:inherit}
   line-height:2;
 }
 
-/* ==================================
-   SCANNER
-================================== */
+/* =====================================
+   CAMÉRA
+===================================== */
 
 #camera-container{
   display:none;
@@ -439,6 +400,7 @@ a{color:inherit}
 body.ar-mode #background{display:none}
 body.ar-mode #camera-container{display:block}
 body.ar-mode #bottom-nav{display:none}
+
 #camera-container a-scene,
 #camera-container .a-canvas{
   position:absolute!important;
@@ -446,6 +408,7 @@ body.ar-mode #bottom-nav{display:none}
   width:100%!important;
   height:100%!important;
 }
+
 #camera-container video{
   position:absolute!important;
   top:50%!important;
@@ -455,6 +418,7 @@ body.ar-mode #bottom-nav{display:none}
   object-fit:cover!important;
   transform:translate(-50%,-50%)!important;
 }
+
 #camera-menu{
   position:fixed;
   z-index:45;
@@ -466,6 +430,7 @@ body.ar-mode #bottom-nav{display:none}
   background:#071631d9;
   color:white;
 }
+
 #found{
   position:fixed;
   z-index:45;
@@ -477,6 +442,7 @@ body.ar-mode #bottom-nav{display:none}
   display:none;
 }
 #found.visible{display:block}
+
 #discover{
   display:flex;
   gap:12px;
@@ -488,20 +454,12 @@ body.ar-mode #bottom-nav{display:none}
   padding:14px 17px;
   text-align:left;
 }
-#discover strong{
-  display:block;
-  font-size:14px;
-  font-weight:normal;
-}
-#discover small{
-  display:block;
-  font-size:12px;
-  margin-top:5px;
-}
+#discover strong{display:block;font-size:14px}
+#discover small{display:block;font-size:12px;margin-top:5px}
 
-/* ==================================
-   LIVRES DE MAIN STREET
-================================== */
+/* =====================================
+   LIVRES
+===================================== */
 
 #story{
   display:none;
@@ -514,6 +472,7 @@ body.ar-mode #bottom-nav{display:none}
   perspective:1200px;
 }
 #story.open{display:block}
+
 #close{
   display:block;
   margin:0 auto 22px;
@@ -523,6 +482,7 @@ body.ar-mode #bottom-nav{display:none}
   border:1px solid white;
   border-radius:30px;
 }
+
 .book{
   display:none;
   max-width:570px;
@@ -537,6 +497,7 @@ body.ar-mode #bottom-nav{display:none}
   from{opacity:0;transform:rotateY(-45deg) scale(.9)}
   to{opacity:1;transform:rotateY(0) scale(1)}
 }
+
 .page{
   position:relative;
   padding:33px 23px;
@@ -565,7 +526,6 @@ body.ar-mode #bottom-nav{display:none}
 .page h1{
   color:#7f2938;
   font-size:28px;
-  margin:15px 0 6px;
 }
 .page h2{
   color:#6e3d2e;
@@ -607,9 +567,9 @@ body.ar-mode #bottom-nav{display:none}
   border-radius:30px;
 }
 
-/* ==================================
+/* =====================================
    RAPPELS
-================================== */
+===================================== */
 
 #alert{
   position:fixed;
@@ -622,10 +582,7 @@ body.ar-mode #bottom-nav{display:none}
   background:#081c41f5;
   border:1px solid white;
   border-radius:18px;
-  box-shadow:0 10px 35px #0009;
 }
-#alert h2{font-size:19px;font-weight:normal}
-#alert p{font-size:14px;line-height:1.6}
 #alert button{
   color:white;
   background:#ffffff20;
@@ -634,11 +591,19 @@ body.ar-mode #bottom-nav{display:none}
   padding:11px 16px;
 }
 
+@media(max-height:670px){
+  #home.active{padding-top:0}
+  .home-bubbles .panel{padding:10px 14px}
+  .home-bubbles h2{font-size:16px}
+  .home-bubbles p{font-size:13px}
+}
+
 @media(max-width:360px){
   .nav-item span{font-size:9px}
   .panel{padding:15px}
   .page{padding:27px 15px}
 }
+
 @media(prefers-reduced-motion:reduce){
   *{animation-duration:.01ms!important}
 }
@@ -649,7 +614,7 @@ body.ar-mode #bottom-nav{display:none}
 
 <div id="background"></div>
 
-<!-- SCANNER MAIN STREET -->
+<!-- SCANNER -->
 
 <div id="camera-container">
 <a-scene
@@ -678,60 +643,43 @@ body.ar-mode #bottom-nav{display:none}
 <main id="app">
 <div class="wrap">
 
-<!-- ==================================
+<!-- =====================================
      ACCUEIL
-     UNIQUEMENT DEUX BULLES EN BAS
-================================== -->
+===================================== -->
 
 <section id="home" class="section active">
 
 <div class="home-bubbles">
 
-  <!-- BULLE 1 : SPECTACLE -->
+<div class="panel glass">
+<h2>✨ Prochain spectacle</h2>
 
-  <div class="panel glass">
+<div class="live-title" id="next-event">
+Chargement...
+</div>
 
-    <h2 class="gold">✨ Prochain spectacle</h2>
+<p id="next-time"></p>
+<p class="green" id="countdown"></p>
+</div>
 
-    <div class="live-title" id="next-event">
-      Chargement...
-    </div>
+<div class="panel glass">
 
-    <p class="small" id="next-time"></p>
+<div class="space-row">
+<h2 style="margin:0">🚀 Space Mountain VR</h2>
+<span class="status" id="home-space-status">...</span>
+</div>
 
-    <p class="green" id="countdown"></p>
-
-  </div>
-
-  <!-- BULLE 2 : SPACE MOUNTAIN -->
-
-  <div class="panel glass">
-
-    <div class="space-row">
-
-      <h2 class="gold" style="margin:0">
-        🚀 Space Mountain VR
-      </h2>
-
-      <span class="status" id="home-space-status">
-        ...
-      </span>
-
-    </div>
-
-    <p id="home-space-detail"></p>
-
-    <p class="small" id="space-next"></p>
-
-  </div>
+<p id="home-space-detail"></p>
+<p class="small" id="space-next"></p>
 
 </div>
 
+</div>
 </section>
 
-<!-- ==================================
-     MES BILLETS
-================================== -->
+<!-- =====================================
+     BILLETS
+===================================== -->
 
 <section id="tickets" class="section">
 
@@ -745,31 +693,30 @@ body.ar-mode #bottom-nav{display:none}
 <h2>Votre aventure commence ici !</h2>
 
 <p>
-Vous souhaitez réserver une soirée magique
-ou retrouver vos billets pour votre prochaine visite ?
+Réservez votre soirée ou retrouvez les billets
+de votre prochaine visite.
 </p>
 
 <div class="ticket-choice">
 
-<a
-  class="ticket-reserve"
-  href="https://www.billetweb.fr/soiree-mini-disneyland-reunion"
-  target="_blank"
-  rel="noopener noreferrer">
+<a class="ticket-reserve"
+href="https://www.billetweb.fr/soiree-mini-disneyland-reunion"
+target="_blank"
+rel="noopener noreferrer">
 🎟️ Réserver mes billets
 </a>
 
-<button class="ticket-import" id="import-ticket" type="button">
+<button class="ticket-import" id="import-ticket">
 📥 Importer mes billets
 </button>
 
 </div>
 
 <input
-  id="ticket-file"
-  type="file"
-  accept=".pdf,.jpg,.jpeg,.png,.webp,application/pdf,image/jpeg,image/png,image/webp"
-  multiple>
+id="ticket-file"
+type="file"
+accept=".pdf,.jpg,.jpeg,.png,.webp,application/pdf,image/jpeg,image/png,image/webp"
+multiple>
 
 <p class="small">
 Après votre réservation sur Billetweb,
@@ -787,22 +734,19 @@ téléchargez vos billets puis importez-les ici.
 <div class="panel glass">
 <h2>Le soir de votre visite</h2>
 <p>
-Ouvrez cette rubrique et présentez vos billets
-à notre équipe à votre arrivée.
+Présentez vos billets à notre équipe à votre arrivée.
 </p>
 <p class="small">
-Les billets sont conservés sur cet appareil.
+Les billets importés restent sur cet appareil.
 Conservez également les originaux.
-L'importation ne vérifie pas automatiquement
-leur validité auprès de Billetweb.
 </p>
 </div>
 
 </section>
 
-<!-- ==================================
+<!-- =====================================
      SPECTACLES
-================================== -->
+===================================== -->
 
 <section id="schedule" class="section">
 
@@ -849,7 +793,7 @@ leur validité auprès de Billetweb.
 <time>20h45</time>
 <div>
 <strong>Disney Illuminations</strong>
-<small>Spectacle sur le château de la Belle au bois dormant.</small>
+<small>Spectacle du château de la Belle au bois dormant.</small>
 </div>
 </div>
 
@@ -866,13 +810,11 @@ leur validité auprès de Billetweb.
 <div class="panel glass">
 
 <h2>🚀 Space Mountain VR</h2>
+<p><strong>De la Terre à la Lune</strong></p>
 
 <p>
-<strong>De la Terre à la Lune</strong>
-</p>
-
-<p>
-Statut : <span class="status" id="space-status">Chargement...</span>
+Statut :
+<span class="status" id="space-status">...</span>
 </p>
 
 <p id="space-detail"></p>
@@ -894,7 +836,7 @@ Statut : <span class="status" id="space-status">Chargement...</span>
 <time>21h30</time>
 <div>
 <strong>Réouverture prévue</strong>
-<small>Sous réserve de confirmation par l'équipe.</small>
+<small>Sous réserve de confirmation.</small>
 </div>
 </div>
 
@@ -909,19 +851,15 @@ Statut : <span class="status" id="space-status">Chargement...</span>
 <h2>🔔 Rappels magiques</h2>
 <p>
 Un rappel apparaît cinq minutes avant les spectacles
-lorsque l'application est ouverte et active.
-</p>
-<p class="small">
-Les rappels ne sont pas garantis lorsque
-le téléphone est verrouillé.
+lorsque l'application est ouverte.
 </p>
 </div>
 
 </section>
 
-<!-- ==================================
-     EXPLORER MAIN STREET
-================================== -->
+<!-- =====================================
+     EXPLORER
+===================================== -->
 
 <section id="explore" class="section">
 
@@ -937,11 +875,6 @@ le téléphone est verrouillé.
 <h2>Chaque façade cache une histoire...</h2>
 
 <p>
-Saviez-vous que les bâtiments de Main Street
-racontent de véritables histoires ?
-</p>
-
-<p>
 Grâce à votre caméra, partez à la découverte
 des secrets de notre petit monde enchanté.
 </p>
@@ -951,7 +884,7 @@ des secrets de notre petit monde enchanté.
 </button>
 
 <p class="small">
-Autorisez l'accès à la caméra,
+Autorisez l'accès à la caméra
 puis dirigez-la vers les façades.
 </p>
 
@@ -964,9 +897,9 @@ puis dirigez-la vers les façades.
 
 </section>
 
-<!-- ==================================
-     INFORMATIONS PRATIQUES
-================================== -->
+<!-- =====================================
+     INFORMATIONS
+===================================== -->
 
 <section id="information" class="section">
 
@@ -999,8 +932,7 @@ merci de prévoir votre arrivée à l'heure.
 <h2>📸 Photos et vidéos</h2>
 <p>
 Les photos et vidéos sont autorisées.
-Pour une meilleure expérience,
-merci d'éviter les flashs pendant les spectacles.
+Merci d'éviter les flashs pendant les spectacles.
 </p>
 </div>
 
@@ -1035,12 +967,9 @@ de passionnés qui rend cette aventure possible.
 <div class="panel glass">
 <h2>❤️ Un petit coup de pouce à la magie</h2>
 <p>
-L'entrée à MiniDisneyland Réunion est entièrement gratuite.
-</p>
-<p>
-Pour celles et ceux qui souhaitent nous aider
-à faire vivre et grandir notre petit monde enchanté,
-une cagnotte est disponible sur place.
+L'entrée est entièrement gratuite.
+Une cagnotte est disponible sur place
+pour celles et ceux qui souhaitent nous soutenir.
 </p>
 <p>
 Aucune participation n'est obligatoire.
@@ -1053,13 +982,13 @@ Vos sourires sont déjà notre plus belle récompense !
 </div>
 </main>
 
-<!-- ==================================
-     BARRE DE NAVIGATION
-================================== -->
+<!-- =====================================
+     NAVIGATION
+===================================== -->
 
 <nav id="bottom-nav" aria-label="Navigation principale">
 
-<button class="nav-item active" data-tab="home" aria-label="Accueil">
+<button class="nav-item active" data-tab="home">
 <svg viewBox="0 0 24 24">
 <path d="M3 10L12 3L21 10V21H3Z"/>
 <path d="M9 21V13H15V21"/>
@@ -1067,7 +996,7 @@ Vos sourires sont déjà notre plus belle récompense !
 <span>Accueil</span>
 </button>
 
-<button class="nav-item" data-tab="tickets" aria-label="Billets">
+<button class="nav-item" data-tab="tickets">
 <svg viewBox="0 0 24 24">
 <path d="M3 6H21V10C18 10 18 14 21 14V18H3V14C6 14 6 10 3 10Z"/>
 <path d="M12 6V18" stroke-dasharray="2 2"/>
@@ -1075,7 +1004,7 @@ Vos sourires sont déjà notre plus belle récompense !
 <span>Billets</span>
 </button>
 
-<button class="nav-item" data-tab="schedule" aria-label="Spectacles">
+<button class="nav-item" data-tab="schedule">
 <svg viewBox="0 0 24 24">
 <rect x="3" y="5" width="18" height="16" rx="2"/>
 <path d="M7 3V7M17 3V7M3 10H21M8 15H11M14 15H17"/>
@@ -1083,7 +1012,7 @@ Vos sourires sont déjà notre plus belle récompense !
 <span>Spectacles</span>
 </button>
 
-<button class="nav-item" data-tab="explore" aria-label="Explorer">
+<button class="nav-item" data-tab="explore">
 <svg viewBox="0 0 24 24">
 <path d="M8 3H4V7M16 3H20V7M4 17V21H8M20 17V21H16"/>
 <circle cx="12" cy="12" r="4"/>
@@ -1092,7 +1021,7 @@ Vos sourires sont déjà notre plus belle récompense !
 <span>Explorer</span>
 </button>
 
-<button class="nav-item" data-tab="information" aria-label="Informations">
+<button class="nav-item" data-tab="information">
 <svg viewBox="0 0 24 24">
 <circle cx="12" cy="12" r="9"/>
 <path d="M12 11V17"/>
@@ -1126,7 +1055,7 @@ Vos sourires sont déjà notre plus belle récompense !
 <div id="books-container"></div>
 </div>
 
-<!-- VISIONNEUSE DE BILLETS -->
+<!-- BILLETS -->
 
 <div id="ticket-viewer" class="hidden">
 <div class="viewer-head">
@@ -1144,7 +1073,9 @@ Enregistrer mon billet
 <div id="alert" class="hidden">
 <h2>✨ Un spectacle approche !</h2>
 <p id="alert-message"></p>
-<button id="dismiss-alert">Merci, à tout de suite !</button>
+<button id="dismiss-alert">
+Merci, à tout de suite !
+</button>
 </div>
 
 <script>
@@ -1163,19 +1094,16 @@ const CALENDAR={
 const SHOWS=[
   {
     time:1200,
-    reminder:1195,
     name:"Les Vœux Magiques de Noël",
     place:"la terrasse"
   },
   {
     time:1215,
-    reminder:1210,
     name:"Illumination du sapin de Noël",
     place:"le sapin"
   },
   {
     time:1245,
-    reminder:1240,
     name:"Disney Illuminations",
     place:"le château"
   }
@@ -1194,7 +1122,7 @@ let activePlace=null;
 const alerted=new Set();
 
 /* =====================================
-   LES NEUF HISTOIRES DE MAIN STREET
+   LES NEUF HISTOIRES
 ===================================== */
 
 const stories=[
@@ -1204,19 +1132,17 @@ subtitle:"DEPUIS 1924",
 quote:"Une histoire de burgers, de danse et d'amitié.",
 chapters:[
 ["Il était une fois...",
-"En 2024, Ludovic et Meghane arrivèrent à La Réunion avec leurs filles, Emy et Ambre, pour commencer une nouvelle aventure. Au rez-de-chaussée de la résidence, ils ouvrirent un snack baptisé Le Lumega, où ils préparaient de délicieux burgers entièrement faits maison."],
-["Une amitié inattendue",
-"Au fil des jours, une belle amitié naquit entre cette famille et le créateur de MiniDisneyland Réunion. Lorsque les parents travaillaient et que les enfants n'avaient pas école, Emy et Ambre venaient régulièrement passer leurs journées chez lui."],
+"En 2024, Ludovic et Meghane arrivèrent à La Réunion avec leurs filles, Emy et Ambre. Au rez-de-chaussée de la résidence, ils ouvrirent un snack baptisé Le Lumega, où ils préparaient de délicieux burgers entièrement faits maison."],
+["Une belle amitié",
+"Au fil des jours, une belle amitié naquit entre cette famille et le créateur de MiniDisneyland Réunion. Emy et Ambre venaient régulièrement passer leurs journées chez lui."],
 ["L'école de danse d'Emy",
-"Passionnée de danse, Emy méritait bien sa propre école ! Une enseigne lui fut dédiée, avec une promesse : grâce et élégance depuis 1917."],
+"Passionnée de danse, Emy méritait sa propre école ! Une enseigne lui fut dédiée, avec une promesse : grâce et élégance depuis 1917."],
 ["Les meilleures knacks d'Ambre",
 "Quant à Ambre, grande amatrice de knacks, elle reçut un titre particulier : celui de servir les meilleures knacks de toute la ville !"],
-["Le secret des dates",
-"Pour retrouver le charme d'une ville d'autrefois, les dates de Main Street ont été reculées de cent ans. Ainsi, 2024 est devenue 1924 et 2017 est devenue 1917."],
 ["Une façade pour ne jamais oublier",
-"Depuis, Ludovic, Meghane, Emy et Ambre sont retournés vivre en métropole. Mais leur histoire est restée ici. Cette façade leur est dédiée, en souvenir des burgers, des journées passées ensemble, des rires des enfants et surtout d'une belle amitié."]
+"Depuis, Ludovic, Meghane, Emy et Ambre sont retournés vivre en métropole. Mais leur histoire est restée ici, en souvenir d'une belle amitié. Les dates des façades ont été reculées de cent ans pour retrouver le charme de Main Street autrefois."]
 ],
-ending:"À MiniDisneyland Réunion, derrière certaines façades se cachent de véritables histoires de cœur."
+ending:"Derrière certaines façades se cachent de véritables histoires de cœur."
 },
 {
 title:"Checkpoint Charly",
@@ -1224,39 +1150,39 @@ subtitle:"DEPUIS 1853",
 quote:"Une histoire de souvenirs, de voyages et de transmission.",
 chapters:[
 ["Il était une fois Charly",
-"En 1953 naquit un garçon prénommé Charles, que ses proches surnommeraient affectueusement Charly. Originaire d'Alsace, où les cigognes font partie du paysage, Charly allait vivre une histoire qui le mènerait bien au-delà de ses terres natales."],
+"En 1953 naquit Charles, affectueusement surnommé Charly. Originaire d'Alsace, il allait vivre une histoire qui le mènerait bien au-delà de ses terres natales."],
 ["Un souvenir de Berlin",
-"Durant son service militaire, Charly fut amené à travailler à Berlin, à une époque où le célèbre mur séparait encore la ville. C'est de ce chapitre de sa vie qu'est né le nom de cette façade : Checkpoint Charly, un clin d'œil au célèbre poste-frontière berlinois."],
+"Durant son service militaire, Charly travailla à Berlin, à l'époque où le mur séparait encore la ville. Le nom Checkpoint Charly rend hommage à ce chapitre de sa vie."],
 ["La cigogne d'Alsace",
-"Sur l'enseigne, une cigogne veille fièrement sur la façade. Elle représente l'Alsace, les racines familiales et les souvenirs qui traversent les générations."],
+"Sur l'enseigne, une cigogne représente les racines alsaciennes de la famille."],
 ["L'horlogerie de Charly",
-"Charly possède une qualité particulière : il ne supporte pas les retards ! Alors, quoi de plus naturel que de lui offrir son propre atelier de réparation de montres ? Ici, chaque seconde compte !"],
+"Charly ne supporte pas les retards ! Il possède donc symboliquement son propre atelier de réparation de montres."],
 ["La banque Schildknecht",
-"Charly a toujours eu un talent pour gérer les comptes, organiser les finances et donner de précieux conseils. Une qualité dont son fils bénéficie encore aujourd'hui."],
+"Il a toujours eu un talent pour gérer les comptes, organiser les finances et donner de précieux conseils."],
 ["L'école de conduite",
-"Charly possède également sa propre école de conduite. Une enseigne pleine de fantaisie qui rappelle que chaque commerce raconte un morceau de la vie de ceux qu'on aime."],
+"Une autre enseigne rend hommage à son histoire et à ses talents."],
 ["Le secret de 1853",
-"Comme pour les autres bâtiments de Main Street, les années ont été reculées de cent ans. 1953, l'année de naissance de Charles, est donc devenue 1853."]
+"Comme pour les autres bâtiments de Main Street, les années ont été reculées de cent ans. 1953 est donc devenue 1853."]
 ],
-ending:"Checkpoint Charly est un hommage à un père, à ses origines alsaciennes, à ses souvenirs et à tous les conseils qu'il transmet à son fils."
+ending:"Un hommage à un père, à ses souvenirs et à ses origines alsaciennes."
 },
 {
 title:"Guardian Angels",
-subtitle:"MEMORIAL HALL — DEPUIS 1900",
-quote:"L'histoire de deux anges gardiens et d'une magie qui ne s'éteint jamais.",
+subtitle:"MEMORIAL HALL",
+quote:"Deux anges gardiens dont la magie ne s'éteint jamais.",
 chapters:[
-["Il était une fois deux étoiles",
-"Dans une petite rue de Main Street se trouve une société de sécurité bien particulière. Cette société est dirigée par deux anges gardiens : Monette et Maëlle. Deux étoiles parties bien trop tôt, mais dont la lumière continue de briller dans le cœur de ceux qui les aiment."],
-["Monette, une maman devenue étoile",
-"Monette était la maman du créateur de MiniDisneyland Réunion. Partie beaucoup trop tôt, elle a laissé derrière elle un amour qui n'a jamais disparu. Aujourd'hui, elle est devenue symboliquement l'un des anges gardiens de Main Street, veillant sur les rêves, les sourires et les moments de bonheur."],
+["Deux étoiles",
+"Cette façade est dédiée à Monette et Maëlle, deux étoiles parties beaucoup trop tôt, mais dont la lumière continue de briller."],
+["Monette",
+"Monette était la maman du créateur de MiniDisneyland Réunion. Son amour et son souvenir accompagnent encore aujourd'hui chaque moment de bonheur."],
 ["Le rêve de Maëlle",
-"Maëlle était la fille d'une amie. Alors qu'elle affrontait une grave maladie, elle avait un rêve : visiter Disneyland. Mais son état de santé rendait ce voyage difficile. Alors une idée naquit : et si Disneyland venait jusqu'à elle ? Une soirée fut imaginée spécialement pour Maëlle, afin de lui offrir un moment d'évasion, de féerie et de bonheur. Ce soir-là, le plus important n'était pas la taille d'un château ni le nombre d'attractions. C'était de faire vivre un rêve."],
+"Maëlle rêvait de visiter Disneyland. Mais la maladie rendait ce voyage difficile. Une idée naquit alors : et si Disneyland venait jusqu'à elle ? Une soirée fut imaginée spécialement pour lui offrir un moment d'évasion et de féerie."],
 ["Une magie qui continue",
-"Depuis, Maëlle nous a quittés. Mais son histoire fait désormais partie de l'âme de MiniDisneyland Réunion. Derrière chaque illumination, chaque spectacle et chaque sourire, il existe cette même envie : faire voyager les cœurs, même lorsque l'on ne peut pas voyager bien loin."],
+"Depuis, Maëlle nous a quittés. Mais son histoire fait partie de l'âme de MiniDisneyland Réunion."],
 ["Guardian Angels Security Company",
-"Monette et Maëlle sont devenues les deux responsables imaginaires de cette étonnante société de sécurité. Leur mission ? Veiller symboliquement sur les visiteurs, protéger les souvenirs précieux et garder intacte la magie de Main Street. Sur la façade, leurs noms sont inscrits : MONETTE & MAËLLE — TEAM LEADERS."]
+"Monette et Maëlle sont devenues les deux responsables imaginaires de cette société de sécurité, veillant symboliquement sur les visiteurs et les souvenirs."]
 ],
-ending:"Monette et Maëlle. Pour toujours, les gardiennes de Main Street."
+ending:"Monette et Maëlle, pour toujours les gardiennes de Main Street."
 },
 {
 title:"Le Dentiste de Main Street",
@@ -1264,73 +1190,73 @@ subtitle:"LE SECRET DU SOURIRE",
 quote:"Une histoire de dents, de magie et de sourires !",
 chapters:[
 ["Un drôle de dentiste",
-"Dans une petite rue aux façades colorées se trouve un cabinet pas tout à fait comme les autres. Pourquoi installer un dentiste dans un endroit où tout n'est que rêve et enchantement ?"],
+"Pourquoi installer un dentiste dans une rue où tout n'est que rêve et enchantement ?"],
 ["Un clin d'œil à Main Street",
-"Une anecdote parfois racontée au sujet de Walt Disney associe le dentiste aux sourires des visiteurs ; elle n'est toutefois pas établie historiquement. À Main Street, les façades racontent volontiers des histoires amusantes."],
+"Les façades de Main Street aiment raconter des histoires amusantes, et celle du dentiste fait partie de ces petits clins d'œil."],
 ["Le dentiste arrive à La Réunion",
-"Lorsque MiniDisneyland Réunion a commencé à créer sa propre Main Street miniature, une évidence s'est imposée : pourquoi ne pas reprendre cette amusante tradition ? C'est ainsi qu'est né notre petit cabinet de dentiste, avec sa façade rose, ses stores verts et son enseigne d'autrefois. Rassurez-vous, personne ne vous demandera d'ouvrir grand la bouche !"],
+"C'est ainsi qu'est né notre petit cabinet de dentiste, avec sa façade rose, ses stores verts et son enseigne d'autrefois."],
 ["Le secret du plus beau sourire",
-"Notre dentiste a une mission bien plus agréable : veiller symboliquement sur les sourires de tous nos visiteurs."]
+"Notre dentiste a une mission bien plus agréable que de soigner les dents : veiller symboliquement sur les sourires des visiteurs !"]
 ],
 ending:"Notre plus belle récompense est le nombre de sourires que nous réussissons à créer."
 },
 {
 title:"Main Street Bakery",
 subtitle:"LA RECETTE DU BONHEUR",
-quote:"Une histoire de gourmandises, de traditions et de passionnés de Noël.",
+quote:"Une histoire de gourmandises et de traditions.",
 chapters:[
 ["Une boulangerie pas comme les autres",
-"Bienvenue à Main Street Bakery ! Derrière cette jolie façade se préparent les gourmandises qui accompagnent nos soirées magiques. Des délicieux croque-monsieurs au vin chaud de Noël, tout est préparé avec amour par le créateur de MiniDisneyland Réunion, puis réchauffé et servi avec le sourire par notre charmante Valérie ! Et pour le vin chaud, la recette vient tout droit de ses origines alsaciennes ! Un petit parfum des marchés de Noël d'Alsace, transporté sous le soleil de La Réunion."],
+"Derrière cette façade se préparent les gourmandises de nos soirées : croque-monsieurs et vin chaud, inspiré des traditions alsaciennes."],
 ["Les fenêtres des passionnés",
-"Levez les yeux vers les fenêtres du premier étage ! Vous y découvrirez le groupe Facebook « Passionné de Noël – Île de La Réunion », une belle communauté grâce à laquelle MiniDisneyland Réunion s'est fait connaître. Vous retrouverez également L'Atelier des Lutins, avec ses magnifiques villages miniatures réalisés en impression 3D, ainsi que Le Monde Magique de Sébastien, situé à Saint-Pierre, où se rencontrent l'univers Disney, les villages miniatures et la féerie de Noël."],
-["Le secret de Main Street Bakery",
-"Cette boulangerie ne raconte pas seulement une histoire de gourmandises. Elle célèbre les traditions, la créativité et surtout le plaisir de partager sa passion."]
+"Vous y découvrirez le groupe Passionné de Noël – Île de La Réunion, L'Atelier des Lutins et Le Monde Magique de Sébastien."],
+["Le secret de la boulangerie",
+"Cette façade célèbre les traditions, la créativité et le plaisir de partager sa passion."]
 ],
 ending:"La plus belle recette du bonheur, c'est un peu de magie, beaucoup d'amour et un bon croque-monsieur !"
 },
 {
 title:"The Magic Makers",
-subtitle:"LE PASSAGE SECRET DES CRÉATEURS DE MAGIE",
-quote:"Une histoire de passion, de complicité et de magie en coulisses.",
+subtitle:"LE PASSAGE SECRET",
+quote:"Une histoire de passion et de magie en coulisses.",
 chapters:[
 ["Un passage pas comme les autres",
-"À Main Street, certaines portes cachent de merveilleux secrets. Sous cette enseigne se trouve un passage réservé à ceux que l'on appelle affectueusement les Magic Makers. Ce sont ces personnes formidables qui, dans l'ombre, donnent vie à MiniDisneyland Réunion. Sans elles, les lumières ne brilleraient pas aussi fort, les spectacles ne seraient pas aussi magiques et cette petite aventure ne pourrait tout simplement pas fonctionner !"],
-["Un accès très VIP !",
-"Attention, ce passage n'est pas ouvert à tout le monde ! Seuls les détenteurs du précieux badge Magic Makers peuvent l'emprunter pour rejoindre les coulisses. Car après tout, même ceux qui fabriquent la magie méritent leur propre entrée VIP !"],
-["Le véritable secret des Magic Makers",
-"Derrière chaque spectacle, chaque sourire et chaque moment d'émerveillement se cache une équipe de passionnés. Et si les visiteurs voient la magie prendre vie devant leurs yeux, les Magic Makers savent, eux, tout le travail et tout l'amour qu'il faut pour la créer."]
+"Sous cette enseigne se trouve un passage réservé aux Magic Makers, les personnes qui donnent vie à MiniDisneyland Réunion."],
+["Un accès très VIP",
+"Seuls les détenteurs du précieux badge Magic Makers peuvent emprunter ce passage pour rejoindre les coulisses."],
+["Le véritable secret",
+"Derrière chaque spectacle et chaque sourire se cache une équipe de passionnés. Sans elle, la magie ne pourrait pas prendre vie."]
 ],
 ending:"À MiniDisneyland Réunion, la magie ne se fait jamais toute seule : elle se partage !"
 },
 {
 title:"Vœgtling Hardware",
-subtitle:"LA MAISON OÙ L'ON TROUVE TOUJOURS UNE SOLUTION",
-quote:"Depuis 1896 — Une histoire de famille, de générosité et de souvenirs.",
+subtitle:"DEPUIS 1896",
+quote:"Une histoire de famille, de générosité et de souvenirs.",
 chapters:[
 ["Une nouvelle vie en Alsace",
-"En 1996, un petit garçon quitte son île de La Réunion pour rejoindre son père en métropole. Mais son père étant souvent en déplacement, c'est auprès de sa tante Lisbeth et de son oncle, dans la famille Vœgtling, qu'il va grandir. C'est ainsi qu'en 1996, le numéro 42 devient sa résidence principale. Bien plus qu'une simple adresse, cette maison deviendra le décor de son enfance, de ses souvenirs et de ses plus belles années auprès de sa famille de cœur."],
+"En 1996, un petit garçon quitte La Réunion pour rejoindre son père en métropole. Il grandira auprès de sa tante Lisbeth et de sa famille de cœur, les Vœgtling."],
 ["Deux métiers, beaucoup d'amour",
-"Regardez les fenêtres de cette façade ! L'une rend hommage à Lisbeth, qui a consacré de nombreuses années au repassage pour les autres. Un métier exigeant, exercé avec courage et dévouement. L'autre célèbre son oncle et son entreprise de réparation d'appareils électroportatifs. Ici, les machines en panne avaient toujours une chance de retrouver une seconde vie !"],
+"Une fenêtre rend hommage au travail de repassage de Lisbeth, une autre à l'entreprise de réparation d'appareils électroportatifs de son oncle."],
 ["La quincaillerie aux mille trésors",
-"Pourquoi une quincaillerie ? Parce que chez les Vœgtling, le bricolage est une véritable affaire de famille ! Une vis introuvable ? Un outil particulier ? Une pièce dont personne ne connaît le nom ? Dans cette maison, il y a toujours quelqu'un pour prononcer cette phrase devenue légendaire : « Attends… je pense que j'ai ce que tu cherches ! » Et le plus incroyable, c'est que bien souvent, c'est vrai !"],
+"Chez les Vœgtling, une vis introuvable, un outil particulier ou une pièce mystérieuse trouvent souvent leur solution !"],
 ["Bien plus qu'une façade",
-"Cette quincaillerie est un hommage à une famille qui a accueilli un enfant venu de loin, l'a accompagné et l'a aidé à devenir l'homme qu'il est aujourd'hui. Et si l'enseigne indique 1896, c'est parce qu'à Main Street, les souvenirs remontent le temps : 1996 devient 1896."]
+"Cette quincaillerie rend hommage à une famille qui a accueilli et accompagné un enfant venu de loin. Et 1996 est devenue 1896, comme le veut la tradition de Main Street."]
 ],
-ending:"Chez les Vœgtling, on ne trouve pas seulement des outils et des pièces détachées. On trouve surtout une famille, de l'amour et toujours une solution !"
+ending:"Chez les Vœgtling, on trouve surtout une famille, de l'amour et toujours une solution !"
 },
 {
 title:"Main Street Station",
 subtitle:"LE TEMPS PASSE, LES SOUVENIRS RESTENT",
 quote:"La gare où commence la magie.",
 chapters:[
-["Il était une fois une gare enchantée",
-"À Disneyland Paris, il existe un passage que des millions de visiteurs ont emprunté : celui qui passe sous la gare de Main Street, U.S.A., avant de découvrir la magie du parc. C'est de ce lieu emblématique qu'est née cette façade de MiniDisneyland Réunion. Une gare sans train ni quai, mais avec une destination particulière : le monde des souvenirs et des rêves."],
+["Une gare enchantée",
+"Cette façade s'inspire de la gare de Main Street, U.S.A. à Disneyland Paris, ce passage emblématique qui ouvre les portes de la magie."],
 ["Quatre fenêtres, mille souvenirs",
-"Regardez attentivement les vitraux qui entourent la gare. Ils racontent les quatre grands univers de notre petit monde enchanté : Main Street avec ses façades miniatures, le château de la Belle au bois dormant, Space Mountain – De la Terre à la Lune, et le spectacle final, lorsque le château s'illumine et que la magie atteint son apogée. Chaque vitrail est comme une petite fenêtre ouverte sur un souvenir que les visiteurs pourront emporter avec eux."],
+"Les vitraux racontent les univers de MiniDisneyland Réunion : Main Street, le château, Space Mountain et le spectacle final."],
 ["Le temps passe, les souvenirs restent",
-"Au-dessus du passage, une phrase résume toute la philosophie de MiniDisneyland Réunion : « Le temps passe, les souvenirs restent. » Les lumières finissent par s'éteindre, les spectacles se terminent et les visiteurs reprennent le chemin de leur maison. Mais les sourires, les émotions et les étoiles dans les yeux continuent de vivre bien après la soirée."]
+"Les lumières finissent par s'éteindre, les spectacles se terminent, mais les sourires et les émotions restent dans les cœurs."]
 ],
-ending:"Et si cette gare n'a pas de train, elle possède quelque chose de bien plus précieux : le pouvoir de faire voyager les cœurs."
+ending:"Une gare sans train, mais capable de faire voyager les cœurs."
 },
 {
 title:"Space Mountain VR",
@@ -1338,13 +1264,13 @@ subtitle:"DE LA TERRE À LA LUNE",
 quote:"La plus grande aventure dans le plus petit des espaces.",
 chapters:[
 ["Un anniversaire exceptionnel",
-"En 2025, Space Mountain – De la Terre à la Lune célèbre les 30 ans de son ouverture à Disneyland Paris. Pour rendre hommage à cette attraction mythique, MiniDisneyland Réunion décide de lui offrir une place toute particulière. Mais comment faire entrer une montagne russe aussi spectaculaire dans un petit appartement ?"],
+"En 2025, Space Mountain – De la Terre à la Lune célébrait les trente ans de son ouverture à Disneyland Paris. MiniDisneyland Réunion a voulu lui rendre hommage."],
 ["Un voyage sans limites",
-"La réponse se trouve derrière cette porte : la réalité virtuelle ! Grâce à un casque VR, les visiteurs peuvent embarquer pour une aventure inspirée de l'univers de Space Mountain, comme s'ils quittaient réellement la Terre pour rejoindre la Lune. Pas besoin d'un immense bâtiment ni de kilomètres de rails : ici, l'imagination fait le reste !"],
+"Grâce à un casque de réalité virtuelle, les visiteurs embarquent pour une aventure inspirée de cet univers mythique."],
 ["Le secret de Space Mountain",
-"Cette attraction représente toute la philosophie de MiniDisneyland Réunion : prouver que même dans le plus petit des endroits, on peut faire vivre la plus grande des aventures."]
+"Même dans un petit appartement, l'imagination permet de faire vivre de grandes aventures."]
 ],
-ending:"Car la magie ne se mesure pas en mètres carrés, mais en émotions !"
+ending:"La magie ne se mesure pas en mètres carrés, mais en émotions !"
 }
 ];
 
@@ -1467,7 +1393,9 @@ function reunionNow(){
     hourCycle:"h23"
   }).formatToParts(new Date());
 
-  const v=Object.fromEntries(parts.map(x=>[x.type,x.value]));
+  const v=Object.fromEntries(
+    parts.map(x=>[x.type,x.value])
+  );
 
   return{
     date:v.year+"-"+v.month+"-"+v.day,
@@ -1559,9 +1487,11 @@ function updateClock(){
     countdown="La magie commence bientôt !";
   }else if(next){
     title=next.name;
+
     time=String(Math.floor(next.time/60)).padStart(2,"0")
       +"h"+String(next.time%60).padStart(2,"0")
       +" · "+next.place;
+
     countdown="Dans "+duration(next.time-t);
   }else{
     title="Les spectacles sont terminés";
@@ -1593,7 +1523,7 @@ function updateClock(){
     for(const e of SHOWS){
       const key=now.date+"-"+e.time;
 
-      if(t===e.reminder&&!alerted.has(key)){
+      if(t===e.time-5&&!alerted.has(key)){
         alerted.add(key);
 
         $("#alert-message").textContent=
@@ -1607,7 +1537,7 @@ function updateClock(){
 }
 
 /* =====================================
-   SCANNER MAIN STREET
+   SCANNER
 ===================================== */
 
 const places=stories.map((s,index)=>({
@@ -1714,9 +1644,7 @@ async function enterCamera(){
 
     showTab("explore");
 
-    alert(
-      "Impossible d'ouvrir la caméra. Vérifiez les autorisations du navigateur."
-    );
+    alert("Impossible d'ouvrir la caméra. Vérifiez les autorisations du navigateur.");
   }finally{
     cameraStarting=false;
   }
@@ -1739,7 +1667,6 @@ async function leaveCamera(){
     }catch(error){
       console.warn(error);
     }
-
     cameraStarted=false;
   }
 
@@ -1753,7 +1680,7 @@ $("#discover").onclick=openStory;
 $("#close").onclick=closeStory;
 
 /* =====================================
-   STOCKAGE DES BILLETS
+   BILLETS : INDEXEDDB
 ===================================== */
 
 const DB_NAME="CompagnonMagiqueBillets";
@@ -1889,7 +1816,7 @@ async function importTickets(event){
   await renderTickets();
 
   let message=success
-    ?success+" billet(s) ajouté(s) à votre collection magique !"
+    ?success+" billet(s) ajouté(s) !"
     :"Aucun billet importé.";
 
   if(errors.length){
@@ -1906,10 +1833,7 @@ async function renderTickets(){
   list.replaceChildren();
 
   if(!ticketDB){
-    count.textContent="";
-    const p=document.createElement("p");
-    p.textContent="Le stockage des billets est indisponible dans ce navigateur.";
-    list.appendChild(p);
+    count.textContent="Stockage indisponible.";
     return;
   }
 
@@ -1928,13 +1852,6 @@ async function renderTickets(){
   count.textContent=tickets.length
     ?tickets.length+" billet(s) enregistré(s)."
     :"Aucun billet enregistré pour le moment.";
-
-  if(!tickets.length){
-    const p=document.createElement("p");
-    p.textContent="Votre collection est encore vide. Importez votre premier billet magique !";
-    list.appendChild(p);
-    return;
-  }
 
   for(const ticket of tickets){
     const row=document.createElement("div");
@@ -2042,7 +1959,7 @@ async function initializeTickets(){
 }
 
 /* =====================================
-   BOUTONS ET DÉMARRAGE
+   DÉMARRAGE
 ===================================== */
 
 $("#import-ticket").onclick=()=>{
