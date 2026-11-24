@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -27,7 +26,7 @@ html,body{margin:0;width:100%;height:100%}
 body{
   background:#071631;
   color:white;
-  font-family:Georgia,"Times New Roman",serif;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
   overflow:hidden;
 }
 button,input{font:inherit}
@@ -72,7 +71,7 @@ a{color:inherit}
 .section{display:none}
 .section.active{display:block}
 
-/* TOUTES LES BULLES TRANSPARENTES */
+/* BULLES TRANSPARENTES */
 .glass{
   background:var(--glass);
   border:1px solid var(--line);
@@ -149,7 +148,7 @@ a{color:inherit}
 .space-row .heading-row{min-width:0}
 .space-row h2{font-size:17px}
 
-/* DÉCOMPTES - AJOUT SANS CHANGER LE DESIGN */
+/* DÉCOMPTES */
 #door-countdown,
 #countdown,
 #schedule-countdown{
@@ -212,7 +211,7 @@ a{color:inherit}
   padding:7px 1px;
   border-radius:13px;
 }
-.nav-item span{font:10px Arial,sans-serif}
+.nav-item span{font-size:10px}
 .nav-item.active{
   color:white;
   background:rgba(255,255,255,.14);
@@ -320,6 +319,140 @@ a{color:inherit}
   line-height:2;
 }
 
+/* NOUVELLE PAGE INFOS */
+.info-panel{
+  padding:20px 18px;
+}
+.info-heading{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:15px;
+}
+.info-heading h2{
+  margin:0;
+  font-size:18px;
+  font-weight:600;
+}
+.info-heading .icon{
+  width:25px;
+  height:25px;
+}
+.info-item{
+  display:flex;
+  align-items:flex-start;
+  gap:14px;
+  padding:17px 0;
+  border-bottom:1px solid rgba(255,255,255,.22);
+}
+.info-item:last-child{
+  border-bottom:0;
+  padding-bottom:0;
+}
+.info-item .icon{
+  width:25px;
+  height:25px;
+  margin-top:2px;
+}
+.info-item-content{
+  flex:1;
+  min-width:0;
+}
+.info-item strong{
+  display:block;
+  font-size:15px;
+  font-weight:600;
+  margin-bottom:6px;
+}
+.info-item p{
+  margin:0;
+  font-size:13px;
+  line-height:1.6;
+  color:var(--soft);
+}
+.info-time{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:14px 0;
+  border-bottom:1px solid rgba(255,255,255,.22);
+  font-size:14px;
+}
+.info-time strong{
+  font-size:17px;
+  font-weight:600;
+}
+.info-note{
+  font-size:12px!important;
+  color:var(--soft);
+  line-height:1.6;
+  margin-bottom:0;
+}
+.gps-buttons{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  margin-top:18px;
+}
+.gps-button{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-height:54px;
+  padding:14px;
+  border:1px solid rgba(255,255,255,.5);
+  border-radius:13px;
+  background:rgba(255,255,255,.08);
+  text-decoration:none;
+  color:white;
+  font-size:14px;
+  font-weight:500;
+}
+.gps-button:active{
+  background:rgba(255,255,255,.22);
+}
+.gps-button span{flex:1}
+.gps-button .arrow{
+  width:17px;
+  height:17px;
+  opacity:.75;
+}
+.gps-location{
+  font-size:12px!important;
+  color:var(--soft);
+}
+.support-panel{
+  text-align:center;
+  padding:25px 18px;
+}
+.support-panel>.icon{
+  width:34px;
+  height:34px;
+  margin-bottom:14px;
+}
+.support-panel h2{
+  font-weight:600;
+  line-height:1.4;
+}
+.support-panel p{
+  font-size:13px;
+}
+.info-footer{
+  text-align:center;
+  padding:22px 10px 15px;
+  text-shadow:0 2px 8px #000;
+}
+.info-footer strong{
+  font-size:14px;
+  font-weight:500;
+}
+.info-footer p{
+  font-size:12px;
+  line-height:1.7;
+  color:var(--soft);
+}
+
 /* CAMÉRA */
 #camera-container{
   display:none;
@@ -414,6 +547,7 @@ body.ar-mode #bottom-nav{display:none}
   max-width:570px;
   margin:auto;
   transform-origin:left center;
+  font-family:Georgia,"Times New Roman",serif;
 }
 .book.active{
   display:block;
@@ -583,47 +717,101 @@ body.ar-mode #bottom-nav{display:none}
 
 <!-- ICÔNES VECTORIELLES -->
 <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+
 <symbol id="i-home" viewBox="0 0 24 24">
 <path d="M3 10L12 3L21 10V21H3Z"/>
 <path d="M9 21V13H15V21"/>
 </symbol>
+
 <symbol id="i-ticket" viewBox="0 0 24 24">
 <path d="M3 6H21V10C18 10 18 14 21 14V18H3V14C6 14 6 10 3 10Z"/>
 <path d="M12 6V18" stroke-dasharray="2 2"/>
 </symbol>
+
 <symbol id="i-calendar" viewBox="0 0 24 24">
 <rect x="3" y="5" width="18" height="16" rx="2"/>
 <path d="M7 3V7M17 3V7M3 10H21M8 15H11M14 15H17"/>
 </symbol>
+
 <symbol id="i-scan" viewBox="0 0 24 24">
 <path d="M8 3H4V7M16 3H20V7M4 17V21H8M20 17V21H16"/>
 <circle cx="12" cy="12" r="4"/>
 <path d="M12 10V14M10 12H14"/>
 </symbol>
+
 <symbol id="i-info" viewBox="0 0 24 24">
 <circle cx="12" cy="12" r="9"/>
 <path d="M12 11V17"/>
 <circle cx="12" cy="7.5" r=".8" fill="currentColor"/>
 </symbol>
+
 <symbol id="i-moon" viewBox="0 0 24 24">
 <path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5 8.5 8.5 0 1 0 20.5 14.2Z"/>
 </symbol>
+
 <symbol id="i-stars" viewBox="0 0 24 24">
 <path d="M12 2L14.2 9.8L22 12L14.2 14.2L12 22L9.8 14.2L2 12L9.8 9.8Z"/>
 </symbol>
+
 <symbol id="i-rocket" viewBox="0 0 24 24">
 <path d="M5 16C6 9 12 4 20 3C20 11 15 17 8 19Z"/>
 <path d="M9 15L5 19M8 10L3 9L5 5L10 8M14 16L15 21L19 19L16 14"/>
 <circle cx="15" cy="9" r="2"/>
 </symbol>
+
 <symbol id="i-book" viewBox="0 0 24 24">
 <path d="M12 5C9 3 5 3 2 4V20C5 19 9 19 12 21C15 19 19 19 22 20V4C19 3 15 3 12 5Z"/>
 <path d="M12 5V21"/>
 </symbol>
+
 <symbol id="i-upload" viewBox="0 0 24 24">
 <path d="M12 16V3M7 8L12 3L17 8"/>
 <path d="M4 16V21H20V16"/>
 </symbol>
+
+<!-- NOUVELLES ICÔNES INFOS -->
+
+<symbol id="i-pin" viewBox="0 0 24 24">
+<path d="M20 10C20 16 12 22 12 22S4 16 4 10A8 8 0 1 1 20 10Z"/>
+<circle cx="12" cy="10" r="3"/>
+</symbol>
+
+<symbol id="i-clock" viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="9"/>
+<path d="M12 6V12L16 14"/>
+</symbol>
+
+<symbol id="i-camera" viewBox="0 0 24 24">
+<path d="M3 7H7L9 4H15L17 7H21V20H3Z"/>
+<circle cx="12" cy="13" r="4"/>
+</symbol>
+
+<symbol id="i-exit" viewBox="0 0 24 24">
+<path d="M10 3H4V21H10M9 12H21M16 7L21 12L16 17"/>
+</symbol>
+
+<symbol id="i-users" viewBox="0 0 24 24">
+<circle cx="9" cy="7" r="3"/>
+<path d="M2 21V18C2 14 5 12 9 12S16 14 16 18V21M17 4A3 3 0 0 1 17 10M18 13C21 14 22 16 22 20"/>
+</symbol>
+
+<symbol id="i-heart" viewBox="0 0 24 24">
+<path d="M12 21L4 13C-2 7 6 0 12 7C18 0 26 7 20 13Z"/>
+</symbol>
+
+<symbol id="i-navigation" viewBox="0 0 24 24">
+<path d="M3 11L21 3L13 21L10 14Z"/>
+</symbol>
+
+<symbol id="i-map" viewBox="0 0 24 24">
+<path d="M3 5L9 2L15 5L21 2V19L15 22L9 19L3 22Z"/>
+<path d="M9 2V19M15 5V22"/>
+</symbol>
+
+<symbol id="i-chevron" viewBox="0 0 24 24">
+<path d="M9 5L16 12L9 19"/>
+</symbol>
+
 </svg>
 
 <div id="background"></div>
@@ -685,7 +873,7 @@ body.ar-mode #bottom-nav{display:none}
 <div class="space-row">
 <div class="heading-row">
 <svg class="icon"><use href="#i-rocket"></use></svg>
-<h2>Space Mountain VR</h2>
+<h2>Space Mountain</h2>
 </div>
 <span class="status" id="home-space-status">...</span>
 </div>
@@ -813,12 +1001,12 @@ Conservez également vos originaux.
 </div>
 </div>
 
-<!-- SPACE MOUNTAIN : STATUT UNIQUEMENT -->
+<!-- SPACE MOUNTAIN -->
 <div class="panel glass">
 <div class="space-row">
 <div class="heading-row">
 <svg class="icon"><use href="#i-rocket"></use></svg>
-<h2>Space Mountain VR</h2>
+<h2>Space Mountain</h2>
 </div>
 <span class="status" id="space-status">...</span>
 </div>
@@ -862,79 +1050,207 @@ puis dirigez-la vers les façades.
 </div>
 </section>
 
-<!-- INFORMATIONS -->
+<!-- NOUVELLE PAGE INFORMATIONS -->
 <section id="information" class="section">
+
 <header class="page-head">
 <h1>Informations pratiques</h1>
-<p>PROFITEZ DE VOTRE VISITE</p>
+<p>PROFITEZ PLEINEMENT DE LA MAGIE</p>
 </header>
 
-<div class="panel glass">
-<h2>Bienvenue chez nous</h2>
-<p>
-MiniDisneyland Réunion est une expérience immersive
-imaginée avec passion dans un petit appartement
-à Saint-Pierre.
-</p>
-<p>L'entrée est gratuite.</p>
+<!-- GPS -->
+<div class="panel glass info-panel">
+
+<div class="info-heading">
+<svg class="icon"><use href="#i-pin"></use></svg>
+<h2>Comment nous rejoindre ?</h2>
 </div>
 
-<div class="panel glass">
-<h2>Horaires de la soirée</h2>
-<p>Ouverture des portes : 19h30.</p>
-<p>Fin de soirée : 22h00.</p>
-<p>
-Les spectacles étant automatisés,
-merci de prévoir votre arrivée à l'heure.
+<p><strong>MiniDisneyland Réunion</strong></p>
+
+<p class="gps-location">
+Saint-Pierre · Île de La Réunion
 </p>
+
+<p>
+Laissez-vous guider jusqu'aux portes de la magie
+grâce à votre application GPS préférée.
+</p>
+
+<div class="gps-buttons">
+
+<a class="gps-button"
+href="https://waze.com/ul?ll=-21.34244722%2C55.47229722&amp;navigate=yes"
+target="_blank" rel="noopener noreferrer">
+<svg class="icon"><use href="#i-navigation"></use></svg>
+<span>Itinéraire avec Waze</span>
+<svg class="icon arrow"><use href="#i-chevron"></use></svg>
+</a>
+
+<a class="gps-button"
+href="https://www.google.com/maps/dir/?api=1&amp;destination=-21.34244722%2C55.47229722&amp;travelmode=driving"
+target="_blank" rel="noopener noreferrer">
+<svg class="icon"><use href="#i-map"></use></svg>
+<span>Itinéraire avec Google Maps</span>
+<svg class="icon arrow"><use href="#i-chevron"></use></svg>
+</a>
+
+<a class="gps-button"
+href="https://maps.apple.com/?daddr=-21.34244722,55.47229722&amp;dirflg=d"
+target="_blank" rel="noopener noreferrer">
+<svg class="icon"><use href="#i-pin"></use></svg>
+<span>Itinéraire avec Plans Apple</span>
+<svg class="icon arrow"><use href="#i-chevron"></use></svg>
+</a>
+
+</div>
 </div>
 
-<div class="panel glass">
-<h2>Photos et vidéos</h2>
+<!-- HORAIRES -->
+<div class="panel glass info-panel">
+
+<div class="info-heading">
+<svg class="icon"><use href="#i-clock"></use></svg>
+<h2>Horaires de votre soirée</h2>
+</div>
+
+<div class="info-time">
+<span>Ouverture des portes</span>
+<strong>19h30</strong>
+</div>
+
+<div class="info-time">
+<span>Fin de soirée</span>
+<strong>22h00</strong>
+</div>
+
+<p class="info-note">
+Merci de prévoir votre arrivée quelques minutes
+avant le début de la soirée afin de ne rien
+manquer de la magie.
+</p>
+
+</div>
+
+<!-- RÈGLES DE VISITE -->
+<div class="panel glass info-panel">
+
+<div class="info-heading">
+<svg class="icon"><use href="#i-stars"></use></svg>
+<h2>Pour une visite enchantée</h2>
+</div>
+
+<div class="info-item">
+<svg class="icon"><use href="#i-camera"></use></svg>
+<div class="info-item-content">
+<strong>Photos et vidéos</strong>
 <p>
+Immortalisez vos souvenirs !
 Les photos et vidéos sont autorisées.
-Merci d'éviter les flashs pendant les spectacles.
+Merci de ne pas utiliser de flash
+pendant les spectacles.
 </p>
 </div>
+</div>
 
-<div class="panel glass">
-<h2>Nos précieux décors</h2>
+<div class="info-item">
+<svg class="icon"><use href="#i-stars"></use></svg>
+<div class="info-item-content">
+<strong>Prenons soin de la magie</strong>
 <p>
-Nos décors ont été réalisés avec beaucoup d'amour.
-Certains sont aussi fragiles que les ailes de la Fée Clochette !
-Merci de les admirer avec les yeux.
+Nos décors sont aussi fragiles que les ailes
+de la Fée Clochette !
+Merci de les admirer avec les yeux
+et de vous déplacer sans courir.
 </p>
 </div>
+</div>
 
-<div class="panel glass">
-<h2>Besoin de partir ?</h2>
+<div class="info-item">
+<svg class="icon"><use href="#i-exit"></use></svg>
+<div class="info-item-content">
+<strong>Besoin de quitter la soirée ?</strong>
 <p>
-Si vous souhaitez quitter la soirée,
-prévenez simplement un Magic Maker.
-Quelqu'un vous accompagnera jusqu'à la sortie de la résidence.
+Prévenez simplement un Magic Maker.
+Un membre de notre équipe vous accompagnera
+jusqu'à la sortie de la résidence.
 </p>
 </div>
+</div>
 
-<div class="panel glass">
-<h2>Les Magic Makers</h2>
+</div>
+
+<!-- VOTRE VISITE -->
+<div class="panel glass info-panel">
+
+<div class="info-heading">
+<svg class="icon"><use href="#i-info"></use></svg>
+<h2>Votre visite</h2>
+</div>
+
+<div class="info-item">
+<svg class="icon"><use href="#i-ticket"></use></svg>
+<div class="info-item-content">
+<strong>Vos billets</strong>
 <p>
-Derrière chaque spectacle se cache une équipe
-de passionnés qui rend cette aventure possible.
+Présentez vos billets à notre équipe
+lors de votre arrivée.
+Vous pouvez les retrouver dans
+l'onglet Billets de votre Compagnon Magique.
 </p>
 </div>
+</div>
 
-<div class="panel glass">
+<div class="info-item">
+<svg class="icon"><use href="#i-users"></use></svg>
+<div class="info-item-content">
+<strong>Les Magic Makers</strong>
+<p>
+Une question ? Besoin d'aide ?
+Notre équipe de passionnés est à votre disposition
+tout au long de la soirée.
+</p>
+</div>
+</div>
+
+</div>
+
+<!-- SOUTIEN -->
+<div class="panel glass support-panel">
+
+<svg class="icon"><use href="#i-heart"></use></svg>
+
 <h2>Un petit coup de pouce à la magie</h2>
+
 <p>
-L'entrée est entièrement gratuite.
+Notre expérience est entièrement gratuite
+et réalisée avec passion.
+</p>
+
+<p>
 Une cagnotte est disponible sur place
-pour celles et ceux qui souhaitent nous soutenir.
+pour celles et ceux qui souhaitent nous soutenir,
+sans aucune obligation.
 </p>
-<p>
-Aucune participation n'est obligatoire.
+
+<p><em>
 Vos sourires sont déjà notre plus belle récompense !
-</p>
+</em></p>
+
 </div>
+
+<div class="info-footer">
+
+<strong>MiniDisneyland Réunion</strong>
+
+<p>
+Saint-Pierre · Île de La Réunion
+<br>
+<em>Un petit appartement, de grandes émotions.</em>
+</p>
+
+</div>
+
 </section>
 
 </div>
@@ -1015,11 +1331,7 @@ Merci, à tout de suite !
 <script>
 "use strict";
 
-/* =====================================
-   DATES D'OUVERTURE INTERNES
-   NON AFFICHÉES AUX VISITEURS
-   22 NOVEMBRE AJOUTÉ
-===================================== */
+/* DATES D'OUVERTURE */
 
 const OPEN_DATES=[
   "2026-11-22",
@@ -1057,9 +1369,7 @@ let activePlace=null;
 
 const alerted=new Set();
 
-/* =====================================
-   LES NEUF HISTOIRES MAIN STREET
-===================================== */
+/* LES NEUF HISTOIRES MAIN STREET */
 
 const stories=[
 
@@ -1220,9 +1530,7 @@ ending:"La magie ne se mesure pas en mètres carrés, mais en émotions !"
 
 ];
 
-/* =====================================
-   CRÉATION DES LIVRES
-===================================== */
+/* CRÉATION DES LIVRES */
 
 function createBooks(){
   const container=$("#books-container");
@@ -1294,9 +1602,7 @@ function createBooks(){
 
 createBooks();
 
-/* =====================================
-   NAVIGATION
-===================================== */
+/* NAVIGATION */
 
 function showTab(name){
   document.querySelectorAll(".section").forEach(section=>{
@@ -1323,9 +1629,7 @@ document.querySelectorAll(".nav-item").forEach(button=>{
   };
 });
 
-/* =====================================
-   HEURE LOCALE DE LA RÉUNION
-===================================== */
+/* HEURE LOCALE DE LA RÉUNION */
 
 function reunionNow(){
   const parts=new Intl.DateTimeFormat("en-GB",{
@@ -1367,9 +1671,7 @@ function duration(minutes){
     :m+" min";
 }
 
-/* =====================================
-   DÉCOMPTE À LA SECONDE
-===================================== */
+/* DÉCOMPTE À LA SECONDE */
 
 function formatCountdown(totalSeconds){
   const total=Math.max(0,Math.ceil(totalSeconds));
@@ -1388,10 +1690,7 @@ function formatCountdown(totalSeconds){
     String(s).padStart(2,"0")+" s";
 }
 
-/* =====================================
-   STATUT SPACE MOUNTAIN
-   UNIQUEMENT OUVERT OU FERMÉ
-===================================== */
+/* STATUT SPACE MOUNTAIN */
 
 function spaceStatus(t){
   if(
@@ -1415,9 +1714,7 @@ function setStatus(element,s){
   element.className="status "+s.state;
 }
 
-/* =====================================
-   MISE À JOUR AUTOMATIQUE
-===================================== */
+/* MISE À JOUR AUTOMATIQUE */
 
 function updateClock(){
   const now=reunionNow();
@@ -1494,7 +1791,7 @@ function updateClock(){
   $("#schedule-next").textContent=title;
   $("#schedule-countdown").textContent=countdown;
 
-  /* SPACE MOUNTAIN : STATUT UNIQUEMENT */
+  /* SPACE MOUNTAIN */
 
   const s=spaceStatus(t);
 
@@ -1527,9 +1824,7 @@ function updateClock(){
   }
 }
 
-/* =====================================
-   SCANNER MAIN STREET
-===================================== */
+/* SCANNER MAIN STREET */
 
 const places=stories.map((s,index)=>({
   index,
@@ -1674,9 +1969,7 @@ $("#camera-menu").onclick=leaveCamera;
 $("#discover").onclick=openStory;
 $("#close").onclick=closeStory;
 
-/* =====================================
-   BILLETS : INDEXEDDB
-===================================== */
+/* BILLETS : INDEXEDDB */
 
 const DB_NAME="CompagnonMagiqueBillets";
 const DB_STORE="billets";
@@ -1954,9 +2247,7 @@ async function initializeTickets(){
   await renderTickets();
 }
 
-/* =====================================
-   DÉMARRAGE
-===================================== */
+/* DÉMARRAGE */
 
 $("#import-ticket").onclick=()=>{
   $("#ticket-file").click();
@@ -1971,7 +2262,6 @@ $("#dismiss-alert").onclick=()=>{
 
 updateClock();
 
-/* Actualisation toutes les secondes */
 setInterval(updateClock,1000);
 
 document.addEventListener("visibilitychange",updateClock);
