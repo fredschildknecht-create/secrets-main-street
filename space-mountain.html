@@ -1,1 +1,395 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
 
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<meta name="apple-mobile-web-app-capable"
+content="yes">
+
+<meta name="apple-mobile-web-app-status-bar-style"
+content="black-translucent">
+
+<meta name="theme-color" content="#000000">
+
+<title>Space Mountain - Temps d'attente</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background: #000000;
+    overflow: hidden;
+    font-family: Arial, Helvetica, sans-serif;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+#screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #000000;
+    text-align: center;
+    padding: 15px;
+}
+
+#title {
+    color: #ffe600;
+    font-size: 7.5vh;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 6vh;
+}
+
+#display {
+    font-family: "Courier New", monospace;
+    font-size: 34vh;
+    font-weight: bold;
+    line-height: 1;
+    letter-spacing: 2px;
+}
+
+#display.open {
+    color: #39ff14;
+    text-shadow: 0 0 12px rgba(57,255,20,.5);
+}
+
+#display.closed {
+    color: #ff4040;
+    font-size: 25vh;
+    text-shadow: 0 0 12px rgba(255,64,64,.4);
+}
+
+#display.temporary {
+    color: #ff9500;
+    font-size: 14vh;
+    line-height: 1.2;
+    text-shadow: 0 0 12px rgba(255,149,0,.4);
+}
+
+#display.loading {
+    color: #888888;
+}
+
+#unit {
+    color: #39ff14;
+    font-size: 9vh;
+    font-weight: bold;
+    letter-spacing: 5px;
+    margin-top: 3vh;
+}
+
+#connection {
+    position: absolute;
+    bottom: 8px;
+    left: 0;
+    right: 0;
+    color: #ff9500;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+.hidden {
+    display: none !important;
+}
+
+@media (orientation: portrait) {
+
+    #title {
+        font-size: 7vw;
+    }
+
+    #display {
+        font-size: 35vw;
+    }
+
+    #display.closed {
+        font-size: 20vw;
+    }
+
+    #display.temporary {
+        font-size: 9vw;
+    }
+
+    #unit {
+        font-size: 8vw;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="screen">
+
+    <div id="title">
+        Temps d'attente
+    </div>
+
+    <div id="display" class="loading">
+        --
+    </div>
+
+    <div id="unit" class="hidden">
+        MINUTES
+    </div>
+
+    <div id="connection">
+        CONNEXION EN COURS...
+    </div>
+
+</div>
+
+<!-- FIREBASE -->
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+<script>
+
+var firebaseConfig = {
+
+    apiKey: "AIzaSyB5aEXpFQnDSzxQ1W9HCaPnUT0dcp9UXiE",
+
+    authDomain: "minidisneyland-reunion.firebaseapp.com",
+
+    databaseURL: "https://minidisneyland-reunion-default-rtdb.europe-west1.firebasedatabase.app",
+
+    projectId: "minidisneyland-reunion",
+
+    storageBucket: "minidisneyland-reunion.firebasestorage.app",
+
+    messagingSenderId: "951653607460",
+
+    appId: "1:951653607460:web:c5bdcfca35c335ca1790b1"
+
+};
+
+var display = document.getElementById("display");
+var unit = document.getElementById("unit");
+var connection = document.getElementById("connection");
+
+var connected = false;
+var hasData = false;
+var lastData = null;
+
+function showLoading() {
+
+    display.className = "loading";
+    display.textContent = "--";
+    unit.className = "hidden";
+
+}
+
+function showClosed() {
+
+    display.className = "closed";
+    display.textContent = "FERMÉ";
+    unit.className = "hidden";
+
+}
+
+function showTemporary() {
+
+    display.className = "temporary";
+    display.innerHTML = "FERMÉ<br>TEMPORAIREMENT";
+    unit.className = "hidden";
+
+}
+
+function showWait(minutes) {
+
+    display.className = "open";
+
+    display.textContent = minutes;
+
+    unit.textContent = minutes === 1
+        ? "MINUTE"
+        : "MINUTES";
+
+    unit.className = "";
+
+}
+
+function updateDisplay(data) {
+
+    if (!data) {
+        showClosed();
+        return;
+    }
+
+    var status = String(
+        data.status || data.state || data.statut || ""
+    ).toLowerCase();
+
+    if (
+        status === "open" ||
+        status === "ouvert"
+    ) {
+
+        var minutes = data.waitTime;
+
+        if (minutes == null) {
+            minutes = data.minutes;
+        }
+
+        if (minutes == null) {
+            minutes = data.wait;
+        }
+
+        if (minutes == null) {
+            minutes = data.waitMinutes;
+        }
+
+        if (
+            minutes == null ||
+            minutes === "" ||
+            !isFinite(Number(minutes)) ||
+            Number(minutes) < 0
+        ) {
+            showLoading();
+            return;
+        }
+
+        showWait(Math.floor(Number(minutes)));
+
+    } else if (
+        status === "temporary" ||
+        status === "temporary_closed" ||
+        status === "temporarily_closed" ||
+        status === "temporaryClosed".toLowerCase() ||
+        status === "fermeture_temporaire" ||
+        status === "fermé temporairement" ||
+        status === "ferme_temporairement" ||
+        status === "pause" ||
+        status === "down" ||
+        status === "breakdown"
+    ) {
+
+        showTemporary();
+
+    } else if (
+        status === "closed" ||
+        status === "fermé" ||
+        status === "ferme"
+    ) {
+
+        showClosed();
+
+    } else {
+
+        showLoading();
+
+    }
+
+}
+
+try {
+
+    firebase.initializeApp(firebaseConfig);
+
+    var database = firebase.database();
+
+    var attraction = database.ref("spaceMountain");
+
+    database.ref(".info/connected").on(
+        "value",
+        function(snapshot) {
+
+            connected = snapshot.val() === true;
+
+            if (!connected) {
+
+                connection.textContent =
+                    "CONNEXION INTERROMPUE";
+
+                connection.className = "";
+
+                showLoading();
+
+            } else if (hasData) {
+
+                connection.className = "hidden";
+
+                updateDisplay(lastData);
+
+            } else {
+
+                connection.textContent =
+                    "CONNEXION EN COURS...";
+
+                connection.className = "";
+
+            }
+
+        }
+    );
+
+    attraction.on(
+        "value",
+
+        function(snapshot) {
+
+            hasData = true;
+            lastData = snapshot.val();
+
+            if (connected) {
+
+                connection.className = "hidden";
+
+                updateDisplay(lastData);
+
+            }
+
+        },
+
+        function(error) {
+
+            showLoading();
+
+            connection.className = "";
+
+            connection.textContent =
+                "AFFICHAGE INDISPONIBLE";
+
+        }
+    );
+
+} catch (error) {
+
+    showLoading();
+
+    connection.className = "";
+
+    connection.textContent =
+        "ERREUR DE CONNEXION";
+
+}
+
+</script>
+
+</body>
+</html>
