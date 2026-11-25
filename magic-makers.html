@@ -1,1 +1,685 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#071631">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Magic Makers">
+<title>Space Mountain | Magic Makers</title>
 
+<style>
+:root{
+  --green:#39ff14;
+  --red:#ff4040;
+  --orange:#ff9500;
+  --gold:#d9b76d;
+}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+
+body{
+  margin:0;
+  min-height:100vh;
+  background:radial-gradient(ellipse at top,#17315b,#071631 55%,#030914);
+  color:white;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  padding:25px 16px 40px;
+}
+
+main{
+  max-width:520px;
+  margin:auto;
+}
+
+header{
+  text-align:center;
+  margin:15px 0 25px;
+}
+
+.logo{
+  font-size:42px;
+  color:var(--gold);
+}
+
+h1{
+  font-size:25px;
+  letter-spacing:2px;
+  margin:12px 0 8px;
+}
+
+.subtitle{
+  color:var(--gold);
+  font-size:11px;
+  letter-spacing:2px;
+}
+
+.panel{
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.25);
+  border-radius:20px;
+  padding:20px;
+  margin-bottom:16px;
+}
+
+h2{
+  font-size:17px;
+  font-weight:600;
+  margin:0 0 16px;
+}
+
+button,input{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+
+button:disabled{
+  opacity:.45;
+  cursor:default;
+}
+
+input{
+  width:100%;
+  padding:15px;
+  border:1px solid #61708a;
+  border-radius:12px;
+  background:#0b1830;
+  color:white;
+  margin-bottom:12px;
+  font-size:16px;
+}
+
+.primary{
+  width:100%;
+  padding:15px;
+  border:0;
+  border-radius:25px;
+  background:var(--gold);
+  color:#071631;
+  font-weight:600;
+}
+
+.preview{
+  background:#000;
+  border:1px solid #596170;
+  border-radius:16px;
+  padding:25px 12px;
+  text-align:center;
+  margin-bottom:16px;
+}
+
+.preview-label{
+  color:#ffe34b;
+  font-size:18px;
+  margin-bottom:20px;
+}
+
+#display{
+  font-size:clamp(23px,7vw,40px);
+  font-weight:800;
+  letter-spacing:1px;
+  overflow-wrap:anywhere;
+}
+
+.open{color:var(--green)}
+.closed{color:var(--red)}
+.pause{color:var(--orange)}
+
+.status-buttons{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.status-button{
+  width:100%;
+  padding:16px;
+  text-align:left;
+  border:1px solid #566174;
+  background:#101c30;
+  border-radius:12px;
+  font-weight:600;
+}
+
+.status-button.selected{
+  border-color:currentColor;
+  box-shadow:0 0 10px rgba(255,255,255,.08);
+}
+
+.wait-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:10px;
+}
+
+.wait-button{
+  background:#18243a;
+  border:1px solid #58647a;
+  border-radius:13px;
+  color:white;
+  padding:15px 5px;
+  min-height:82px;
+}
+
+.wait-button.selected{
+  color:var(--green);
+  border-color:var(--green);
+  background:#143321;
+}
+
+.minutes{
+  display:block;
+  font-size:21px;
+  font-weight:700;
+}
+
+.people{
+  display:block;
+  margin-top:7px;
+  font-size:12px;
+  color:#c3ccda;
+}
+
+.note{
+  font-size:12px;
+  color:#aebbd0;
+  text-align:center;
+  line-height:1.6;
+}
+
+.connection{
+  text-align:center;
+  font-size:12px;
+  margin-bottom:16px;
+  color:#aebbd0;
+}
+
+.connection.online{
+  color:#65f3a0;
+}
+
+.connection.offline{
+  color:var(--orange);
+}
+
+.message{
+  text-align:center;
+  font-size:13px;
+  line-height:1.5;
+  color:var(--orange);
+  margin-top:14px;
+}
+
+#logout{
+  width:100%;
+  padding:13px;
+  color:white;
+  background:transparent;
+  border:1px solid #67738a;
+  border-radius:25px;
+}
+
+footer{
+  text-align:center;
+  color:var(--gold);
+  font-size:11px;
+  letter-spacing:1px;
+  margin-top:25px;
+}
+</style>
+</head>
+
+<body>
+
+<main>
+
+<header>
+  <div class="logo">✦</div>
+  <h1>SPACE MOUNTAIN</h1>
+  <div class="subtitle">
+    MAGIC MAKERS · CONTRÔLE ATTRACTION
+  </div>
+</header>
+
+<!-- CONNEXION PRIVÉE -->
+
+<section id="login-panel" class="panel">
+
+  <h2>Espace réservé aux Magic Makers</h2>
+
+  <form id="login-form">
+
+    <input
+      id="email"
+      type="email"
+      placeholder="Adresse e-mail"
+      autocomplete="username"
+      required>
+
+    <input
+      id="password"
+      type="password"
+      placeholder="Mot de passe"
+      autocomplete="current-password"
+      required>
+
+    <button class="primary" id="login-button" type="submit">
+      Se connecter
+    </button>
+
+  </form>
+
+  <div id="login-message" class="message" role="alert">
+    Initialisation de la connexion…
+  </div>
+
+</section>
+
+<!-- TÉLÉCOMMANDE -->
+
+<section id="control-panel" hidden>
+
+  <div id="connection" class="connection">
+    Connexion à Firebase…
+  </div>
+
+  <div class="preview">
+    <div class="preview-label">Temps d'attente</div>
+    <div id="display">—</div>
+  </div>
+
+  <div class="panel">
+
+    <h2>Statut de l'attraction</h2>
+
+    <div class="status-buttons">
+
+      <button
+        class="status-button open command"
+        data-status="open">
+        ● &nbsp; Ouvert
+      </button>
+
+      <button
+        class="status-button closed command"
+        data-status="closed">
+        ● &nbsp; Fermé
+      </button>
+
+      <button
+        class="status-button pause command"
+        data-status="pause">
+        ● &nbsp; Fermé temporairement
+      </button>
+
+    </div>
+
+  </div>
+
+  <div class="panel">
+
+    <h2>Temps d'attente</h2>
+
+    <div class="wait-grid" id="wait-grid"></div>
+
+    <p class="note">
+      2 visiteurs = 5 minutes<br>
+      Nombre de personnes à titre indicatif.<br>
+      Information réservée aux Magic Makers.
+    </p>
+
+    <div id="save-message" class="message" role="status"></div>
+
+  </div>
+
+  <button id="logout">Se déconnecter</button>
+
+</section>
+
+<footer>
+  MINIDISNEYLAND RÉUNION<br><br>
+  LA MAGIE COMMENCE EN COULISSES
+</footer>
+
+</main>
+
+<!-- FIREBASE -->
+
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
+
+<script>
+"use strict";
+
+const firebaseConfig={
+  apiKey:"AIzaSyB5aEXpFQnDSzxQ1W9HCaPnUT0dcp9UXiE",
+  authDomain:"minidisneyland-reunion.firebaseapp.com",
+  databaseURL:"https://minidisneyland-reunion-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId:"minidisneyland-reunion",
+  storageBucket:"minidisneyland-reunion.firebasestorage.app",
+  messagingSenderId:"951653607460",
+  appId:"1:951653607460:web:c5bdcfca35c335ca1790b1"
+};
+
+const ADMIN_UID="yuAhNGw7ulhEimoC4OnpzZ8Rtf03";
+
+const $=id=>document.getElementById(id);
+
+const loginPanel=$("login-panel");
+const controlPanel=$("control-panel");
+const loginMessage=$("login-message");
+const saveMessage=$("save-message");
+const connection=$("connection");
+const display=$("display");
+const grid=$("wait-grid");
+
+let currentStatus="closed";
+let currentWait=0;
+let connected=false;
+let saving=false;
+let ready=false;
+let authorized=false;
+let unsubscribe=null;
+
+$("login-button").disabled=true;
+
+/* CRÉATION DES BOUTONS */
+
+for(let minutes=0;minutes<=60;minutes+=5){
+
+  const button=document.createElement("button");
+
+  button.className="wait-button command";
+  button.dataset.wait=minutes;
+
+  const people=minutes*2/5;
+
+  button.innerHTML=
+    '<span class="minutes">'+minutes+' min</span>'+
+    '<span class="people">👥 '+people+' pers.</span>';
+
+  button.onclick=()=>publish("open",minutes);
+
+  grid.appendChild(button);
+}
+
+function updateButtons(){
+
+  document.querySelectorAll(".command").forEach(button=>{
+    button.disabled=!connected||!ready||saving||!authorized;
+  });
+
+  document.querySelectorAll(".status-button").forEach(button=>{
+    button.classList.toggle(
+      "selected",
+      button.dataset.status===currentStatus
+    );
+  });
+
+  document.querySelectorAll(".wait-button").forEach(button=>{
+    button.classList.toggle(
+      "selected",
+      currentStatus==="open"&&
+      Number(button.dataset.wait)===currentWait
+    );
+  });
+}
+
+function render(){
+
+  display.className=currentStatus;
+
+  if(currentStatus==="open"){
+    display.textContent=currentWait+" MIN";
+  }else if(currentStatus==="pause"){
+    display.textContent="FERMÉ TEMPORAIREMENT";
+  }else{
+    display.textContent="FERMÉ";
+  }
+
+  updateButtons();
+}
+
+updateButtons();
+
+try{
+
+  firebase.initializeApp(firebaseConfig);
+
+  const auth=firebase.auth();
+  const database=firebase.database();
+  const attraction=database.ref("spaceMountain");
+
+  /* CONNEXION ADMINISTRATEUR */
+
+  $("login-button").disabled=false;
+  loginMessage.textContent="";
+
+  $("login-form").onsubmit=async event=>{
+
+    event.preventDefault();
+
+    $("login-button").disabled=true;
+    loginMessage.textContent="Connexion en cours…";
+
+    try{
+
+      await auth.signInWithEmailAndPassword(
+        $("email").value.trim(),
+        $("password").value
+      );
+
+      $("password").value="";
+      loginMessage.textContent="";
+
+    }catch(error){
+
+      console.error(error);
+
+      loginMessage.textContent=
+        "Connexion impossible. Vérifiez votre adresse e-mail et votre mot de passe.";
+
+    }finally{
+
+      $("login-button").disabled=false;
+
+    }
+  };
+
+  /* SURVEILLANCE DE LA CONNEXION */
+
+  database.ref(".info/connected").on("value",snapshot=>{
+
+    connected=snapshot.val()===true;
+
+    connection.textContent=connected
+      ?"● Connecté à Space Mountain Live"
+      :"● Connexion indisponible";
+
+    connection.className=connected
+      ?"connection online"
+      :"connection offline";
+
+    updateButtons();
+
+  });
+
+  /* VÉRIFICATION DU COMPTE */
+
+  auth.onAuthStateChanged(async user=>{
+
+    authorized=false;
+    ready=false;
+
+    if(unsubscribe){
+      unsubscribe();
+      unsubscribe=null;
+    }
+
+    updateButtons();
+
+    if(!user){
+
+      loginPanel.hidden=false;
+      controlPanel.hidden=true;
+      return;
+
+    }
+
+    if(user.uid!==ADMIN_UID){
+
+      await auth.signOut();
+
+      loginMessage.textContent=
+        "Ce compte n'est pas autorisé à contrôler l'attraction.";
+
+      return;
+
+    }
+
+    authorized=true;
+
+    loginPanel.hidden=true;
+    controlPanel.hidden=false;
+
+    /* LECTURE DU STATUT EN DIRECT */
+
+    const listener=attraction.on("value",snapshot=>{
+
+      const data=snapshot.val();
+
+      if(data){
+
+        currentStatus=
+          ["open","closed","pause"].includes(data.status)
+          ?data.status
+          :"closed";
+
+        currentWait=
+          Number.isInteger(data.wait)&&
+          data.wait>=0&&
+          data.wait<=60
+          ?data.wait
+          :0;
+
+      }else{
+
+        currentStatus="closed";
+        currentWait=0;
+
+      }
+
+      ready=true;
+      render();
+
+    },error=>{
+
+      console.error(error);
+      ready=false;
+
+      saveMessage.textContent=
+        "Impossible de lire les données Firebase.";
+
+      updateButtons();
+
+    });
+
+    unsubscribe=()=>attraction.off("value",listener);
+
+  });
+
+  /* ENVOI DES COMMANDES */
+
+  window.publish=async function(status,wait){
+
+    if(!authorized||!connected||!ready||saving)return;
+
+    if(!auth.currentUser||
+       auth.currentUser.uid!==ADMIN_UID)return;
+
+    saving=true;
+    updateButtons();
+
+    saveMessage.style.color="#d9b76d";
+    saveMessage.textContent="Synchronisation en cours…";
+
+    try{
+
+      await attraction.set({
+
+        status:status,
+        wait:wait,
+        updatedAt:firebase.database.ServerValue.TIMESTAMP
+
+      });
+
+      saveMessage.style.color="#65f3a0";
+      saveMessage.textContent="✓ Mise à jour enregistrée";
+
+    }catch(error){
+
+      console.error(error);
+
+      saveMessage.style.color="#ff9500";
+      saveMessage.textContent=
+        "Échec de la mise à jour. Vérifiez la connexion et les autorisations.";
+
+    }finally{
+
+      saving=false;
+      updateButtons();
+
+    }
+
+  };
+
+  /* BOUTONS DE STATUT */
+
+  document.querySelectorAll(".status-button").forEach(button=>{
+
+    button.onclick=()=>{
+
+      const status=button.dataset.status;
+
+      publish(status,currentWait);
+
+    };
+
+  });
+
+  /* DÉCONNEXION */
+
+  $("logout").onclick=async()=>{
+
+    try{
+
+      await auth.signOut();
+
+      saveMessage.textContent="";
+
+    }catch(error){
+
+      saveMessage.textContent="Déconnexion impossible.";
+
+    }
+
+  };
+
+}catch(error){
+
+  console.error(error);
+
+  loginMessage.textContent=
+    "Impossible de charger Firebase. Vérifiez votre connexion Internet.";
+
+}
+
+</script>
+</body>
+</html>
