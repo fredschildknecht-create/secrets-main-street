@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -11,6 +10,9 @@
 
 <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
 <style>
 :root{
@@ -165,7 +167,7 @@ a{color:inherit}
   font-variant-numeric:tabular-nums;
 }
 
-/* STATUT SPACE MOUNTAIN */
+/* STATUT SPACE MOUNTAIN EN DIRECT */
 .status{
   display:inline-block;
   padding:6px 10px;
@@ -173,12 +175,14 @@ a{color:inherit}
   border-radius:20px;
   font:10px Arial,sans-serif;
   letter-spacing:.6px;
-  white-space:nowrap;
+  white-space:normal;
+  text-align:center;
+  max-width:48%;
   background:rgba(0,0,0,.16);
 }
-.status.open{color:var(--green)}
-.status.closed{color:var(--red)}
-.status.pause{color:var(--orange)}
+.status.open{color:#39ff14}
+.status.closed{color:#ff4040}
+.status.pause{color:#ff9500}
 .closed-card{
   text-align:center;
   padding:26px 19px!important;
@@ -493,7 +497,6 @@ body.ar-mode #bottom-nav{display:none}
 }
 
 /* CORRECTION DU SCANNER RÉSIDUEL */
-
 body:not(.ar-mode) #camera-container,
 body:not(.ar-mode) .mindar-ui-overlay,
 body:not(.ar-mode) .mindar-ui-scanning,
@@ -1360,6 +1363,7 @@ Merci, à tout de suite !
 
 const OPEN_DATES=[
   "2026-11-22",
+  "2026-11-25",
   "2026-12-04",
   "2026-12-05",
   "2026-12-06",
@@ -1722,23 +1726,20 @@ function formatCountdown(totalSeconds){
     String(s).padStart(2,"0")+" s";
 }
 
-/* STATUT SPACE MOUNTAIN */
+/* SPACE MOUNTAIN : FIREBASE EN DIRECT */
 
-function spaceStatus(t){
-  if(
-    (t>=1185&&t<1245)||
-    (t>=1290&&t<1320)
-  ){
-    return{
-      name:"OUVERT",
-      state:"open"
-    };
-  }
+let liveSpaceStatus={
+  name:"CONNEXION...",
+  state:""
+};
 
-  return{
-    name:"FERMÉ",
-    state:"closed"
-  };
+let spaceConnected=false;
+let spaceHasData=false;
+let spaceReadError=false;
+let spaceData=null;
+
+function spaceStatus(){
+  return liveSpaceStatus;
 }
 
 function setStatus(element,s){
@@ -1746,11 +1747,214 @@ function setStatus(element,s){
   element.className="status "+s.state;
 }
 
+function refreshSpaceMountain(){
+
+  const now=reunionNow();
+
+  const s=representation(now.date)
+    ?liveSpaceStatus
+    :{name:"FERMÉ",state:"closed"};
+
+  setStatus($("#home-space-status"),s);
+  setStatus($("#space-status"),s);
+}
+
+function updateLiveSpace(){
+
+  if(!spaceConnected||spaceReadError){
+
+    liveSpaceStatus={
+      name:"INDISPONIBLE",
+      state:"pause"
+    };
+
+  }else if(!spaceHasData){
+
+    liveSpaceStatus={
+      name:"CONNEXION...",
+      state:""
+    };
+
+  }else if(!spaceData){
+
+    liveSpaceStatus={
+      name:"FERMÉ",
+      state:"closed"
+    };
+
+  }else{
+
+    const status=String(
+      spaceData.status||
+      spaceData.state||
+      spaceData.statut||
+      ""
+    ).toLowerCase().trim();
+
+    if(status==="open"||status==="ouvert"){
+
+      let minutes=spaceData.waitTime;
+
+      if(minutes==null){
+        minutes=spaceData.minutes;
+      }
+
+      if(minutes==null){
+        minutes=spaceData.wait;
+      }
+
+      if(minutes==null){
+        minutes=spaceData.waitMinutes;
+      }
+
+      if(
+        minutes==null||
+        minutes===""||
+        !Number.isFinite(Number(minutes))||
+        Number(minutes)<0
+      ){
+
+        liveSpaceStatus={
+          name:"OUVERT",
+          state:"open"
+        };
+
+      }else{
+
+        const wait=Math.floor(Number(minutes));
+
+        liveSpaceStatus={
+          name:wait+" "+(wait===1?"MINUTE":"MINUTES"),
+          state:"open"
+        };
+
+      }
+
+    }else if([
+      "temporary",
+      "temporary_closed",
+      "temporarily_closed",
+      "temporaryclosed",
+      "fermeture_temporaire",
+      "fermé temporairement",
+      "ferme_temporairement",
+      "pause",
+      "down",
+      "breakdown"
+    ].includes(status)){
+
+      liveSpaceStatus={
+        name:"FERMÉ TEMPORAIREMENT",
+        state:"pause"
+      };
+
+    }else if([
+      "closed",
+      "fermé",
+      "ferme"
+    ].includes(status)){
+
+      liveSpaceStatus={
+        name:"FERMÉ",
+        state:"closed"
+      };
+
+    }else{
+
+      liveSpaceStatus={
+        name:"INDISPONIBLE",
+        state:"pause"
+      };
+
+    }
+  }
+
+  refreshSpaceMountain();
+}
+
+/* CONNEXION À LA BASE FIREBASE */
+
+function initializeSpaceMountain(){
+
+  try{
+
+    const firebaseConfig={
+
+      apiKey:"AIzaSyB5aEXpFQnDSzxQ1W9HCaPnUT0dcp9UXiE",
+
+      authDomain:"minidisneyland-reunion.firebaseapp.com",
+
+      databaseURL:"https://minidisneyland-reunion-default-rtdb.europe-west1.firebasedatabase.app",
+
+      projectId:"minidisneyland-reunion",
+
+      storageBucket:"minidisneyland-reunion.firebasestorage.app",
+
+      messagingSenderId:"951653607460",
+
+      appId:"1:951653607460:web:c5bdcfca35c335ca1790b1"
+
+    };
+
+    if(!firebase.apps.length){
+      firebase.initializeApp(firebaseConfig);
+    }
+
+    const database=firebase.database();
+
+    database.ref(".info/connected").on(
+      "value",
+      snapshot=>{
+
+        spaceConnected=snapshot.val()===true;
+
+        updateLiveSpace();
+
+      }
+    );
+
+    database.ref("spaceMountain").on(
+      "value",
+
+      snapshot=>{
+
+        spaceHasData=true;
+        spaceReadError=false;
+        spaceData=snapshot.val();
+
+        updateLiveSpace();
+
+      },
+
+      error=>{
+
+        console.error("Space Mountain :",error);
+
+        spaceReadError=true;
+
+        updateLiveSpace();
+
+      }
+    );
+
+  }catch(error){
+
+    console.error("Connexion Firebase :",error);
+
+    liveSpaceStatus={
+      name:"INDISPONIBLE",
+      state:"pause"
+    };
+
+    refreshSpaceMountain();
+
+  }
+}
+
 /* MISE À JOUR AUTOMATIQUE */
 
 function updateClock(){
   const now=reunionNow();
-  const t=now.minute;
   const seconds=now.seconds;
   const active=representation(now.date);
 
@@ -1823,9 +2027,9 @@ function updateClock(){
   $("#schedule-next").textContent=title;
   $("#schedule-countdown").textContent=countdown;
 
-  /* SPACE MOUNTAIN */
+  /* SPACE MOUNTAIN EN DIRECT */
 
-  const s=spaceStatus(t);
+  const s=spaceStatus();
 
   setStatus($("#home-space-status"),s);
   setStatus($("#space-status"),s);
@@ -2473,6 +2677,10 @@ setInterval(updateClock,1000);
 document.addEventListener("visibilitychange",updateClock);
 
 initializeTickets();
+
+/* DÉMARRAGE DE LA SYNCHRONISATION SPACE MOUNTAIN */
+
+initializeSpaceMountain();
 
 </script>
 </body>
