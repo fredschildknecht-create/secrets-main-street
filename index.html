@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -72,8 +73,6 @@ a{color:inherit}
 .section.active{display:block}
 
 /* POSITIONNEMENT SOUS LE LOGO */
-/* L'accueil reste inchangé */
-
 #tickets,
 #schedule,
 #explore,
@@ -475,6 +474,7 @@ a{color:inherit}
 body.ar-mode #background{display:none}
 body.ar-mode #camera-container{display:block}
 body.ar-mode #bottom-nav{display:none}
+
 #camera-container a-scene,
 #camera-container .a-canvas{
   position:absolute!important;
@@ -491,6 +491,21 @@ body.ar-mode #bottom-nav{display:none}
   object-fit:cover!important;
   transform:translate(-50%,-50%)!important;
 }
+
+/* CORRECTION DU SCANNER RÉSIDUEL */
+
+body:not(.ar-mode) #camera-container,
+body:not(.ar-mode) .mindar-ui-overlay,
+body:not(.ar-mode) .mindar-ui-scanning,
+body:not(.ar-mode) .mindar-ui-loading,
+body:not(.ar-mode) .mindar-ui-compatibility,
+body:not(.ar-mode) #camera-menu,
+body:not(.ar-mode) #found{
+  display:none!important;
+  visibility:hidden!important;
+  pointer-events:none!important;
+}
+
 #camera-menu{
   position:fixed;
   z-index:45;
@@ -1374,6 +1389,8 @@ const story=$("#story");
 
 let cameraStarted=false;
 let cameraStarting=false;
+let cameraStopping=false;
+let cameraRequested=false;
 let storyOpen=false;
 let activePlace=null;
 
@@ -1615,6 +1632,8 @@ createBooks();
 /* NAVIGATION */
 
 function showTab(name){
+  document.body.classList.remove("ar-mode");
+
   document.querySelectorAll(".section").forEach(section=>{
     section.classList.toggle("active",section.id===name);
   });
@@ -1634,7 +1653,10 @@ function showTab(name){
 
 document.querySelectorAll(".nav-item").forEach(button=>{
   button.onclick=()=>{
-    if(cameraStarted||cameraStarting)return;
+    if(cameraRequested||cameraStarted||cameraStarting){
+      leaveCamera(button.dataset.tab);
+      return;
+    }
     showTab(button.dataset.tab);
   };
 });
@@ -1860,10 +1882,12 @@ function showBubble(index){
   const p=places[index];
 
   if(
+    !cameraRequested||
     !cameraStarted||
     storyOpen||
     !p||
     !p.detected||
+    !document.body.classList.contains("ar-mode")||
     !app.classList.contains("hidden")
   )return;
 
@@ -1874,6 +1898,8 @@ function showBubble(index){
 
 places.forEach(p=>{
   p.target.addEventListener("targetFound",()=>{
+    if(!cameraRequested)return;
+
     p.detected=true;
     showBubble(p.index);
   });
@@ -1892,7 +1918,7 @@ places.forEach(p=>{
 });
 
 function openStory(){
-  if(activePlace===null)return;
+  if(!cameraRequested||activePlace===null)return;
 
   storyOpen=true;
   hideBubble();
@@ -1918,66 +1944,234 @@ function closeStory(){
   if(next!==null)showBubble(next);
 }
 
-async function enterCamera(){
-  if(cameraStarting)return;
+/* NETTOYAGE COMPLET DU SCANNER */
 
-  cameraStarting=true;
-  $("#camera-container").style.display="block";
-  app.classList.add("hidden");
-  document.body.classList.add("ar-mode");
-  $("#camera-menu").classList.remove("hidden");
-
-  try{
-    if(!cameraStarted){
-      await scene.systems["mindar-image-system"].start();
-      cameraStarted=true;
-    }
-  }catch(error){
-    console.error(error);
-
-    $("#camera-container").style.display="none";
-    document.body.classList.remove("ar-mode");
-    $("#camera-menu").classList.add("hidden");
-
-    showTab("explore");
-
-    alert(
-      "Impossible d'ouvrir la caméra. Vérifiez les autorisations du navigateur."
-    );
-  }finally{
-    cameraStarting=false;
-  }
-}
-
-async function leaveCamera(){
-  if(cameraStarting)return;
-
+function resetScannerInterface(){
   hideBubble();
 
-  $("#camera-container").style.display="none";
+  storyOpen=false;
+  story.classList.remove("open");
+
+  document.querySelectorAll(".book").forEach(b=>{
+    b.classList.remove("active");
+  });
+
+  places.forEach(p=>{
+    p.detected=false;
+  });
+
+  activePlace=null;
+
   $("#camera-menu").classList.add("hidden");
   document.body.classList.remove("ar-mode");
+  $("#camera-container").style.display="none";
 
-  showTab("explore");
+  app.classList.remove("hidden");
+}
 
-  if(cameraStarted){
+/* ARRÊT DES FLUX VIDÉO */
+
+function stopCameraStreams(){
+  const system=scene.systems["mindar-image-system"];
+
+  const videos=new Set(
+    document.querySelectorAll("#camera-container video")
+  );
+
+  if(system&&system.video){
+    videos.add(system.video);
+  }
+
+  videos.forEach(video=>{
     try{
-      await scene.systems["mindar-image-system"].stop();
+      const stream=video.srcObject;
+
+      if(stream&&typeof stream.getTracks==="function"){
+        stream.getTracks().forEach(track=>{
+          track.stop();
+        });
+      }
+
+      video.pause();
+      video.srcObject=null;
+
     }catch(error){
       console.warn(error);
     }
+  });
+}
+
+/* ARRÊT DE MINDAR */
+
+async function stopScanner(){
+  if(cameraStopping)return;
+
+  cameraStopping=true;
+
+  try{
+    const system=scene.systems["mindar-image-system"];
+
+    if(system){
+      await system.stop();
+    }
+
+  }catch(error){
+    console.warn("Arrêt du scanner :",error);
+
+  }finally{
+    stopCameraStreams();
 
     cameraStarted=false;
+    cameraStopping=false;
+
+    resetScannerInterface();
+  }
+}
+
+/* DÉMARRAGE DE LA CAMÉRA */
+
+async function enterCamera(){
+  if(cameraStarting||cameraStarted||cameraStopping)return;
+
+  cameraRequested=true;
+  cameraStarting=true;
+
+  places.forEach(p=>{
+    p.detected=false;
+  });
+
+  activePlace=null;
+  hideBubble();
+
+  document.body.classList.add("ar-mode");
+  $("#camera-container").style.display="block";
+  app.classList.add("hidden");
+  $("#camera-menu").classList.remove("hidden");
+
+  try{
+    if(!scene.hasLoaded){
+      await new Promise(resolve=>{
+        scene.addEventListener("loaded",resolve,{once:true});
+      });
+    }
+
+    if(!cameraRequested)return;
+
+    const system=scene.systems["mindar-image-system"];
+
+    if(!system){
+      throw new Error("Scanner indisponible");
+    }
+
+    await new Promise((resolve,reject)=>{
+      let settled=false;
+
+      const cleanup=()=>{
+        scene.removeEventListener("arReady",ready);
+        scene.removeEventListener("arError",failed);
+      };
+
+      const ready=()=>{
+        if(settled)return;
+        settled=true;
+        cleanup();
+        resolve();
+      };
+
+      const failed=event=>{
+        if(settled)return;
+        settled=true;
+        cleanup();
+        reject(event);
+      };
+
+      scene.addEventListener("arReady",ready);
+      scene.addEventListener("arError",failed);
+
+      try{
+        Promise.resolve(system.start()).catch(failed);
+      }catch(error){
+        failed(error);
+      }
+    });
+
+    cameraStarted=true;
+
+    if(!cameraRequested){
+      await stopScanner();
+      return;
+    }
+
+    const next=visiblePlace();
+    if(next!==null)showBubble(next);
+
+  }catch(error){
+    console.error(error);
+
+    const showError=cameraRequested;
+    cameraRequested=false;
+
+    await stopScanner();
+
+    if(showError){
+      showTab("explore");
+
+      alert(
+        "Impossible d'ouvrir la caméra. Vérifiez les autorisations du navigateur."
+      );
+    }
+
+  }finally{
+    cameraStarting=false;
+
+    if(!cameraRequested){
+      resetScannerInterface();
+    }
+  }
+}
+
+/* RETOUR À L'APPLICATION */
+
+async function leaveCamera(tab="explore"){
+  cameraRequested=false;
+
+  /* Masquage immédiat du scanner et des livres */
+
+  resetScannerInterface();
+
+  showTab(tab);
+
+  /* Si le démarrage est en cours, enterCamera
+     terminera le nettoyage dès que MindAR sera prêt. */
+
+  if(cameraStarting){
+    return;
   }
 
-  places.forEach(p=>p.detected=false);
-  activePlace=null;
+  if(cameraStarted){
+    await stopScanner();
+  }else{
+    stopCameraStreams();
+  }
 }
 
 $("#start-explore").onclick=enterCamera;
-$("#camera-menu").onclick=leaveCamera;
+
+$("#camera-menu").onclick=()=>{
+  leaveCamera("explore");
+};
+
 $("#discover").onclick=openStory;
 $("#close").onclick=closeStory;
+
+/* PROTECTION LORS DE LA FERMETURE DE LA PAGE */
+
+window.addEventListener("pagehide",()=>{
+  if(cameraRequested||cameraStarted||cameraStarting){
+    leaveCamera("explore");
+    stopCameraStreams();
+  }
+});
 
 /* BILLETS : INDEXEDDB */
 
@@ -2269,6 +2463,8 @@ $("#close-viewer").onclick=closeTicketViewer;
 $("#dismiss-alert").onclick=()=>{
   $("#alert").classList.add("hidden");
 };
+
+resetScannerInterface();
 
 updateClock();
 
